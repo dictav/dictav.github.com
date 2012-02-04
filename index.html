@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <title>dictav mobile</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #iphone_frame {
+        margin: auto;
+        padding-left: 31px;
+        padding-top: 124px;
+        width: 387px;
+        height: 728px;
+        background-image: url(iphone_frame.png);
+        background-repeat: no-repeat;
+        background-color: white;
+      }
+      #iphone {
+        margin: 0px;
+        padding: 0px;
+        width: 320px;
+        height: 460px;
+        background-position: right bottom;
+        background-color: black;
+        background-image: url(dictav_mobile_logo.png);
+        background-repeat: no-repeat;
+      }
+      #iphone ul {
+        margin: 0px;
+        padding: 10px;
+        list-style-type: outsize none;
+      }
+      #iphone li.icon {
+        margin: 0px;
+        padding: 0px;
+        width: 24%;
+        display: inline-block;
+        text-align: center;
+      }
+      #iphone li.icon img {
+        width: 57px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px 2px #999;
+      }
+      #iphone li.icon div {
+        display: inline-block;
+        width: 57px;
+        color: white;
+        font-size: 10pt;
+        font-weight: bold;
+        text-align: center;
+        overflow: hidden;
+      }
+      @media only screen and (-webkit-min-device-pixel-ratio: 1) {
+        
+      }
+      @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        
+      }
+      @media only screen and (min-width:481px) {
+        #iphone {
+          height: 480px;
+        }
+      }
+    </style>
+    <script>
+      (function() {
+      
+        window.addEventListener("load", (function() {
+          var filename, iphone, iphone_frame, link, links, parentObj, _i, _len;
+          if (!(screen.width === 320 && screen.height === 480)) {
+            iphone = document.getElementById("iphone");
+            iphone_frame = document.createElement("div");
+            iphone_frame.id = "iphone_frame";
+            parentObj = iphone.parentNode;
+            parentObj.insertBefore(iphone_frame, iphone);
+            iphone_frame.appendChild(iphone);
+          }
+          links = document.getElementsByTagName("a");
+          filename = "";
+          if (navigator.language === "ja-jp") {
+            filename = "ja.html";
+          } else {
+            filename = "en.html";
+          }
+          for (_i = 0, _len = links.length; _i < _len; _i++) {
+            link = links[_i];
+            link.href += filename;
+          }
+          return setTimeout(scrollTo, 0, 0, 1);
+        }), false);
+      
+      }).call(this);
+    </script>
+  </head>
+  <body>
+    <div id='iphone'>
+      <ul>
+        <li class='icon'>
+          <a href='twtr/'>
+            <img src='twtr/icon.png'>
+            <div>twtr</div>
+          </a>
+        </li>
+        <li class='icon'>
+          <a href='isonicblastman/'>
+            <img src='isonicblastman/icon.png'>
+            <div>isonicblastman</div>
+          </a>
+        </li>
+        <li class='icon'>
+          <a href='amz_sherlock/'>
+            <img src='amz_sherlock/icon.png'>
+            <div>amz_sherlock</div>
+          </a>
+        </li>
+        <li class='icon'>
+          <a href='kangoshi/'>
+            <img src='kangoshi/icon.png'>
+            <div>kangoshi</div>
+          </a>
+        </li>
+      </ul>
+      <footer>
+        @dictav
+      </footer>
+    </div>
+  </body>
+</html>

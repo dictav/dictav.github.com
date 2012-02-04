@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <title>About</title>
+    <style>
+      nav ul {
+        margin: 0px;
+        padding: 0px;
+        list-style-type: outsize none;
+      }
+      nav ul li {
+        display: inline-block;
+      }
+      header {
+        text-align: center;
+      }
+      section {
+        clear: both;
+      }
+      section video, section img {
+        float: right;
+        margin-bottom: 20px;
+        margin-left: 20px;
+      }
+      @media only screen and (min-width:481px) {
+        body {
+          width: 600px;
+          margin: auto;
+        }
+      }
+      dt {
+        float: left;
+        width: 80px;
+        text-align: right;
+      }
+    </style>
+    <script>
+      (function() {
+      
+        this.mailto = function() {
+          return location.href = "mailto:" + "dmobile" + "@" + "mac.com";
+        };
+      
+      }).call(this);
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href='index.html'>Home</a>
+          </li>
+        </ul>
+      </nav>
+      <h1>About</h1>
+    </header>
+    <article>
+      <section>
+        <h1>dictav mobile</h1>
+        iPhone アプリの作成したり、Heroku (http://www.heroku.com/) 上にサービスを展開したりしています。
+      </section>
+      <section>
+        <h1>Blog</h1>
+      </section>
+      <section>
+        <h1>Contact me:</h1>
+        <dl>
+          <dt>mail:</dt>
+          <dd>
+            <a href='' onclick='mailto()'>dmobile at mac.com</a>
+          </dd>
+          <dt>twitter:</dt>
+          <dd>
+            <a href='http://twitter.com/dictav'>@dictav</a>
+          </dd>
+        </dl>
+      </section>
+    </article>
+  </body>
+</html>

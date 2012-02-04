@@ -1,0 +1,12 @@
+-# title: dictav mobile
+- apps = ["twtr", "isonicblastman", "amz_sherlock", "kangoshi"]
+#iphone
+  %ul
+    - apps.each do |name|
+      %li.icon
+        %a{href:name+"/"}
+          %img{src:name + "/icon.png"}
+          %div= name
+  %footer
+    @dictav
+
