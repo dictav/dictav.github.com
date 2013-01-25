@@ -36,6 +36,7 @@
       }
       #iphone li.icon {
         margin: 0px;
+        margin-bottom: 10px;
         padding: 0px;
         width: 24%;
         display: inline-block;
@@ -80,7 +81,7 @@
             parentObj.insertBefore(iphone_frame, iphone);
             iphone_frame.appendChild(iphone);
           }
-          links = document.getElementsByTagName("a");
+          links = document.getElementsByClassName("app");
           filename = "";
           if (navigator.language === "ja-jp") {
             filename = "ja.html";
@@ -101,27 +102,33 @@
     <div id='iphone'>
       <ul>
         <li class='icon'>
-          <a href='twtr/'>
+          <a href='twtr/' class='app'>
             <img src='twtr/icon.png'>
             <div>twtr</div>
           </a>
         </li>
         <li class='icon'>
-          <a href='isonicblastman/'>
+          <a href='isonicblastman/' class='app'>
             <img src='isonicblastman/icon.png'>
             <div>isonicblastman</div>
           </a>
         </li>
         <li class='icon'>
-          <a href='amz_sherlock/'>
+          <a href='amz_sherlock/' class='app'>
             <img src='amz_sherlock/icon.png'>
             <div>amz_sherlock</div>
           </a>
         </li>
         <li class='icon'>
-          <a href='kangoshi/'>
+          <a href='kangoshi/' class='app'>
             <img src='kangoshi/icon.png'>
             <div>kangoshi</div>
+          </a>
+        </li>
+        <li class='icon'>
+          <a href='http://blog.dictav.info/'>
+            <img src='blog_icon.png'>
+            <div>Blog</div>
           </a>
         </li>
       </ul>
