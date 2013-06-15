@@ -1,0 +1,82 @@
+---
+title: dojo.data.ItemFileReadStore と dojox.data.QueryReadStore
+date: 2009-07-26
+tags: Dojo JavaScript
+layout: post
+---
+
+		<div class="section">
+			<p>ItemFileReadStore で外部の JSON  形式のファイルを簡単に読み込むことができる。ItemFileReadStore はファイルを読み込む際に dijit などで扱い易いようにデータをオブジェクトして取り込んでくれる。</p>
+			<p>参考<a href="http://journal.mycom.co.jp/articles/2008/10/23/dojo/003.html" target="_blank">【ハウツー】登場して間もない最新版で学ぶ「Dojo Toolkit」 (4) 使いこなしたいDojoウィジェット - (1) Dojo Combobox | 開発・SE | マイナビニュース</a></p>
+			<h4> スクリプトから扱う</h4>
+			<p>これはかなり便利だと思うのだけど、ちょっとぼくの用途とは違う。外部ファイルに書いた JSON をそのまま eval したようなデータが欲しい。</p>
+			<p>ItemFileReadStore でデータを取り出すには次のようにする。</p>
+<pre class="syntax-highlight">
+<span class="synComment">// script</span>
+dojo.require(<span class="synConstant">&#34;dojo.data.ItemFileReadStore&#34;</span>)
+store = <span class="synStatement">new</span> dojo.data.ItemFileReadStore(<span class="synIdentifier">{</span>url:<span class="synConstant">&#34;data.json&#34;</span><span class="synIdentifier">}</span>)
+
+store.fetch(<span class="synIdentifier">{</span>onComplete:<span class="synIdentifier">function</span>(items)<span class="synIdentifier">{</span>
+  list = items
+<span class="synIdentifier">}}</span>)
+
+<span class="synComment">//list</span>
+=&#62; <span class="synIdentifier">[</span> <span class="synIdentifier">[[</span><span class="synConstant">&#34;DIC&#34;</span><span class="synIdentifier">]</span>,<span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]]</span>, <span class="synIdentifier">[[</span><span class="synConstant">&#34;DAK&#34;</span><span class="synIdentifier">]</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]]</span> <span class="synIdentifier">]</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synComment">// data.json</span>
+<span class="synIdentifier">{</span>
+  items:<span class="synIdentifier">[</span>
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DIC&#34;</span>, <span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]]</span>,
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DAK&#34;</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]]</span>,
+  <span class="synIdentifier">]</span>
+<span class="synIdentifier">}</span>
+</pre>
+
+			<p>単体のテキストが配列になってる。これくらいならまだ許容範囲なんだけど、次のようなファイルだと少々めんどうになる。</p>
+<pre class="syntax-highlight">
+<span class="synComment">// data</span>
+<span class="synIdentifier">{</span>
+  items:<span class="synIdentifier">[</span>
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DIC&#34;</span>, <span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>stroke:<span class="synConstant">&#34;red&#34;</span><span class="synIdentifier">}]</span>,
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DAK&#34;</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>fill:<span class="synConstant">&#34;green&#34;</span><span class="synIdentifier">}]</span>
+  <span class="synIdentifier">]</span>
+<span class="synIdentifier">}</span>
+
+<span class="synComment">// list</span>
+=&#62; <span class="synIdentifier">[</span> <span class="synIdentifier">[[</span><span class="synConstant">&#34;DIC&#34;</span><span class="synIdentifier">]</span>,<span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]]</span>, <span class="synIdentifier">[{</span>stroke:<span class="synIdentifier">[</span><span class="synConstant">&#34;red&#34;</span><span class="synIdentifier">]}]]</span>,   <span class="synIdentifier">[[</span><span class="synConstant">&#34;DAK&#34;</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]]</span>, <span class="synIdentifier">[{</span>fill:<span class="synIdentifier">[</span><span class="synConstant">&#34;green&#34;</span><span class="synIdentifier">]}]]</span> <span class="synIdentifier">]</span>
+</pre>
+
+			<p>値になる部分が全て配列になってる。これを全部元に戻すのはなんか気持ち悪い。</p>
+			<p>こういう面倒がないメソッドはないかなーと思ったらあった。</p>
+			<h4> dojox.data.QueryReadStore</h4>
+<pre class="syntax-highlight">
+<span class="synComment">// script</span>
+dojo.require(<span class="synConstant">&#34;dojox.data.QueryReadStore&#34;</span>)
+store = <span class="synStatement">new</span> dojo.data.ItemFileReadStore(<span class="synIdentifier">{</span>url:<span class="synConstant">&#34;data.json&#34;</span><span class="synIdentifier">}</span>)
+
+store.fetch(<span class="synIdentifier">{</span>onComplete:<span class="synIdentifier">function</span>(items)<span class="synIdentifier">{</span>
+  list = dojo.map(items, <span class="synIdentifier">function</span>(item)<span class="synIdentifier">{</span> <span class="synStatement">return</span> item.i<span class="synIdentifier">}</span>)
+<span class="synIdentifier">}}</span>)
+
+<span class="synComment">// list</span>
+=&#62;    <span class="synIdentifier">{[</span><span class="synConstant">&#34;DIC&#34;</span>, <span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>stroke:<span class="synConstant">&#34;red&#34;</span><span class="synIdentifier">}]</span>,  <span class="synIdentifier">[</span><span class="synConstant">&#34;DAK&#34;</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>fill:<span class="synConstant">&#34;green&#34;</span><span class="synIdentifier">}]}</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synComment">// data.json</span>
+<span class="synIdentifier">{</span>
+  items:<span class="synIdentifier">[</span>
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DIC&#34;</span>, <span class="synIdentifier">[</span>1,4,5,6<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>stroke:<span class="synConstant">&#34;red&#34;</span><span class="synIdentifier">}]</span>,
+    <span class="synIdentifier">[</span><span class="synConstant">&#34;DAK&#34;</span>, <span class="synIdentifier">[</span>3,3,3,4<span class="synIdentifier">]</span>, <span class="synIdentifier">{</span>fill:<span class="synConstant">&#34;green&#34;</span><span class="synIdentifier">}]</span>
+  <span class="synIdentifier">]</span>
+<span class="synIdentifier">}</span>
+</pre>
+
+			<p>fetch のところで得られる items そのままではダメなので一手間加えているけど、まあ許容範囲。</p>
+			<h4> やりたいこと</h4>
+			<p>面倒くさい事をやっているけど、やりたいことは dojox.charting.Chart2D で扱うデータを外部 JSON ファイルに置きたいだけ。たぶん、もっと適切なやり方があると思うし、dojox.data.QueryReadStore の使い方も違うんだろうなあ。</p>
+			<p>詳しい方、コメントなどいただけると嬉しいです。</p>
+		</div>
+

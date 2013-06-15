@@ -1,0 +1,25 @@
+---
+title: 簡単な画像処理
+date: 2010-04-05
+tags: OpenGL
+layout: post
+---
+
+		<div class="section">
+			<p>OpenGL と言えば 3D を連想するけど、2D の画像処理なんかもできる。</p>
+			<p>OpenGL で画像を表示させるには、形を決める Vertex と、画像を貼付けるポイントを決める Texture coordinate を対応付けさせてやる必要がある。</p>
+<dl>
+				<dt>OpenGL ES 1.1</dt>
+				<dd>glVertexPointer, glTexCoordPointer</dd>
+
+			</dl>
+<dl>
+				<dt>OpenGL ES 2.0</dt>
+				<dd>glVertexAttribPointer</dd>
+
+			</dl>
+			<br>
+
+			<p>Scale, Transform, Rotate なんかは簡単に想像できると思うし、1.1 なら glScale などの関数もある。他にもトリムは texture coordinate を適当に決めてやればいい。部分的に歪ませたりしたいなら、その部分の Vertex なり texture coordinate の値を少しいじってやればいい。</p>
+		</div>
+

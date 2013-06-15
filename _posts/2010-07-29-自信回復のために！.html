@@ -1,0 +1,36 @@
+---
+title: 自信回復のために！
+date: 2010-07-29
+tags: SafariExtensions
+layout: post
+---
+
+		<div class="section">
+			<p>逃避とも言うのだが（苦笑）</p>
+			<p>Safari 機能拡張が正式になったので Safari Developper Program に登録してみた。既存のツールバーの置き換えになるようなツールバーを作成してみようと思う。</p>
+			<h4> history.back()</h4>
+			<p>「戻る」を実装しようとして悩んだのでメモ。</p>
+			<p>HTML上では <a href="">back</a> とすれば「戻る」を実装できるのだが、拡張バー (Extension Bar) からはそれができない。また、window を取得する事もできないので、SafariPageProxy の dispatchMessage を使ってアクティブなタブにメッセージを送り、タブ側でそのメッセージを処理する必要がある。</p>
+<pre class="syntax-highlight">
+
+...
+function func(){
+  safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(&#34;Hello, Extension&#34;, &#34;huga&#34;)
+}
+...
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synComment">//inject.js</span>
+<span class="synIdentifier">function</span> respondToMessage(<span class="synStatement">event</span>) <span class="synIdentifier">{</span>
+  <span class="synStatement">alert</span>(<span class="synStatement">event</span>.name)
+<span class="synIdentifier">}</span>
+safari.<span class="synStatement">self</span>.addEventListner(<span class="synConstant">&#34;message&#34;</span>,respondToMessage,<span class="synConstant">false</span>)
+</pre>
+
+			<p>EventListner は "message" として送られてくるようである。</p>
+			<h4> 特殊な URL</h4>
+			<p>Top Sites や 履歴を表示するには、アドレスにそれぞれ "topsites://", "bookmarks://" を入力すれば良い。他にもいろいろあるのかも知れないが見つけられなかった。</p>
+			<p>ちなみに、Top Sites や 履歴では dispatchMessage は使えない。</p>
+		</div>
+

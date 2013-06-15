@@ -1,0 +1,22 @@
+---
+title: CentOS5.2 から CentOS5.3 へアップデート
+date: 2009-04-15
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>CentOS5.2 あら 5.3 へアップデートを行った。update と upgrade とあるけど、正直違いがまったくわからない。</p>
+			<p>upgrade は yum --obsoletes 相当らしいが．．．。</p>
+			<p>まず、リポジトリだが、base と updates というのがある。</p>
+			<p>base では<a href="http://mirror.centos.org/centos/5.3/os" target="_blank">http://mirror.centos.org/centos/5.3/os</a> ではなく <a href="http://mirror.centos.org/centos/5/os/" target="_blank">http://mirror.centos.org/centos/5/os/</a> を見に行くと思われる。</p>
+			<p>だから 5.3 のリリースと供に yum check-update  すると項目が増える。</p>
+			<p>updates はこの base との差分と考えられる。</p>
+			<p>5.2 を新規にインストールした状態で yum check-update を行っても updates の項目はほとんど見られなかった。</p>
+			<p>この状態で yum update 及び yum upgrade を実行したが、インストールされる項目は同じであった。</p>
+			<p>推測するに、upgrade はメジャーバージョンアップの時に利用すれば、余計なファイルを削除してくれる？？</p>
+			<p>そういえば、yum-security は相変わらず動いていない。</p>
+			<p>yum --security check-update</p>
+			<p>して、「何にもないから安心！」なんて考えている人は気を付けよう。</p>
+		</div>
+

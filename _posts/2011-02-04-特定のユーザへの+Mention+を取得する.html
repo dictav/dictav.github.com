@@ -1,0 +1,74 @@
+---
+title: 特定のユーザへの Mention を取得する
+date: 2011-02-04
+tags: Ruby Twitter
+layout: post
+---
+
+		<div class="section">
+
+<pre class="syntax-highlight">
+<span class="synPreProc">#!/usr/bin/env ruby</span>
+<span class="synComment"># coding:utf-8</span>
+
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">net/https</span><span class="synSpecial">'</span>
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">rubygems</span><span class="synSpecial">'</span>
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">oauth</span><span class="synSpecial">'</span>
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">json</span><span class="synSpecial">'</span>
+
+<span class="synIdentifier">CONSUMER_KEY</span> = <span class="synSpecial">''</span>
+<span class="synIdentifier">CONSUMER_SECRET</span> = <span class="synSpecial">''</span>
+<span class="synIdentifier">ACCESS_TOKEN</span> = <span class="synSpecial">&#34;&#34;</span>
+<span class="synIdentifier">ACCESS_TOKEN_SECRET</span> = <span class="synSpecial">&#34;&#34;</span>
+
+
+<span class="synPreProc">module </span><span class="synType">Net</span>
+  <span class="synPreProc">class </span><span class="synType">HTTPResponse</span>
+    <span class="synPreProc">def </span><span class="synIdentifier">each_line</span>(rs = <span class="synSpecial">&#34;\r\n&#34;</span>)
+      stream_check
+      <span class="synStatement">while</span> line = <span class="synIdentifier">@socket</span>.readuntil(rs)
+        <span class="synStatement">yield</span> line
+      <span class="synStatement">end</span>
+      <span class="synConstant">self</span>
+    <span class="synPreProc">end</span>
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+
+consumer = <span class="synIdentifier">OAuth</span>::<span class="synIdentifier">Consumer</span>.new(
+  <span class="synIdentifier">CONSUMER_KEY</span>,
+  <span class="synIdentifier">CONSUMER_SECRET</span>,
+  <span class="synIdentifier">:site</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">http://twitter.com</span><span class="synSpecial">'</span>
+)
+access_token = <span class="synIdentifier">OAuth</span>::<span class="synIdentifier">AccessToken</span>.new(
+  consumer,
+  <span class="synIdentifier">ACCESS_TOKEN</span>,
+  <span class="synIdentifier">ACCESS_TOKEN_SECRET</span>
+)
+
+uri = <span class="synIdentifier">URI</span>.parse(<span class="synSpecial">'</span><span class="synConstant">http://stream.twitter.com/1/statuses/filter.json</span><span class="synSpecial">'</span>)
+
+https = <span class="synIdentifier">Net</span>::<span class="synIdentifier">HTTP</span>.new(uri.host, uri.port)
+
+https.start <span class="synStatement">do</span> |<span class="synIdentifier">https</span>|
+  request = <span class="synIdentifier">Net</span>::<span class="synIdentifier">HTTP</span>::<span class="synIdentifier">Post</span>.new(uri.request_uri)
+request.set_form_data({<span class="synSpecial">&#34;</span><span class="synConstant">track</span><span class="synSpecial">&#34;</span>=&#62;<span class="synSpecial">&#34;</span><span class="synConstant">@user1,@user2,@user3</span><span class="synSpecial">&#34;</span>})
+  request.oauth!(https, consumer, access_token) <span class="synComment"># OAuthで認証</span>
+  https.request(request) <span class="synStatement">do</span> |<span class="synIdentifier">response</span>|
+      response.read_body <span class="synStatement">do</span> |<span class="synIdentifier">chunk</span>|
+
+        <span class="synComment"># chunked = falseなら例外を発生</span>
+        <span class="synStatement">raise</span> <span class="synSpecial">'</span><span class="synConstant">Response is not chunked</span><span class="synSpecial">'</span> <span class="synStatement">unless</span> response.chunked?
+        <span class="synComment"># JSONのパースに失敗したらスキップして次へ</span>
+        status = <span class="synIdentifier">JSON</span>.parse(chunk) <span class="synStatement">rescue</span> <span class="synStatement">next</span>
+
+        <span class="synComment"># textパラメータを含まないものはスキップして次へ</span>
+        <span class="synStatement">next</span> <span class="synStatement">unless</span> status[<span class="synSpecial">'</span><span class="synConstant">text</span><span class="synSpecial">'</span>]
+        user = status[<span class="synSpecial">'</span><span class="synConstant">user</span><span class="synSpecial">'</span>]
+        puts <span class="synSpecial">&#34;</span><span class="synConstant">@</span><span class="synSpecial">&#34;</span> + user[<span class="synSpecial">'</span><span class="synConstant">screen_name</span><span class="synSpecial">'</span>] + <span class="synSpecial">&#34;</span><span class="synConstant">: </span><span class="synSpecial">&#34;</span> + status[<span class="synSpecial">'</span><span class="synConstant">text</span><span class="synSpecial">'</span>]
+      <span class="synStatement">end</span>
+  <span class="synStatement">end</span>
+<span class="synStatement">end</span>
+</pre>
+
+		</div>
+

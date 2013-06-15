@@ -1,0 +1,54 @@
+---
+title: samba.spec の修正
+date: 2009-08-14
+tags: Samba Linux
+layout: post
+---
+
+		<div class="section">
+			<p>samba-jp ML にも流したけどここにも残しておこう。</p>
+			<p>samba-3.4.0/packaging/RHEL/makerpms.sh でお困りの方は自己責任でどうぞ。</p>
+			<p><ins>MLの方を見た人は分かると思うけど知識不足、確認不足で書いています。rpmbuild 実行時の環境変数 PATH は作成された RPM の依存関係に関係してくる？今ひとつ理解していないけど、事象に出会ったら解決できそうです。</ins></p>
+			<br>
+
+<pre class="syntax-highlight">
+$ diff samba.spec samba.spec.mine
+<span class="synConstant">124</span>,130d123
+<span class="synStatement">&#60;</span><span class="synComment"> ## check for ccache</span>
+<span class="synStatement">&#60;</span>  ccache <span class="synSpecial">-h</span> <span class="synStatement">2&#62;&#38;1</span> <span class="synStatement">&#62;</span> /dev/null
+<span class="synStatement">&#60;</span> <span class="synStatement">if</span> <span class="synStatement">[</span> <span class="synPreProc">$?</span> <span class="synStatement">-eq</span> <span class="synConstant">0</span> <span class="synStatement">];</span> <span class="synStatement">then</span>
+<span class="synStatement">&#60;</span> 	<span class="synIdentifier">CC</span>=<span class="synStatement">&#34;</span><span class="synConstant">ccache gcc</span><span class="synStatement">&#34;</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">else</span>
+<span class="synStatement">&#60;</span> 	<span class="synIdentifier">CC</span>=<span class="synStatement">&#34;</span><span class="synConstant">gcc</span><span class="synStatement">&#34;</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">fi</span>
+135c128
+<span class="synStatement">&#60;</span> <span class="synIdentifier">CC</span>=<span class="synStatement">&#34;</span><span class="synPreProc">$CC</span><span class="synStatement">&#34;</span> <span class="synIdentifier">CFLAGS</span>=<span class="synStatement">&#34;</span><span class="synPreProc">$RPM_OPT_FLAGS</span><span class="synConstant"> </span><span class="synPreProc">$EXTRA</span><span class="synConstant"> -D_GNU_SOURCE</span><span class="synStatement">&#34;</span> ./configure <span class="synStatement">\</span>
+---
+<span class="synStatement">&#62;</span> %configure <span class="synStatement">\</span>
+<span class="synConstant">167</span>,175c160
+<span class="synStatement">&#60;</span><span class="synComment"> ## check for gcc 3.4 or later</span>
+<span class="synStatement">&#60;</span> <span class="synIdentifier">CC_VERSION</span>=<span class="synSpecial">`</span><span class="synPreProc">${CC}</span><span class="synSpecial"> --version </span><span class="synStatement">|</span><span class="synSpecial"> head </span><span class="synConstant">-1</span><span class="synSpecial"> </span><span class="synStatement">|</span><span class="synSpecial"> awk </span><span class="synStatement">'</span><span class="synConstant">{print $3}</span><span class="synStatement">'</span><span class="synSpecial">`</span>
+<span class="synStatement">&#60;</span> <span class="synIdentifier">CC_MAJOR</span>=<span class="synSpecial">`echo </span><span class="synPreProc">${CC_VERSION}</span><span class="synSpecial"> </span><span class="synStatement">|</span><span class="synSpecial"> cut -d. -f </span><span class="synConstant">1</span><span class="synSpecial">`</span>
+<span class="synStatement">&#60;</span> <span class="synIdentifier">CC_MINOR</span>=<span class="synSpecial">`echo </span><span class="synPreProc">${CC_VERSION}</span><span class="synSpecial"> </span><span class="synStatement">|</span><span class="synSpecial"> cut -d. -f </span><span class="synConstant">2</span><span class="synSpecial">`</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">if</span> <span class="synStatement">[</span> <span class="synPreProc">${CC_MAJOR}</span> <span class="synStatement">-ge</span> <span class="synConstant">3</span> <span class="synStatement">];</span> <span class="synStatement">then</span>
+<span class="synStatement">&#60;</span>         <span class="synStatement">if</span> <span class="synStatement">[</span> <span class="synPreProc">${CC_MAJOR}</span> <span class="synStatement">-gt</span> <span class="synConstant">3</span> <span class="synStatement">-o</span> <span class="synPreProc">${CC_MINOR}</span> <span class="synStatement">-ge</span> <span class="synConstant">4</span> <span class="synStatement">];</span> <span class="synStatement">then</span>
+<span class="synStatement">&#60;</span>                 make pch
+<span class="synStatement">&#60;</span>         <span class="synStatement">fi</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">fi</span>
+---
+<span class="synStatement">&#62;</span> make pch
+<span class="synConstant">178</span>,179c163
+<span class="synStatement">&#60;</span> make <span class="synIdentifier">CFLAGS</span>=<span class="synStatement">&#34;</span><span class="synPreProc">$RPM_OPT_FLAGS</span><span class="synConstant"> -D_GNU_SOURCE</span><span class="synStatement">&#34;</span> %<span class="synSpecial">{</span>?_smp_mflags<span class="synSpecial">}</span> <span class="synStatement">\</span>
+<span class="synStatement">&#60;</span> 	all modules pam_smbpass
+---
+<span class="synStatement">&#62;</span> make all modules pam_smbpass
+<span class="synConstant">214</span>,215c198,<span class="synConstant">199</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">install</span> <span class="synSpecial">-m</span> <span class="synConstant">755</span> source3/nsswitch/libnss_winbind.so <span class="synPreProc">$RPM_BUILD_ROOT</span>/%<span class="synSpecial">{</span>_libarch<span class="synSpecial">}</span>/libnss_winbind.so.<span class="synConstant">2</span>
+<span class="synStatement">&#60;</span> <span class="synStatement">install</span> <span class="synSpecial">-m</span> <span class="synConstant">755</span> source3/nsswitch/libnss_wins.so <span class="synPreProc">$RPM_BUILD_ROOT</span>/%<span class="synSpecial">{</span>_libarch<span class="synSpecial">}</span>/libnss_wins.so.<span class="synConstant">2</span>
+---
+<span class="synStatement">&#62;</span> <span class="synStatement">install</span> <span class="synSpecial">-m</span> <span class="synConstant">755</span> nsswitch/libnss_winbind.so <span class="synPreProc">$RPM_BUILD_ROOT</span>/%<span class="synSpecial">{</span>_libarch<span class="synSpecial">}</span>/libnss_winbind.so.<span class="synConstant">2</span>
+<span class="synStatement">&#62;</span> <span class="synStatement">install</span> <span class="synSpecial">-m</span> <span class="synConstant">755</span> nsswitch/libnss_wins.so <span class="synPreProc">$RPM_BUILD_ROOT</span>/%<span class="synSpecial">{</span>_libarch<span class="synSpecial">}</span>/libnss_wins.so.<span class="synConstant">2</span>
+</pre>
+
+		</div>
+

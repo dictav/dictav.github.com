@@ -1,0 +1,21 @@
+---
+title: 不毛な戦い
+date: 2009-06-26
+tags: CentOS Xen OpenLDAP
+layout: post
+---
+
+		<div class="section">
+
+			<ol>
+				<li>Webアプリのために LDAPS が使いたい</li>
+				<li>ActiveLdap でうまく LDAPS が使えない</li>
+				<li> OpenLdap を一から勉強し直し</li>
+				<li>ついでLinux ユーザの統合認証もやっちゃえ</li>
+			</ol>
+			<p>というシナリオの途中、/etc/ldap.conf を編集を誤り、root を含む全てのユーザを LDAP から取得するようにしてしまった。結果、立ち上がらなくなったw</p>
+			<p>環境は Xen で利用している img ファイルにある。</p>
+			<p>LVM パーティションであるww</p>
+			<p>ここでまた LVM と相見えることになろうとは。</p>
+		</div>
+

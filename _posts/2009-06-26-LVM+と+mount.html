@@ -1,0 +1,60 @@
+---
+title: LVM と mount
+date: 2009-06-26
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>非LVM の環境においては、kpartx で /dev/mapper 以下にデバイスファイルを作成してそれを mount するのが簡単だと思う。</p>
+			<p>例</p>
+<pre class="syntax-highlight">
+kpartx <span class="synSpecial">-va</span> disikimage.img
+mount /dev/mapper/loop0p1
+</pre>
+
+			<p>LVM 環境において /dev/mapper 以下に作成されるのは PG であって LV ではない。LV を得るためにはまずは GV を抽出して、その中の LV をマッピングする必要がある。のだと思う。用語とかめんどいなあ。聞いてくれたら応えます。</p>
+			<p>さて、偉そうなことを書いたけど、やることは vgscan これだけ。デバイスファイル総なめして VG の情報を探して来てくれる。あとは vgchange して inactive  な状態を ACTIVE に変えてやれば mount できる。</p>
+			<p>．．．だけだと幸せなんだけどけどね。（これでも十分面倒くさいけど）</p>
+			<h4>Volume Group Name</h4>
+			<p>Volume Group Name というものがある。いくつかの PG を一つにまとめる際の名称だ。例えば、/dev/sda3 と /dev/sdb2 をまとめて、 ShareVol としたりできる（やったことないけどw）。これが CentOS のデフォルトでは VolGroup00 となっている。つまりできあがったシステムはみんな VolGroup00 。芸がない。vgscan してみたら、どいつもこいつも「VolGroup00  です」という訳だから、違うマシンでマウントしてデータを退避したり、ちょっと修正したりしたい時にとっても困ってしまう。</p>
+			<p>普通なら rescue CD などでブートしてちょこちょこっとファイルを書き換えて終わりなのだけど、今回はディスクイメージ。LVM on LVM。Volume Group Name の変更は避けて通れない。ただ、Xen な環境であれば、resucue 用の Volume Group Name の異なるシステムを別途インストールし、そちらでマウント、修正するという手があるようだ。自分も Xen  な環境なんだけど、DomainO が DomainU のイメージも触れないなんてなんか嫌なので、今回は思い切って DomainO の Volume Group Name を変えてみる事にした。</p>
+			<h4> 起動ディスクの Volume Group Name の変更</h4>
+
+			<ol>
+				<li>rescue CD から起動する。</li>
+				<li>ディスク内の Linux システムをマウントするか尋ねられるが、Skip する</li>
+				<li> vgscan して VG を探す</li>
+				<li> vgrename VolGroup00 HostMachine00</li>
+			</ol>
+			<p>以上の Volume Group Name の変更はできる。問題は、これをちゃんとブートさせることだ。そのためには、いくつかファイルを書き換える必要がある。</p>
+			<h4> 設定ファイルの書き換え</h4>
+			<p>まずは書き換えるためにシステムをマウントしなければいけない。</p>
+			<p>vgrename の結果が /dev 以下に反映されていない場合は再度 vgscan を実行する。</p>
+<pre class="syntax-highlight">
+vgscan
+mount /dev/sda1 /disk_boot
+mount /dev/HostMachine00/LogVol00 /disk_root
+</pre>
+
+			<p>/disk_root/etc 以下のファイルは fstab,mtab 及び lvm/ 以下のファイルだ。fstab,mtab については、VolGroup00 となっている部分を任意の文字列に書き換えてやればよい。lvm/ 以下だが、lvm/cach にキャッシュ情報があるようなのでこれを削除した。（あと何やったかなあ。grep VolGroup00 -r /etc とかすれば良い。）</p>
+			<p>/disk_boot/ 以下は grub.conf にブートシステムのパスが書いてあるので、VolGroup00 の部分を書き換える。更に肝は、initrd ファイルの中にも関連項目があるのだ！あははは</p>
+			<p>想像以上だよ．．．</p>
+			<p>initrd.img を /disk_initrd 以下に展開する。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> /disk_initrd
+zcat initrd.img <span class="synStatement">|</span> cpio <span class="synSpecial">-i</span>
+</pre>
+
+			<p>/disk_initrd/init というファイルがあるので、 VolGroup00 の部分を書き換える。</p>
+			<p>initrd.img を作成する。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> /disk_initrd
+<span class="synStatement">find . |</span> cpio <span class="synSpecial">-o</span> <span class="synSpecial">-c</span> <span class="synStatement">|</span> gzip <span class="synSpecial">-c</span> <span class="synStatement">&#62;</span> /disk_boot/initrd.img
+</pre>
+
+			<p>これでやっとブートできるようになった。</p>
+			<h4> 今日の目的は OpenLdap の勉強にあったはず</h4>
+			<p>そしてどんどん作業は遅れていくのであった．．．。</p>
+		</div>
+

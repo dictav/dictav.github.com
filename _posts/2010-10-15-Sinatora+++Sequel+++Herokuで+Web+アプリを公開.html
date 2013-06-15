@@ -1,0 +1,20 @@
+---
+title: Sinatora + Sequel + Herokuで Web アプリを公開
+date: 2010-10-15
+tags: heroku sinatora
+layout: post
+---
+
+		<div class="section">
+			<p><a href="http://heroku.com/" target="_blank">Heroku | Cloud Application Platform</a> という Web サービスを知った。rack ベースで作ったアプリや Rails アプリの公開が git と組み合わせて比較的簡単にできる。しかも、データベース容量が 5MB ながらフリーで利用できる。もちろんお金を払えばもっとリッチな環境にすることも可能だ。テスト環境としても重宝しそう。やり方は Google さんに聞こう。</p>
+			<h4> データベースの利用</h4>
+			<p>Sinatora では Rails の ActiveRecord のようなデフォルトのデータベースラッパーは存在しない。それこそ ActiveRecord でもなんでも好きな物を使う。</p>
+			<p>ぼくはなんとなく <a href="http://sequel.rubyforge.org/" target="_blank">Sequel: The Database Toolkit for Ruby</a> を使ってみた。なんとなく使いやすそうだったので。これで SQLite3 と組み合わせればデータを保存が必要なものでも簡単に作成できる。</p>
+			<p>さて、これを <a href="http://heroku.com/" target="_blank">Heroku | Cloud Application Platform</a> にアップするのだけど、tmp ディレクトリなどの書き込み可能なディレクトリにファイルを置けば SQLite3 でも利用する事は可能だ。だけど、tmp ファイルなんかは時間の経過とともに中のファイルが掃除されるようで、気付くと内容が消えているということがあった。<a href="http://heroku.com/" target="_blank">Heroku | Cloud Application Platform</a> が用意している PostgreSQL を利用するように切り替えよう。</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">Sequel</span>.connect(<span class="synIdentifier">ENV</span>[<span class="synSpecial">'</span><span class="synConstant">DATABASE_URL</span><span class="synSpecial">'</span>] || <span class="synSpecial">'</span><span class="synConstant">sqlite://tmp/myapp.db</span><span class="synSpecial">'</span>)
+</pre>
+
+			<p>のように書き換える。どうやら Heroku の環境では DATABASE_URL という環境変数が設定されているようだ。簡単だね♪</p>
+		</div>
+

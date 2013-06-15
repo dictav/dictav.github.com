@@ -1,0 +1,39 @@
+---
+title: 続 acts_as_ferret
+date: 2009-02-20
+tags: Rails
+layout: post
+---
+
+		<div class="section">
+			<p>find_with_ferret で</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">Document</span>.find(<span class="synIdentifier">:all</span>, <span class="synIdentifier">:order</span> =&#62; <span class="synSpecial">&#34;</span><span class="synConstant">updated_at</span><span class="synSpecial">&#34;</span>)
+</pre>
+
+			<p>のようにしたければ、</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">Document</span> &#60; <span class="synIdentifier">ActiveRecord</span>::<span class="synIdentifier">Base</span>
+  <span class="synStatement">attr_accessor</span> <span class="synIdentifier">:name</span>
+  acts_as_ferret <span class="synIdentifier">:field</span> =&#62; {<span class="synIdentifier">:title</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>},
+                             <span class="synIdentifier">:body</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>},
+                             <span class="synIdentifier">:date</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>} }
+  <span class="synPreProc">def </span><span class="synIdentifier">date_to_ferret</span>
+    <span class="synIdentifier">Time</span>.now
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synIdentifier">Document</span>.find_with_ferret(<span class="synSpecial">&#34;</span><span class="synConstant">**</span><span class="synSpecial">&#34;</span>, <span class="synIdentifier">:order</span> =&#62; <span class="synSpecial">&#34;</span><span class="synConstant">date</span><span class="synSpecial">&#34;</span>)
+</pre>
+
+			<p>もっと良い方法ある？</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">Document</span>.find_with_ferret(<span class="synSpecial">&#34;</span><span class="synConstant">**</span><span class="synSpecial">&#34;</span>, {}, <span class="synIdentifier">:order</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">updated_at</span><span class="synSpecial">'</span>)
+</pre>
+
+			<p>みたいにすれば良いって言っているサイトがあった気がするけど、上手くいかなかった。</p>
+			<p>そもそも、Ferret で検索結果から id 抜き出して Document.find に渡しているのだろう。</p>
+		</div>
+

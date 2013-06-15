@@ -1,0 +1,30 @@
+---
+title: コマンドラインから辞書を引く
+date: 2011-04-20
+tags: MacRuby
+layout: post
+---
+
+		<div class="section">
+			<p><a href="http://sakito.jp/mac/dictionary.html" target="_blank">辞書(Dictionary).appを使い倒そう : 紹介マニア</a></p>
+			<p>PyObj でやられてるのが悔しかったので MacRuby で実装</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#! /usr/bin/env macruby</span>
+<span class="synComment">#coding:utf-8</span>
+
+framework <span class="synSpecial">'</span><span class="synConstant">CoreFoundation</span><span class="synSpecial">'</span>
+framework <span class="synSpecial">'</span><span class="synConstant">/System/Library/Frameworks/CoreServices.framework/Frameworks/DictionaryServices.framework</span><span class="synSpecial">'</span>
+
+word = <span class="synIdentifier">ARGV</span>[<span class="synConstant">0</span>]
+range = CFRangeMake(<span class="synConstant">0</span>,word.length)
+<span class="synStatement">if</span> range
+  puts DCSCopyTextDefinition(<span class="synConstant">nil</span>, word, range)
+<span class="synStatement">else</span>
+  puts <span class="synSpecial">&#34;</span><span class="synConstant">no such word: </span><span class="synSpecial">#{word}&#34;</span>
+<span class="synStatement">end</span>
+</pre>
+
+			<p>DictionaryService の読み込みがスマートじゃないのが気になるなあ。</p>
+			<p>気が向いたらカラーリングして見やすくするのもいいな。</p>
+		</div>
+

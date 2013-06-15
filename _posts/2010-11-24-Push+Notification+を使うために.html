@@ -1,0 +1,25 @@
+---
+title: Push Notification を使うために
+date: 2010-11-24
+tags: iPhone
+layout: post
+---
+
+		<div class="section">
+			<h5> 前準備</h5>
+			<p>Provisioning ファイルを Push Notification に対応しているものにアップグレードする必要がある。Provisioning Potal にアクセスして利用したい App ID が Push Notification Service が Enable (緑色) になっていれば OK。なってなければ Configure する。</p>
+<pre class="syntax-highlight">
+[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert
+                                                                     |UIRemoteNotificationTypeBadge
+                                                                     |UIRemoteNotificationTypeSound)];
+</pre>
+
+			<p>のようなコードをapplication:didFinishLaunchingWithOptions: に書けば動作を確認できる。さらに</p>
+
+			<ol>
+				<li>application:didRegisterForRemoteNotificationsWithDeviceToken:</li>
+				<li>application:didFailToRegisterForRemoteNotificationsWithError:</li>
+			</ol>
+			<p>の２つのデリゲートを実装する。</p>
+		</div>
+

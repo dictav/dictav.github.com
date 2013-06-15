@@ -1,0 +1,140 @@
+---
+title: Samba4 での統合認証まとめ
+date: 2009-06-28
+tags: Samba
+layout: post
+---
+
+		<div class="section">
+			<p>これまで Samba4 での統合認証についてあれこれやってきたのだけど、一区切りついたのでまとめておく。手元にマシンがないので正確性には欠けます。</p>
+			<h4> インストール</h4>
+			<p>バージョンは Samba-4.0.0alpha8 を用いる。</p>
+<pre class="syntax-highlight">
+tar zxf samba<span class="synConstant">-4</span>.<span class="synConstant">0</span>.0alpha8.tar.gz
+<span class="synStatement">cd</span> samba<span class="synConstant">-4</span>.<span class="synConstant">0</span>.0alpha8/source4
+./configure
+make
+make <span class="synStatement">install</span>
+</pre>
+
+			<h4> 設定</h4>
+			<p>provision コマンドを実行する。</p>
+			<p>/usr/local/samba/share/setup/provision コマンドはそのままではパスが通っていない。インストール元のソースの中にある source4/setup/provison を使う方法と、パスを通す方法の２種類のやり方がある。</p>
+			<h5> source4/setup/provision</h5>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> source4
+./setup/provision
+</pre>
+
+			<p>Realm, Domain, Role, Administrator Password を聞かれるので応える。オプションでコマンド実行と一緒に設定もできる。詳しくは --help。</p>
+			<h5> /usr/local/samba/share/setup/provision</h5>
+			<p>何も指定しないで ./configure を実行していれば、/usr/local/samba/lib64 以下に python の samba ライブラリが含まれている。provision は python スクリプトであり、vi などで編集できるので、"bin/python" となっているところを "/usr/local/samba/lib64/python2.4/site-packages" に変更する。更に、setup ディレクトリ内に ad-schema ディレクトリが不足しているのでこれもコピーする。あとは上記と同様に実行する。</p>
+			<p>まあ、パッケージ作ったりする時のための情報です。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> /usr/<span class="synStatement">local</span>/samba/share/setup/
+<span class="synStatement">sed</span> <span class="synSpecial">-i</span> <span class="synSpecial">-e</span> <span class="synStatement">'</span><span class="synConstant">s,&#34;bin/python&#34;,&#34;/usr/local/samba/lib64/python/site-packages&#34;</span><span class="synStatement">'</span> provision
+cp <span class="synSpecial">-r</span> /path/to/source4/setup/ad-schema .
+./provision
+</pre>
+
+			<h5> Bind の設定</h5>
+			<p>あんまり詳しくない。/usr/local/samba/private に作成された mydomain.local.zone を /etc/named.conf (chroot しているなら、/var/named/chroot/etc/named.conf) に反映させる。private/named.txt や private/named.conf を参考にすると良いみたいだけど、よく分からないのでコピーして使った。</p>
+<pre class="syntax-highlight">
+cp private/mydomain.<span class="synStatement">local</span>.zone /var/named/chroot/var/named
+vi /var/named/chroot/etc/named.conf
+---skip--
+  zone <span class="synStatement">&#34;</span><span class="synConstant">mydomain.local.zone</span><span class="synStatement">&#34;</span> <span class="synSpecial">{</span>
+    <span class="synStatement">type</span> master<span class="synStatement">;</span>
+    file <span class="synStatement">&#34;</span><span class="synConstant">mydomain.local.zone</span><span class="synStatement">&#34;;</span>
+  <span class="synSpecial">}</span><span class="synStatement">;</span>
+---skip--
+</pre>
+
+			<p>zone の update の設定が良くわからないので設定していない。update の設定を行わないと、windows クライアントをドメインに参加させた際にコンピュータ名を追加できなくてエラーを吐く。けどとりあえずは動作するので、動作の確認までならこのままで問題ない。あとで調べる。</p>
+			<p>named を再起動して、設定を確認する。</p>
+<pre class="syntax-highlight">
+service named <span class="synStatement">restart</span>
+host mydomain.<span class="synStatement">local</span>
+...
+host gc._msdcs.mydomain.<span class="synStatement">local</span>
+...
+</pre>
+
+			<p>この辺が見れれば OKey</p>
+			<h5> /usr/local/samba/etc/smb.conf</h5>
+			<p>素のままで動作するが、public 共有などを作ってみる。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">mkdir</span> /usr/<span class="synStatement">local</span>/samba/var/public
+<span class="synStatement">chmod</span> <span class="synConstant">777</span> /usr/<span class="synStatement">local</span>/samba/var/public
+vi /usr/<span class="synStatement">local</span>/samba/etc/smb.conf
+---skip--
+<span class="synStatement">[</span>public<span class="synStatement">]</span>
+    path <span class="synStatement">=</span> /usr/<span class="synStatement">local</span>/samba/var/public
+    <span class="synStatement">read</span> only <span class="synStatement">=</span> no
+---skip--
+</pre>
+
+			<h5> xattr とか</h5>
+			<p>CentOS5 ではデフォルトで対応しているので何もしなくて良い</p>
+			<h4> 実行</h4>
+			<p>ログを見たいのだけど、どこにも吐いてくれていない（みつけられない）ので STDERR に吐かせて、ファイルに出力する。</p>
+<pre class="syntax-highlight">
+/usr/<span class="synStatement">local</span>/samba/sbin/samba <span class="synSpecial">--debuglevel=5</span> <span class="synSpecial">--debug-stderr</span> <span class="synStatement">&#38;&#62;</span> samba.log
+</pre>
+
+			<p>debuglevel=5 はなんとなく。</p>
+			<p>winbind なんたらというディレクトリがないと言われたら作って samba の再起動。samba の pid は /usr/local/samba/var/run/samba.pid の辺りにあるので、kill する。</p>
+			<h4> 確認</h4>
+			<p>smbclient での確認は省略して WindowsXP からテスト。Samba4 は複数のポートを使うので Firewall の設定には注意。一時的に切っておいた方が良いかも。</p>
+			<p>Administrator でログオンして「プログラム名を指定して実行」から "\\192.168.0.100" などして接続できる事を確認する。パスワード等を求められたら Administrator と provision で設定したパスワードを入力する。</p>
+			<p>public を開いてみて読み書きできるか確かめる。これができないとき、samba.log をみると "Winbind ID failed" (だったかな？) みたいなエラーを吐いていることがある。良くわからないが、samba を再インストールして対処した。</p>
+			<p>上手くいったら次はドメインに参加させる。ドメインに参加させるには Windows2000, XP なら Professional、Vista ならBussiness が必要になる。Home Edition では参加できないらしい。MS のこういうところが嫌いです。</p>
+			<h5> 時刻同期</h5>
+			<p>Active Directory の参加には時刻の同期がとても重要。これは Kerberos を利用しているかららしいのだけど、あまり詳しい事は分からない。手動でおおまかな時刻合わせをしても良いけど、NTP  サーバーを立てているのでこれを参照させる。コマンドプロンプトを立ち上げる。</p>
+<pre class="syntax-highlight">
+net time /setsntp:192.168.0.100
+net stop w32time
+net start w32time
+w32tm /resync
+</pre>
+
+			<h5> DNS の設定</h5>
+			<p>AD ドメインに参加させるには、DNS を使って関連情報を参照できる必要がある。ネットワーク接続の設定から DNS サーバを上記で mydomain.local.zone を設定したサーバにする。今回は全部同じサーバでやっているので 192.168.0.100。コマンドプロンプトから DNS がきちんと引けているかチェックする。</p>
+<pre class="syntax-highlight">
+nslookup
+&#62; mydomain.local
+...
+&#62; gc._msdcs.mydomain.local
+...
+</pre>
+
+			<p>応答が返ってくれば OK. 返ってこなければ ping を打ってみたり DNS サーバが違うところになっていないかなどを確認する。ダメなら Bind の設定かもしれない。</p>
+			<h5> ドメインへの参加</h5>
+			<p>マイコンピュータのプロパティを開き、ワークグループからドメインに変更する。ドメイン名は provision で設定したもの。ユーザ認証を求められるので Administrator と provision で設定したパスワード。上手く通れば設定完了。めでたく AD ドメインの完成です。あとは Administrator でドメインに参加して、dsa.msc なんかを使ってユーザやグループを追加したり、グループポリシーを設定したりしてみてみる。アカウントポリシーについてはまだ確認が取れてない。</p>
+			<h4> Linux での認証</h4>
+			<p>ふー。疲れた。Windows 側で sAMAccountName=sabe なユーザを作ったものとする。ちなみに、LDAP エントリについてはサーバ側で</p>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> /usr/<span class="synStatement">local</span>/samba
+./bin/ldbsearch <span class="synSpecial">-H</span> private/sam.ldb
+</pre>
+
+			<p>すれば確認できる。</p>
+			<p>Linux での認証のポイント。</p>
+
+			<ol>
+				<li> LDAP エントリへの uidNumber, gidNumber,unixHomeDirectory, loginShell の追加</li>
+				<li> /etc/nsswitch.conf の変更</li>
+				<li> /etc/sysconfig/authconfig の変更</li>
+				<li> /etc/ldap.conf の変更</li>
+			</ol>
+			<p>1 は Samba4 のサーバでだけやれば良い。ldapmodify や ldbmodify(?) なんかを使えばできる。ぼくはActiveLdap を使ってやりました。</p>
+			<p>ここで、uidNumber と gidNumber の値は被らなければ何でも良いのだけど、Samba との統合を図るなら private/idmap.ldb を参考に決める。</p>
+			<p>uidNumber はだいたい 300000 くらいから始まる値。</p>
+			<p>gidNumber は sam.ldb の primaryGroupID を参考に idmap.ldb から決める。</p>
+			<p>デフォルトでは primaryGroupID は 513 になっており、これは Domain Users を示している。Domain Users は idmap.ldb では xid:100 に割り当てられている。gidNumber:100 は Linux 上では users グループに割り当てられている値だ。</p>
+			<p>gidNumber だけは自動で入れてくれると嬉しいなあ。他は作成時に一度だけでだから別に良い。</p>
+			<p>2,3 については authconfig-tui なんかを使えばできる。4 は更に AD 関連の項目をコメントアウトしてやる必要がある。</p>
+			<h5> 確認</h5>
+			<p>getent passwd でユーザが見れれば nss は OK. さらにログインできれば pam も OK.</p>
+		</div>
+

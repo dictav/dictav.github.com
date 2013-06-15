@@ -1,0 +1,55 @@
+---
+title: メールの受信を監視する
+date: 2011-06-10
+tags: Ruby EventMachine IMAP
+layout: post
+---
+
+		<div class="section">
+			<p>ruby には Net/IMAP という便利な組み込みクラスがあるのだけど、これは EventMachine や Rev を使った方が良いんじゃない？と思いつつ調べてみると EventMachine で実装された em-imap というのがあったので試してみる。</p>
+			<p>Net/IMAP</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#! /usr/bin/env ruby</span>
+<span class="synPreProc">require</span> <span class="synSpecial">&#34;</span><span class="synConstant">net/imap</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">SERVER</span> = <span class="synSpecial">&#34;</span><span class="synConstant">imap.server</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">USERNAME</span> = <span class="synSpecial">&#34;</span><span class="synConstant">username</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">PW</span> = <span class="synSpecial">&#34;</span><span class="synConstant">password</span><span class="synSpecial">&#34;</span>
+
+imap = <span class="synIdentifier">Net</span>::<span class="synIdentifier">IMAP</span>.new <span class="synIdentifier">SERVER</span>, <span class="synIdentifier">:ssl</span> =&#62; <span class="synConstant">true</span>
+imap.login <span class="synIdentifier">USERNAME</span>, <span class="synIdentifier">PW</span>
+imap.select <span class="synSpecial">'</span><span class="synConstant">INBOX</span><span class="synSpecial">'</span>
+imap.idle <span class="synStatement">do</span> |<span class="synIdentifier">resp</span>| 
+  untag = response.name <span class="synStatement">rescue</span> <span class="synConstant">nil</span>
+  <span class="synStatement">if</span> untag == <span class="synSpecial">'</span><span class="synConstant">RECENT</span><span class="synSpecial">'</span>
+    puts <span class="synSpecial">&#34;</span><span class="synConstant">Mailbox now has new messages</span><span class="synSpecial">&#34;</span>
+  <span class="synStatement">end</span>
+<span class="synStatement">end</span>
+</pre>
+
+			<p>EM/IMAP</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#! /usr/bin/env ruby</span>
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">em-imap</span><span class="synSpecial">'</span>
+
+<span class="synIdentifier">SERVER</span> = <span class="synSpecial">&#34;</span><span class="synConstant">imap.server</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">USERNAME</span> = <span class="synSpecial">&#34;</span><span class="synConstant">username</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">PW</span> = <span class="synSpecial">&#34;</span><span class="synConstant">password</span><span class="synSpecial">&#34;</span>
+
+<span class="synIdentifier">EM</span>::run <span class="synStatement">do</span>
+  imap = <span class="synIdentifier">EM</span>::<span class="synIdentifier">IMAP</span>.connect(<span class="synIdentifier">SERVER</span>, <span class="synConstant">993</span>, <span class="synConstant">true</span>)
+  imap.login(<span class="synIdentifier">USERNAME</span>,<span class="synIdentifier">PW</span>)
+  imap.select(<span class="synSpecial">'</span><span class="synConstant">INBOX</span><span class="synSpecial">'</span>)
+  imap.idle <span class="synStatement">do</span> |<span class="synIdentifier">response</span>|
+    untag = response.name <span class="synStatement">rescue</span> <span class="synConstant">nil</span>
+    <span class="synStatement">if</span> untag == <span class="synSpecial">'</span><span class="synConstant">RECENT</span><span class="synSpecial">'</span>
+      puts <span class="synSpecial">&#34;</span><span class="synConstant">Mailbox now has new messages</span><span class="synSpecial">&#34;</span>
+    <span class="synStatement">end</span>
+  <span class="synStatement">end</span>.errback <span class="synStatement">do</span> |<span class="synIdentifier">e</span>|
+    puts <span class="synSpecial">'</span><span class="synConstant">error</span><span class="synSpecial">'</span>
+  <span class="synStatement">end</span>
+<span class="synStatement">end</span>
+</pre>
+
+			<p>CPU／network の比較しようかな。</p>
+		</div>
+

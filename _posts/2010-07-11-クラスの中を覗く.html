@@ -1,0 +1,39 @@
+---
+title: クラスの中を覗く
+date: 2010-07-11
+tags: Objective-C
+layout: post
+---
+
+		<div class="section">
+			<p>runtime 周りを触るのは久しぶりで躓いたのでメモ。</p>
+			<p>Objective-C 2.0 になってからずいぶんと Runtime の中身も変わり、インスタンスメソッド／変数の一覧を取得する方法も変わってしまった。これまでは objc_class にだいたい中身があったから obj-&#62;ivar_list とかすればインスタンス変数を得るのは簡単だった。</p>
+			<p>Objective-C 2.0 からは class_copyIvarList や class_copyMethodList などを使ってリストを取得し、ivar_getName などを使って値を取得する。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#import </span><span class="synConstant">&#60;objc/runtime.h&#62;</span>
+<span class="synType">void</span> showInstanceVariables(<span class="synType">Class</span> klass)
+{
+    Ivar *ivars;
+    <span class="synType">int</span> i;
+	<span class="synType">unsigned</span> <span class="synType">int</span> count;
+    
+    ivars = class_copyIvarList(klass, &#38;count);
+    <span class="synStatement">if</span>(ivars == <span class="synConstant">nil</span>) {
+        printf(<span class="synConstant">&#34;no ivars</span><span class="synSpecial">\n</span><span class="synConstant">&#34;</span>);
+        <span class="synStatement">return</span>;
+    }
+    printf(<span class="synConstant">&#34;Class </span><span class="synSpecial">%s\n</span><span class="synConstant">&#34;</span>, class_getName(klass));
+    <span class="synComment">// Show instance variables</span>
+    <span class="synStatement">for</span>(i = <span class="synConstant">0</span>; i &#60; count; i++) {
+        printf(<span class="synConstant">&#34;  name: </span><span class="synSpecial">%s\n</span><span class="synConstant">&#34;</span>,ivar_getName(ivars[i]));
+        printf(<span class="synConstant">&#34;  type: </span><span class="synSpecial">%s\n</span><span class="synConstant">&#34;</span>, ivar_getTypeEncoding(ivars[i]));
+        printf(<span class="synConstant">&#34;  offset: </span><span class="synSpecial">%d\n</span><span class="synConstant">&#34;</span>, ivar_getOffset(ivars[i]));
+    }
+    free(ivars);
+}
+
+</pre>
+
+			<p>でもこれって完全じゃないみたいで取りこぼしがあった。binary があるなら otool とか使った方が良いかも。</p>
+		</div>
+

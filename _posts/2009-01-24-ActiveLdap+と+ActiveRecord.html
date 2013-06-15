@@ -1,0 +1,48 @@
+---
+title: ActiveLdap と ActiveRecord
+date: 2009-01-24
+tags: Ruby ActiveLdap
+layout: post
+---
+
+		<div class="section">
+			<p>ActiveLdap にも ActiveRecord と同じように強力なアソシエーション機構が付いている。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">User</span> &#60; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>
+  ldap_mapping <span class="synIdentifier">:prefix</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">ou=Users</span><span class="synSpecial">'</span>
+  belongs_to <span class="synIdentifier">:group</span>, <span class="synIdentifier">:class</span> =&#62; <span class="synIdentifier">Group</span>
+                       <span class="synIdentifier">:foreign_key</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">gidNumber</span><span class="synSpecial">'</span>, <span class="synIdentifier">:primary_key</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">gidNumber</span><span class="synSpecial">'</span>
+<span class="synPreProc">end</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">Group</span> &#60; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>
+  ldap_mapping <span class="synIdentifier">:prefix</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">ou=Groups</span><span class="synSpecial">'</span>
+  has_many <span class="synIdentifier">:members</span>, <span class="synIdentifier">:class</span> =&#62; <span class="synIdentifier">User</span>
+                  <span class="synIdentifier">:foreign_key</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">gidNumber</span><span class="synSpecial">'</span>, <span class="synIdentifier">:primary_key</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">gidNumber</span><span class="synSpecial">'</span>
+<span class="synPreProc">end</span>
+</pre>
+
+			<p>みたいな感じ。</p>
+			<p>これをなんとか ActiveLdap と ActiveRecord の相互のアソシエーションを結ぶことはできないかと考えたのだけど、挫折しました orz</p>
+			<p>なんか良い方法を知っている人は教えてください。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">User</span> &#60; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>
+  ldap_mapping <span class="synIdentifier">:prefix</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">ou=Users</span><span class="synSpecial">'</span>
+
+  <span class="synPreProc">def </span><span class="synIdentifier">group</span>
+    <span class="synIdentifier">Group</span>.find_by_gid(<span class="synConstant">self</span>.gid_number)
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">Group</span> &#60; <span class="synIdentifier">ActiveRecord</span>::<span class="synIdentifier">Base</span>
+  <span class="synPreProc">def </span><span class="synIdentifier">members</span>
+    <span class="synIdentifier">User</span>.find(<span class="synIdentifier">:all</span>, <span class="synIdentifier">:filter</span> =&#62; [<span class="synSpecial">&#34;</span><span class="synConstant">gid_number</span><span class="synSpecial">&#34;</span>, <span class="synSpecial">&#34;</span><span class="synConstant">=</span><span class="synSpecial">&#34;</span>, gid] )
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+		</div>
+

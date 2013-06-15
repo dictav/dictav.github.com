@@ -1,0 +1,82 @@
+---
+layout: post
+title: Rails 3.2 のインストールから始めました
+date: 2013-03-06 10:20:55 GMT
+tags: 
+---
+Rails をやることになりそうなので、数々の便利 Gem に閉口しながらいろいろ復習してます。
+
+# ruby のインストール
+ruby をインストールしないと始まらないです。
+Mac で言えば rbenv がトレンドなんでしょうけど、ぼくは Homebrew 単体で入れました。
+
+    brew install ruby
+
+今だと 2.0 が入りますね。構わず進みます。
+
+# Rails 3.2 を構築
+ bundler を入れて rails 入れます。
+
+    $ gem install bundler
+    $ gem install rails
+    $ rails new /path/to/rails_app --skip-bundle
+    $ cd /path/to/rails_app
+    $ bundle install --path vendor/bundle
+
+この辺がトレンドでしょうか？
+しかし、gem 入れた rails があり、rails_app下にもrailsがあり、`gem list` は意味不明という、なんとも言えない気分になります。gem を管理できる気がまるでしません。
+
+## Rails を bundler で入れる
+気が滅入ったので削除。
+
+    $ rm -rf /gem/home/gems
+
+rails は rails の枠に収まっていただきたい。
+
+そこで bundler を使って rails を入れる事を考えてみます。
+
+    $ mkdir ~/.rails
+    $ cd ~/.rails
+    $ vi Gemfile
+    
+    #Gemfile
+    source "http://rubygems.org"
+    gem "rails"
+    
+    $ bundle install --path ./
+
+これで .rails ディレクトリ直下に rails に関連するファイルを置く事ができます。`gem list` も奇麗です。
+
+    $ gem list
+
+    *** LOCAL GEMS ***
+
+    bigdecimal (1.2.0)
+    io-console (0.4.2)
+    json (1.7.7)
+    minitest (4.3.2)
+    psych (2.0.0)
+    rake (0.9.6)
+    rdoc (4.0.0)
+    test-unit (2.0.0.0)
+
+## alias 作成
+
+このままでは rails コマンドは打てないので、
+
+    BUNDLE_GEMFILE=~/.rails/Gemfile bundle exec rails
+
+としてやる必要があります。
+また、単にbundle installのようにしてもこけるので
+
+    GEM_HOME=~/.rails/ruby/2.0.0 bundle install
+
+のようにする必要もあります。
+さらに、rake にもパスを通してやる必要があります。
+
+    GEM_HOME=~/.rails/ruby/2.0.0 bundle exec rake
+
+alias指定すれば簡単（？）。
+
+少なくともぼくの精神は救われました。
+

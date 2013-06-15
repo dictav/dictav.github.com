@@ -1,0 +1,44 @@
+---
+title: MacRuby
+date: 2010-05-28
+tags: MacRuby ruby Objective-C Cocoa
+layout: post
+---
+
+		<div class="section">
+			<p>Objective-C を使っていると、Cocoa のメソッドを試してみたくなることがある。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#import </span><span class="synConstant">&#60;Foundation/Foundation.h&#62;</span>
+
+<span class="synType">int</span> main(<span class="synType">void</span>)
+{
+    NSArray *array = [NSArray arrayWithObjects:<span class="synConstant">@&#34;hoge&#34;</span>, <span class="synConstant">@&#34;piyo&#34;</span>, <span class="synConstant">nil</span>];
+    NSLog(<span class="synConstant">@&#34;</span><span class="synSpecial">%@</span><span class="synConstant">&#34;</span>, array);
+    <span class="synStatement">if</span>([array writeToFile:<span class="synConstant">@&#34;/write/to/path&#34;</span> atomically:YES]){
+        NSLog(<span class="synConstant">@&#34;success&#34;</span>);
+    }<span class="synStatement">else</span>{
+        NSLog(<span class="synConstant">@&#34;fail&#34;</span>);
+    }
+    <span class="synStatement">return</span> <span class="synConstant">0</span>;
+}
+</pre>
+
+			<p>みたいな簡単なことを試すにもいちいちファイルを作成する必要があった。</p>
+			<p>そこで、このような用途には <a href="http://www.macruby.org/" target="_blank">MacRuby</a> を使ってみることにした。</p>
+			<h4> インストール</h4>
+			<p>ソースとバイナリはこちら</p>
+			<p><a href="http://www.macruby.org/downloads.html" target="_blank">Page not found &#183; GitHub Pages</a></p>
+			<p>ソースから入れようと思ったけど、llvm 関連でエラーになったので止めた。MacPorts で入れれるけど、/Developer 以下のファイルと競合したくないし。</p>
+			<h4>試用</h4>
+			<p>こことか参考に試した</p>
+			<p><a href="http://journal.mycom.co.jp/articles/2008/03/17/macruby_for_leopard/index.html" target="_blank">【レポート】「MacRuby」 - ひさしを借りて母屋を乗っ取るか?  Mac OS Xの新たなRuby環境 (1) MacRubyとは何か? | パソコン | マイナビニュース</a></p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#! /usr/local/bin/macruby</span>
+framework <span class="synSpecial">&#34;</span><span class="synConstant">Cocoa</span><span class="synSpecial">&#34;</span>
+dict = { hoge:<span class="synConstant">1</span>, piyo:<span class="synConstant">2</span> }
+dict.writeToFile <span class="synSpecial">&#34;</span><span class="synConstant">test.plist</span><span class="synSpecial">&#34;</span>, atomically<span class="synIdentifier">:true</span>
+</pre>
+
+			<p>これで plist 簡単に作れるぞ♪</p>
+		</div>
+

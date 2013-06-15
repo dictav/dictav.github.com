@@ -1,0 +1,33 @@
+---
+title: Ruby/Growl
+date: 2009-02-23
+tags: Growl Ruby Mac
+layout: post
+---
+
+		<div class="section">
+
+<pre class="syntax-highlight">
+$ ruby <span class="synSpecial">--version</span>
+ruby <span class="synConstant">1</span>.<span class="synConstant">9</span>.1p0 <span class="synStatement">(</span><span class="synConstant">2009-01-30</span> revision <span class="synConstant">21907</span><span class="synStatement">)</span> <span class="synStatement">[</span>i386-darwin9<span class="synStatement">]</span>
+$ gem list ruby-growl
+
+*** LOCAL GEMS ***
+
+ruby-growl <span class="synStatement">(</span><span class="synConstant">1</span>.<span class="synConstant">0</span>.<span class="synConstant">1</span><span class="synStatement">)</span>
+</pre>
+
+<pre class="syntax-highlight">
+&#62; a = <span class="synIdentifier">Growl</span>.new <span class="synSpecial">'</span><span class="synConstant">localhost</span><span class="synSpecial">'</span>,<span class="synSpecial">'</span><span class="synConstant">ruby-growl</span><span class="synSpecial">'</span>,[<span class="synSpecial">'</span><span class="synConstant">hoge notification</span><span class="synSpecial">'</span>]
+=&#62; <span class="synComment">#&#60;Growl:0x3e4ec8 @socket=#&#60;UDPSocket:0x3e4eb4&#62;, @app_name=&#34;ruby-growl&#34;, @all_notifies=[&#34;hoge notification&#34;], @default_notifies=[&#34;hoge notification&#34;], @password=nil&#62;</span>
+irb(main):<span class="synConstant">002</span>:<span class="synConstant">0</span>&#62; a.notify <span class="synSpecial">'</span><span class="synConstant">hoge notification</span><span class="synSpecial">'</span>, <span class="synSpecial">'</span><span class="synConstant">title</span><span class="synSpecial">'</span>, <span class="synSpecial">'</span><span class="synConstant">message</span><span class="synSpecial">'</span>
+<span class="synIdentifier">Errno</span>::<span class="synIdentifier">ECONNREFUSED</span>: <span class="synIdentifier">Connection</span> refused - send(<span class="synConstant">2</span>)
+	from /opt/local/lib/ruby/gems/<span class="synConstant">1.9</span>.<span class="synConstant">1</span>/gems/ruby-growl-<span class="synConstant">1.0</span>.<span class="synConstant">1</span>/lib/ruby-growl.rb:<span class="synConstant">188</span><span class="synIdentifier">:in</span> <span class="synSpecial">`</span><span class="synConstant">send'</span>
+<span class="synConstant">	from /opt/local/lib/ruby/gems/1.9.1/gems/ruby-growl-1.0.1/lib/ruby-growl.rb:188:in </span><span class="synSpecial">`</span>send<span class="synSpecial">'</span>
+<span class="synConstant">	from /opt/local/lib/ruby/gems/1.9.1/gems/ruby-growl-1.0.1/lib/ruby-growl.rb:171:in `notify</span><span class="synSpecial">'</span>
+	from (irb):<span class="synConstant">2</span>
+	from /opt/local/bin/irb:<span class="synConstant">12</span><span class="synIdentifier">:in</span> <span class="synSpecial">`</span><span class="synConstant">&#60;main&#62;'</span>
+</pre>
+			<p>動かない</p>
+		</div>
+

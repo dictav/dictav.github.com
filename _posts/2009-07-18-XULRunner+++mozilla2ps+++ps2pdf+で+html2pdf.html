@@ -1,0 +1,22 @@
+---
+title: XULRunner + mozilla2ps + ps2pdf で html2pdf
+date: 2009-07-18
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>次のサイトが詳しい。</p>
+			<p><a href="http://tech.tenki.cc/archives/10" target="_blank">htmlファイルからPDFの作成 &#91;CentOS&#93; | とりあえず残しとくか</a></p>
+			<h4> インストール</h4>
+			<p>XULRunner は yum でインストールすることができた。他は上記サイトの通り。</p>
+<pre class="syntax-highlight">
+yum <span class="synStatement">install</span> xulrunner xorg-x11-server-Xvfb xorg-x11-xauth ghostscript fonts-japanese
+<span class="synComment">#Firefox をインストールする必要はない。</span>
+</pre>
+
+			<h4> Gtk-WARNING **: Unknown paper size A4</h4>
+			<p>どこの問題か良くわからないけど用紙サイズ周りでエラーが出る。mozilla2ps の -papername letter を指定してやればエラーは出なくなるので、出力された PS ファイルを ps2pdf -sPAPERSIE=a4 で用紙サイズを変更して PDF にすれば良い。</p>
+			<p>本当は mozilla2ps の -pdf true を使いたいのだけどね。</p>
+		</div>
+

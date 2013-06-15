@@ -1,0 +1,28 @@
+---
+layout: post
+title: Sequel
+date: 2012-05-20 12:51:00 GMT
+tags: 
+---
+[Sequel][] は [ActiveRecord][] のようなマッパー。[MongoDB][] を使おうかとも思ったけど sqlite3 が使いたかったので [Sequel][] にした。
+
+# モデル
+[Sequel][] はモデルを定義しなくても使えるのだけど、若干 association を張りたかったのでモデルで利用することにした。
+そこまでするなら[ActiveRecord][] を使う方が良いとも思うのだけど、勉強もかねて [Sequel][] を使用することにした。
+
+model.rb
+
+<script src="https://gist.github.com/620095.js?file=model.rb"> </script>
+
+*	json_serializer を用いると to_json メソッドが使えるようになる。
+	User.first.to_json(:include => :check_ins) など便利だ。
+*	order オプションはソート対象を指定する。末尾に.desc を付ければ降順になる
+*	uniq オプションは同じ項目が２つ以上含まれなくなる
+*	before_create は User.create などした場合に実行される。
+	User.insert などの場合は実行されない。
+
+[Sequel]: http://sequel.rubyforge.org/
+[ActiveRecord]: http://api.rubyonrails.org/classes/ActiveRecord/Base.html
+[MongoDB]: http://www.mongodb.org/
+
+

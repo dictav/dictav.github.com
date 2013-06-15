@@ -1,0 +1,78 @@
+---
+title: SID の取得
+date: 2009-06-30
+tags: Samba ActiveLdap
+layout: post
+---
+
+		<div class="section">
+			<p>Samba4 (AD) + ActiveLdap の環境をテストしている。User のプラマリーグループを取得するところで手こずっている。</p>
+			<p>というのも、AD の objectclass=user では、所属するグループの情報を primaryGroupID という要素に格納するが、これが "1020" などの本来の SID の末端しか保持しない。これを SID にコンバートしてやらないと Group.find(:filter =&#62; ["objectSid", sid]) のような検索を行うことができない。</p>
+			<p>SID の元になる部分 (RID?) は Windows のクライアントからも拝借できるし、簡単に調べられる。問題は、primaryGroupID の値を objectSid に変更しないと検索できないということだ。</p>
+			<p><a href="http://support.microsoft.com/kb/286182/ja" target="_blank">http://support.microsoft.com/kb/286182/ja</a></p>
+			<p><q></p>
+			<p></q></p>
+			<p>objectSid はバイナリデータを base64-encode して LDAP に格納している。</p>
+			<p>例えば SID: S-1-5-21-2979766158-1419894470-2188322621-500 があるとする。</p>
+
+			<ul>
+				<li>リビジョンレベル "1"</li>
+				<li>識別子機関値 "5" (SECURITY_NT_AUTHORITY)</li>
+				<li>最初のサブ機関値 "21"</li>
+				<li>2 番目のサブ機関値 "2979766158"</li>
+				<li> etc...</li>
+			</ul>
+			<p>これを Ldap から見ると</p>
+			<p>objectSid: AQUAAAAAAAUVAAAAjp+bscbeoVQ9J2+C9AEAAA==</p>
+			<p>となっている。</p>
+			<p>これを base64-decode したバイナリの値は以下。</p>
+<pre class="syntax-highlight">
+word1: 01 05 00 00
+word2: 00 00 00 05
+word3: 15 00 00 00
+ --skip--
+</pre>
+
+			<p>objectSid の構造体は以下。</p>
+<pre class="syntax-highlight">
+<span class="synType">typedef</span> <span class="synType">struct</span> _SID {
+   BYTE  Revision;
+   BYTE  SubAuthorityCount;
+   SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
+   DWORD SubAuthority[ANYSIZE_ARRAY];
+} SID, *PISID;
+</pre>
+
+			<p>以上の事から、</p>
+
+			<ul>
+				<li> word1 はリビジョンレベル と識別子機関値であり、２バイト不使用</li>
+				<li> word2 はそれ以降のサブ機関値の個数を表している</li>
+				<li> 残りは全部サブ機関値</li>
+			</ul>
+			<p>これを踏まえると、ruby で SID のテキストデータを得るには次のようになる。</p>
+<pre class="syntax-highlight">
+b64data = <span class="synSpecial">&#34;</span><span class="synConstant">AQUAAAAAAAUVAAAAjp+bscbeoVQ9J2+C9AEAAA==</span><span class="synSpecial">&#34;</span>
+bindata = b64data.unpack(<span class="synSpecial">&#34;</span><span class="synConstant">m</span><span class="synSpecial">&#34;</span>)[<span class="synConstant">0</span>]
+sid = bindata.unpack(<span class="synSpecial">&#34;</span><span class="synConstant">CC@8V*</span><span class="synSpecial">&#34;</span>).unshift(<span class="synSpecial">&#34;</span><span class="synConstant">S</span><span class="synSpecial">&#34;</span>).join(<span class="synSpecial">&#34;</span><span class="synConstant">-</span><span class="synSpecial">&#34;</span>)
+<span class="synComment"># C : Unsigned Byte</span>
+<span class="synComment"># @8 : ８バイト目までスキップ</span>
+<span class="synComment"># V : Long (Little-endian)</span>
+</pre>
+
+			<h4> PrimaryGroupID から objectSID は得られるか</h4>
+			<p>SID の共通項として如何得られているものとする。</p>
+			<p>rid = S-1-5-21-2979766158-1419894470-2188322621</p>
+			<p>これに primaryGourpID を追加したものが SID になるものとし、SID のバイナリを求める。</p>
+<pre class="syntax-highlight">
+sid = rid + <span class="synSpecial">&#34;</span><span class="synConstant">-</span><span class="synSpecial">#{primaryGroupID}&#34;</span>
+sid_arr = sid.split(<span class="synSpecial">&#34;</span><span class="synConstant">-</span><span class="synSpecial">&#34;</span>).map{|<span class="synIdentifier">a</span>| a.to_i}
+sid_arr.shift
+bindata = sid_arr.pack(<span class="synSpecial">&#34;</span><span class="synConstant">CC@8V*)</span>
+<span class="synConstant">b64data = [bindata].pack(</span><span class="synSpecial">&#34;</span>m<span class="synSpecial">&#34;</span><span class="synConstant">).chomp</span>
+</pre>
+
+			<p>以上。</p>
+			<p>明日テストします。</p>
+		</div>
+

@@ -1,0 +1,28 @@
+---
+title: Frustum, Transform, Rotate, Scale
+date: 2010-04-02
+tags: OpenGL
+layout: post
+---
+
+		<div class="section">
+			<p>OpenGL ES 2.0 では、1.1 で提供されていた glFrustrum や glScale などの関数がなくなっていて困った。</p>
+			<p>OpenGL ES 2.0 からは GLSL を使ってプログラミングを行うので複数の Matrix を扱う事ができるから、なくなったのかな？？</p>
+			<p>なければ自分で作れば良い。GLSL では</p>
+<pre class="syntax-highlight">
+attribute vec4 position;
+uniform mat4 mvpMatrix;
+
+<span class="synType">void</span> main()
+{
+	gl_Position =  mvpMatrix * position;
+}
+</pre>
+
+			<p>みたいにすれば簡単に行列の演算をやってくれるので、適当な Matrix を作って渡してやればいい。</p>
+			<p>行列の演算なんかは GLSL 側でやった方が簡単。でも、GLSL 側では attribute 変数や uniform 変数の数が決まっているので、簡単な演算は C の方でやる。</p>
+			<p>よし作るぞ！と思ったけど、あるものは使おう。</p>
+			<p><a href="http://www.opengles-book.com/" target="_blank">OpenGL&#174; ES 2.0 Programming Guide - Book Website</a></p>
+			<p>これで esFrustrum や esScale が使えるようになるので、OpenGL ES 1.1 からの移行もできるかな。</p>
+		</div>
+

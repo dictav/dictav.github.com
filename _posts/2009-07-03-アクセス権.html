@@ -1,0 +1,52 @@
+---
+title: アクセス権
+date: 2009-07-03
+tags: Samba
+layout: post
+---
+
+		<div class="section">
+			<p>いいかげん Web アプリの開発に戻りたい．．．。</p>
+			<br>
+
+			<p>Samba4 の目玉の一つは NTVFS の実装であり、ファイルのセキュリティ情報は拡張属性に保存される(libattr)。</p>
+			<p>実際に保存される属性名は security.NTACL であり以下のようにすれば見る事ができる。</p>
+<pre class="syntax-highlight">
+getfattr <span class="synSpecial">-n</span> security.NTACL <span class="synSpecial">-d</span> filename
+</pre>
+
+			<p>が、ここで表示されるのはバイナリを何かしらでエンコード（base64 じゃないかなー）した形であり、内容までを知る事はできない。</p>
+			<p>Samba4 には getntacl というコマンドがあるので、こちらを使えばテキストで内容を見る事ができる。</p>
+			<p>この security.NTACL を編集したくて security.NTACL の構造体を見たりしたけど、こういうプログラミングはほとんどやった事ないし、時間が足りないので断念。よくよく考えたらそんなにいらないし。</p>
+			<p>Samba3 まではユーザのアクセス権は ACL でやっていたのだけど、その変どうなったのかなーって思って試してみた。</p>
+<pre class="syntax-highlight">
+$ chown root:wheel <span class="synStatement">test</span>.txt
+$ <span class="synStatement">chmod</span> <span class="synConstant">755</span> <span class="synStatement">test</span>.txt
+$ setfacl <span class="synSpecial">-m</span> u:dicdak:rwx <span class="synStatement">test</span>.txt
+</pre>
+
+			<p>WindowsXP で dicdak でログオンし、test.txt のプロパティを開く。セキュリティを見ると dicdak の名前はない。Samba3 までは名前が出ていたような気がするのだが、来週確かめてみよう。</p>
+			<p>試しに編集してみたら．．．できる。Windows さんが許可してないのに編集できてしまっていいのだろうか？？</p>
+			<p>Windows 側からセキュリティ情報を追加すると security.NTACL に書き込まれる事は確認できた。Linux 側で chown すると Windows 側でもファイルの所有者が変わるから、security.NTACL には所有者の情報は含まれていないのだろう（未確認。調べられたらいいなあ）。</p>
+			<p>ところでこの拡張属性、Linux 同士で共有できるのだろうか？あまり詳しくないのだけど、NFS って拡張属性扱えるのか？？</p>
+			<p>Samba4 付属の mount.cifs でマウントしてはみたのだけど、拡張属性扱えていないみたいだった。</p>
+<pre class="syntax-highlight">
+$ mount.cifs //localhost/home /home <span class="synSpecial">-o</span> <span class="synIdentifier">user</span>=<span class="synIdentifier">administrator,pass</span>=secret
+$ getfattr /home/<span class="synStatement">test</span>.txt<span class="synComment"> # 何も表示されない</span>
+$ setfattr <span class="synSpecial">-n</span> <span class="synStatement">&#34;</span><span class="synConstant">user.description</span><span class="synStatement">&#34;</span> <span class="synSpecial">-v</span> <span class="synStatement">&#34;</span><span class="synConstant">test</span><span class="synStatement">&#34;</span> /home/<span class="synStatement">test</span>.txt
+Permission Error<span class="synComment"> # みたいなエラー</span>
+</pre>
+
+			<p>やり方が悪いのかも知れないので、明日にでも samba のメーリングリストに聞く予定。今日はもう眠い。英語難しいなあ。</p>
+			<br>
+
+			<h4> Samba4 に我思う</h4>
+			<p>始めから Samba4 を認証ベースにしたような Linux Distribution を作りたいなあ。Windows Server 自体は 10 万円くらいだから、WSUS とかはそっちでやってもらって、お金のかかる Active Directory だけは Samba4 でやると。そしたら MS さんも辛くなって、CAL 無制限がたったの 50 万円とかで出てくれば、いろんな人が幸せになれそうですなあ。</p>
+			<h4> でも Samba との別れも近い</h4>
+			<p>今やっている事が終わったら Samba からは離れる事になる。せっかく詳しくなって来たのになあ。ミラクル・リナックスさん雇ってくれないかなあ。</p>
+			<h4> 皮肉よね</h4>
+			<p>Samba という Windows に関連深い情報を扱っているのに、ここの日記って IE では正しく表示されないんだよねw</p>
+			<p>ぼくは Mac ユーザだし、Firefox からは見れているようだから気にしていなかったけど、なんか皮肉なものですね。</p>
+			<p>時間があったら直します。</p>
+		</div>
+

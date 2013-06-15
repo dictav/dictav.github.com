@@ -1,0 +1,28 @@
+---
+layout: post
+title: Niigata.epubやりたい
+date: 2012-07-24 03:00:18 GMT
+tags: 
+---
+[Niigata.pm](http://niigata.pm.org/) のおかげで、Niigata.rb や Niigata.scm など Niigata.* が活気づいている。
+
+<blockquote class="twitter-tweet"><p>まさかのNiigata.texとかNiigata.epubとか誰得な勉強会やったら、プログラマーよりも出版業界の人が来そうで面白そうだな</p>&mdash; ぷにぷになかざん (@Nkzn) <a href="https://twitter.com/Nkzn/status/227572029350629376" data-datetime="2012-07-24T01:12:54+00:00">July 24, 2012</a></blockquote>
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+これは面白い！
+ということで、10月をくらいに Niigata.epub と題して電子出版に関する勉強会を開こうと思います。
+
+内容は
+
+- 電子出版について
+- EPUB について (HTML も絡めて）
+- 達人出版会について
+- ツールの紹介
+	- inDesign
+	- iBooks Author
+
+みたいな感じでやれたら面白いのかと思っています。
+出版業界の人が参加してくれるような勉強会にしたいなあ。
+
+意見・助言をいただけるようでしたら、コメントか <a href="http://twitter.com/dictav">@dictav</a> まで！
+

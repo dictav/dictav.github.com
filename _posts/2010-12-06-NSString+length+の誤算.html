@@ -1,0 +1,28 @@
+---
+title: \[NSString length\] の誤算
+date: 2010-12-06
+layout: post
+---
+
+		<div class="section">
+			<p>NSString の length メソッドは文字をカウントしてくるのだけど、マルチバイトに完全に対応していない。</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">-</span>(NSUInteger)length{
+	NSUInteger length=<span class="synConstant">0</span>;
+	NSUInteger n = <span class="synConstant">0</span>;
+	<span class="synType">const</span> <span class="synType">char</span> *cPointer = [<span class="synStatement">self</span> UTF8String];
+	<span class="synStatement">while</span> (cPointer[n] != <span class="synConstant">NULL</span>) {
+		<span class="synStatement">if</span> ((cPointer[n] &#62;&#62; <span class="synConstant">7</span> == <span class="synConstant">0</span>) || cPointer[n] &#62;&#62; <span class="synConstant">6</span> == -<span class="synConstant">1</span>) {
+			length++;
+		}
+		n++;
+	}
+	<span class="synStatement">return</span> length;
+}
+</pre>
+
+			<p>みたいにしてやってる。5行目で出る警告を消したい．．．。</p>
+			<p><ins datetime="2010-12-06T17:21:31+09:00">もっと良い方法を教わった。<a href="http://pastie.org/1351066" target="_blank">http://pastie.org/1351066</a></p>
+			<p>ありがとう @nakamura001 さん！ </ins></p>
+		</div>
+

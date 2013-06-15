@@ -1,0 +1,50 @@
+---
+layout: post
+title: NDS Git
+date: 2012-07-31 08:01:59 GMT
+tags: 
+---
+[NDS Git](http://nagaoka.techtalk.jp/no27) の講師を努めさせていただきました。
+
+30人弱の人の前で講義的なものをするのは初めてだったのでいろいろ不便をおかけしました m(_ _)m
+
+資料は[こちら](https://gist.github.com/3053595)
+
+
+今回はGit を使ったことがある人が多かったため、いくらか退屈な講義になってしまったかもしれませんが、初めての人はどうだったでしょうか？
+
+Git を使ったことがあっても、コンフリクトの解消をほとんどやったことがない人もいたのではないでしょうか？そういう意味ではなかなか意味のある体験をしてもらえたのではないかと思います。
+
+また、猫型さんに協力してもらって rebase の説明ができたのは大きかったです。
+Git は本当に自由で、ブランチを簡単に作れます。しかし、ローカルリポジトリで作業が完結してしまうような人は、なかなかブランチを作る利点や、rebase の利点に気づくのは難しいのではないかと思います。
+今回の猫型さんの説明でそれが解消されたのではないかと思っています。
+
+今回の講義を通して感じたことや、意見・是正事項などなど、コメントや [@dictav](http://twitter.com/dictav) までツッコミもらえると嬉しいです。ギー潟で採れた枝豆送ります！まだ採れていませんがｗ
+
+### 関連 blog
+適当に見つけた順
+
+- [長岡開発者勉強会 NDS 27 に傘下して来ました #nds27](http://nekogata.hatenablog.com/entry/2012/07/30/124449)
+- [四角革命前夜](http://d.hatena.ne.jp/sasaplus1/20120729/1343494425)
+- [NDS27に参加してきた](http://shogo82148.github.com/blog/2012/07/29/nds27/)
+- [NDS27 GitハンズオンとLT](http://mint.hateblo.jp/entry/2012/07/29/123633)
+
+※NDSの中に勉強会後のblogまとめページあると便利ですね。
+
+## 次のステップへ
+Git は既に十分便利かも知れませんが、ぜひ次のステップへ進んでみてください。
+個人で利用している人は git-flow を学んでみてください。
+git-flow は Git の正しい使い方の一つの解答です。ここからさらにステップアップして、自分なりの flow を作っていくと良いと思います。
+さらに、git-now や git-master は作業の手助けをしてくれるでしょう。
+
+## 参考
+[Pro Git](http://git-scm.com/book/ja)
+
+[A successful Git branching model](http://keijinsonyaban.blogspot.jp/2010/10/successful-git-branching-model.html)
+
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=dictav-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=427406767X" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=dictav-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4274068641" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=dictav-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4798023809" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
