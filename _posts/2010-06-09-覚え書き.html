@@ -1,0 +1,33 @@
+---
+title: 覚え書き
+date: 2010-06-09
+tags: Cocoa
+layout: post
+---
+
+		<div class="section">
+
+<pre class="syntax-highlight">
+{
+    NSString *filename;
+    NSImage *image;
+    NSData *data;
+    BOOL interlaced;
+    NSBitmapImageRep *bitmapImageRep;
+    NSDictionary *properties;
+
+    <span class="synComment">// image,filename, interlacedにデータをセットする</span>
+
+    data = [image TIFFRepresentation];
+    bitmapImageRep = [NSBitmapImageRep imageRepWithData:data];
+    properties = [NSDictionary
+        dictionaryWithObject:[NSNumber numberWithBool:interlaced]
+                      forKey:NSImageInterlaced];
+    data = [bitmapImageRep representationUsingType:NSPNGFileType
+                                        properties:properties];
+    [data writeToFile:filename atomically:YES];
+}
+</pre>
+
+		</div>
+

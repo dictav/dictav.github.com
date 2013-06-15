@@ -1,0 +1,71 @@
+COMMENT:
+EMAIL:
+IP:
+URL: 
+date: 2009-02-14
+あぁ、typoしてました。<br>trunkでは直しておきました。<br><br># そろそろ1.0.2がでる…はず。
+layout: post
+---
+---
+title: acts_as_ferret に手を出す
+date: 2009-02-18
+tags: Rails
+layout: post
+---
+
+		<div class="section">
+			<p>もともと Ferret は自前でやっていたのだけど、ActiveRecord との連携がうまくやれなく acts_as_ferret に乗り換えた。なんで最初から acts_as_ferret にしなかったかと言うと、データの対象が SQLite などのデータベースではなくて実ファイルだから。その辺に転がっている word やら excel やらを Rails と Ferret で上手いことやりたかった訳です。</p>
+			<p>さて、実際に乗り換えた訳だけど、今の状態を紹介しよう。</p>
+<pre class="syntax-highlight">
+<span class="synComment"># db/migrate/001_create_documents.rb より抜粋</span>
+create_table <span class="synIdentifier">:documents</span> <span class="synStatement">do</span> |<span class="synIdentifier">t</span>|
+  t.column <span class="synIdentifier">:mime_type</span>, <span class="synIdentifier">:string</span>
+  t.timestamps
+<span class="synStatement">end</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synComment">#model より抜粋</span>
+<span class="synPreProc">class </span><span class="synType">Document</span> &#60; <span class="synIdentifier">ActiveRecord</span>::<span class="synIdentifier">Base</span>
+  <span class="synStatement">attr_accessor</span> <span class="synIdentifier">:name</span>
+  acts_as_ferret <span class="synIdentifier">:field</span> =&#62; {<span class="synIdentifier">:title</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>},
+                             <span class="synIdentifier">:body</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>},
+                             <span class="synIdentifier">:labels</span> =&#62; {<span class="synIdentifier">:store</span> =&#62; <span class="synConstant">true</span>} }
+  has_and_belongs_to <span class="synIdentifier">:labels</span>
+
+  <span class="synPreProc">def </span><span class="synIdentifier">file=</span>(io)
+    <span class="synIdentifier">@file</span> = io
+    <span class="synConstant">self</span>.mime_type = <span class="synIdentifier">@file</span>.content_type
+  <span class="synPreProc">end</span>
+
+  <span class="synPreProc">def </span><span class="synIdentifier">title_to_ferret</span>
+    <span class="synIdentifier">@name</span>
+  <span class="synPreProc">end</span>
+
+  <span class="synPreProc">def </span><span class="synIdentifier">body_to_ferret</span>
+    <span class="synIdentifier">@file</span>.read_with_text_extractor
+  <span class="synPreProc">end</span>
+
+  <span class="synPreProc">def </span><span class="synIdentifier">labels_to_ferret</span>
+    labels.map(&#38;<span class="synIdentifier">:name</span>).join(<span class="synSpecial">&#34;</span><span class="synConstant"> </span><span class="synSpecial">&#34;</span>)
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+			<p>ポイントは Ferret のインデックス作成のためには必ずしもデータベースのカラムは必要ないってこと。適切にメソッドを定義してやれば上手いことやってくれる。あとは</p>
+<pre class="syntax-highlight">
+doc = <span class="synIdentifier">Document</span>.find_with_ferret(query, <span class="synIdentifier">:lazy</span> =&#62; [<span class="synIdentifier">:body</span>])
+doc.body <span class="synComment">#=&#62; Ferret のインデックスにある body を表示</span>
+doc.highlight(query, <span class="synIdentifier">:field</span> =&#62; <span class="synIdentifier">:body</span>, <span class="synIdentifier">:pre_tag=</span>&#62;<span class="synSpecial">&#34;</span><span class="synConstant">&#60;strong&#62;</span><span class="synSpecial">&#34;</span>, <span class="synIdentifier">:post_tag=</span>&#62;<span class="synSpecial">&#34;</span><span class="synConstant">&#60;/strong&#62;</span><span class="synSpecial">&#34;</span>)
+</pre>
+
+			<p>みたいにして使えば良い。ただ、:lazy 属性をつけて find_with_ferret すると、得られるインスタンスは Document の wrapper だか何だかなんだけど、一度 Document のメソッドを使うと wrapper のメソッドが使えなくなる。</p>
+<pre class="syntax-highlight">
+doc.body <span class="synComment">#=&#62; &#34;hoge&#34;</span>
+doc.name <span class="synComment">#=&#62; &#34;me me she&#34;</span>
+doc.body <span class="synComment">#=&#62; ERROR</span>
+</pre>
+
+			<p>この挙動は良くわからない。</p>
+		</div>
+

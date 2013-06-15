@@ -1,0 +1,50 @@
+---
+layout: post
+title: JELLY Fab まとめ
+date: 2012-06-12 03:25:00 GMT
+tags: 
+---
+先日、[JELLY Fab][] を開催しました。
+参加費の徴収を忘れるというオオポカをやらかした訳ですが、みなさん楽しんでもらえたでしょうか？
+
+当日は主催者がやむを得ない事情で欠席する、ぼくが寝坊して遅刻する、また、あいにくの雨で、ぼくのお題である畑作りがほとんどできないなど、運営側の反省点は多く．．．。
+楽しんでもらえたなら幸いです。
+
+
+vol.1 の参加してくれた人たちです☆（五十音順）
+<style>
+img{
+  width:2em;
+  height:2em;
+  vertical-align: middle;
+}
+</style>
+
+- <img src="http://graph.facebook.com/dictav/picture" /> 			[阿部（ぼく）](http://www.facebook.com/dictav)  畑 
+- <img src="http://graph.facebook.com/masato.kawabe.7/picture" />	[川辺さん](http://www.facebook.com/masato.kawabe.7)  Webサイト
+- <img src="http://graph.facebook.com/kazuhito.goto/picture" />		[後藤さん](http://www.facebook.com/kazuhito.goto)  
+- <img src="http://graph.facebook.com/sakataiki/picture" />    		[坂本さん](http://www.facebook.com/sakataiki)  Railsプログラム
+- <img src="http://graph.facebook.com/sugita.haruhi/picture" />		[杉田さん](http://www.facebook.com/sugita.haruhi)  Ruby で数当てゲーム
+- <img src="http://graph.facebook.com/garlic.tea/picture" />			[杉山さん](http://www.facebook.com/garlic.tea)  電子回路プログラム
+- <img src="http://graph.facebook.com/mioaco/picture" />				[鈴木さん](http://www.facebook.com/mioaco)  人形の洋服（編物）
+- <img src="" />														鈴木ちゃん  ポケットティッシュ入れ（お裁縫）
+- <img src="http://graph.facebook.com/asuka.seino.9/picture" />		[清野さん](http://www.facebook.com/asuka.seino.9)  スープ
+- <img src="http://graph.facebook.com/saisa6153/picture" />			[丹内さん](http://www.facebook.com/saisa6153)  Railsプログラム
+- <img src="http://graph.facebook.com/west2538/picture" />			[西村さん](http://www.facebook.com/west2538)  
+- <img src="http://graph.facebook.com/keniti.wakatuki/picture" />	[若月さん](http://www.facebook.com/keniti.wakatuki)  チヂミ、スウィーツ
+- <img src="http://api.twitter.com/1/users/profile_image/tana_bei" />[ワタナベさん](http://twitter.com/tana_bei)  彫刻
+
+みんな来てくれてありがとー
+
+今回の作業風景は Facebook のイベント [JELLY Fab][] や [Ust](http://www.ustream.tv/recorded/23184875) などで見る事ができます。
+
+## 今後
+JELLY Fab は月に１回を目標に定期的に開催する予定です。
+より多方面のクリエーター、デザイナー、エンジニアなどなど、いろんな人を集めて楽しめたら良いなと思います。
+
+## その他
+掲載内容に間違いなどありましたら [facebook/dictav](http://www.facebook.com/dictav) または [@dictav](http://twitter.com/dictav) までお願いします。
+また、感想や意見などありましたら合わせてお願いします。
+
+[JELLY Fab]: http://www.facebook.com/events/430285053662157/
+

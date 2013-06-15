@@ -1,0 +1,48 @@
+---
+title: Homebrew に移行してみた
+date: 2010-12-24
+layout: post
+---
+
+		<div class="section">
+			<p>MacPorts で入れた ruby 1.9.2 で SSL 認証がうまくいかない。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#!/usr/bin/env ruby</span>
+<span class="synComment"># coding:utf-8</span>
+
+<span class="synPreProc">require</span> <span class="synSpecial">'</span><span class="synConstant">net/https</span><span class="synSpecial">'</span>
+
+uri = <span class="synIdentifier">URI</span>.parse(<span class="synSpecial">'</span><span class="synConstant">https://www.google.com/</span><span class="synSpecial">'</span>)
+
+https = <span class="synIdentifier">Net</span>::<span class="synIdentifier">HTTP</span>.new(uri.host, uri.port)
+https.use_ssl = <span class="synConstant">true</span>
+https.ca_file = <span class="synSpecial">'</span><span class="synConstant">./SVRSecureG2.cer</span><span class="synSpecial">'</span> <span class="synComment"># SSL証明書のパスを書く</span>
+https.verify_mode = <span class="synIdentifier">OpenSSL</span>::<span class="synIdentifier">SSL</span>::<span class="synIdentifier">VERIFY_PEER</span>
+https.verify_depth = <span class="synConstant">5</span>
+
+https.start <span class="synStatement">do</span> |<span class="synIdentifier">https</span>|
+  request = <span class="synIdentifier">Net</span>::<span class="synIdentifier">HTTP</span>::<span class="synIdentifier">Get</span>.new(uri.request_uri)
+  https.request(request) <span class="synStatement">do</span> |<span class="synIdentifier">response</span>|
+      response.read_body <span class="synStatement">do</span> |<span class="synIdentifier">chunk</span>|
+	p chunk
+      <span class="synStatement">end</span>
+  <span class="synStatement">end</span>
+<span class="synStatement">end</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synSpecial">/</span><span class="synConstant">opt</span><span class="synSpecial">/</span>local/lib/ruby1.<span class="synConstant">9</span>/<span class="synConstant">1.9</span>.<span class="synConstant">1</span>/net/http.rb:<span class="synConstant">677</span><span class="synIdentifier">:in</span> <span class="synSpecial">`</span><span class="synConstant">connect': SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)</span>
+<span class="synConstant">	from /opt/local/lib/ruby1.9/1.9.1/net/http.rb:677:in </span><span class="synSpecial">`</span>connect<span class="synSpecial">'</span>
+<span class="synConstant">	from /opt/local/lib/ruby1.9/1.9.1/net/http.rb:637:in `do_start</span><span class="synSpecial">'</span>
+	from /opt/local/lib/ruby1.<span class="synConstant">9</span>/<span class="synConstant">1.9</span>.<span class="synConstant">1</span>/net/http.rb:<span class="synConstant">626</span><span class="synIdentifier">:in</span> <span class="synSpecial">`</span><span class="synConstant">start'</span>
+<span class="synConstant">	from testHTTPS.rb:14:in </span><span class="synSpecial">`</span>&#60;main&#62;<span class="synSpecial">'</span>
+
+</pre>
+
+			<p>こんな感じのが動かない。</p>
+			<p><a href="http://www.ruby-lang.org/" target="_blank">no title</a> からソースをダウンロードしたらうまくいくし、よくわからない。</p>
+			<p>MacPorts は好きなんだけど、サイズが大きすぎるなあと思っていたので Homebrew に移行を始めた。</p>
+			<p><a href="https://github.com/mxcl/homebrew/wiki/installation" target="_blank">Installation ? mxcl/homebrew Wiki ? GitHub</a></p>
+			<p>こっちの ruby 1.9.2 ではうまく動いた。</p>
+		</div>
+

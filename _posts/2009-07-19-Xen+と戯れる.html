@@ -1,0 +1,32 @@
+---
+title: Xen と戯れる
+date: 2009-07-19
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>現在２つのサーバが稼働しており、それぞれ 32bit CentOS, 64bit CentoOS で動いている。この２つを１台の Xen サーバ (64bit) に入れ込んでしまおうと言うのが今回の目論み。</p>
+			<p>幸い、64bit CentOS なサーバはいつでも落として良いので、サクッと落としてハードディスクとを抜き取り、dd でデータを抜き出して何の苦労もなく Xen 上で動かすことができた。</p>
+			<h4> 32bit CentOS</h4>
+			<p>とにかく分からない事が多すぎて、ほとんど手探りだ。</p>
+			<p>現在、Xen の上ではいくつかの OS (64bit CentOS) が動いている。この一つを止めて、ディスクイメージを複製し、その中に 32bit CentOS のイメージを取り込む。32bit CentOS は止めれないが、以下のようにしてデータを抽出した。</p>
+<pre class="syntax-highlight">
+dd <span class="synIdentifier">if</span>=/dev/VolGroup00/Log00 <span class="synIdentifier">bs</span>=<span class="synConstant">1024</span> <span class="synStatement">|</span> ssh remotehost dd <span class="synIdentifier">if</span>=/vmimages/os_image.img <span class="synIdentifier">bs</span>=<span class="synConstant">1024</span>
+</pre>
+
+			<p>中身を確認するため mount しようとしたら何やらエラーが出る。やっぱり稼働中のシステムから dd でデータ抽出は危険だな。このおかげでとても時間を食う（後述）。</p>
+			<p>とりあえず fsck で修復。</p>
+<pre class="syntax-highlight">
+fsck.ext3 <span class="synSpecial">-y</span> /vmimages/os_image.img
+</pre>
+
+			<p>何やら dtime なエラーが沢山出て、修復される。と同時に lost+found に大量のデータが．．．。対処方法が良くわからない。</p>
+			<p>仕方ないので、稼働中のサーバ上のファイルとコピー先とのファイルを find を使って比較すると 3,000 個くらいファイルが足りていない orz</p>
+			<p>なんやかんややってデータを揃えて、64bit CentOS 上の /lib/modules/2.6*el5.xen を取ってきたディスクイメージにコピーして起動してみた。結果は、各種 init.d スクリプトを実行した後で止まる。いろんなところが悪いのだろうけど、どこが悪いのだろう？？？</p>
+			<p>明日は 32bit CentOS の /lib/modules/*xen を用意して試してみよう。ダメならを virt-install を使って 32bit CeontOS をインストールして置き換えてみよう。動くと良いなあ。</p>
+			<h4> LVM</h4>
+			<p>ところで、/dev/sda1 と /dev/sdb1 にそれぞれ HostGroup00 と VolGroup00 というボリュームグループが設定されているとする。前者はあまり被らないと思うが、後者は CentOS 標準のボリュームグループ名であり被る事が予想される。特に Xen のような環境では、ゲストOS のパーティションをホストOS にマウントしようと思った場合、VolGroup00 なボリュームグループがあると不便だろう。</p>
+			<p>どういう方法が良いのかわからないが、/dev/sdb1 の VolGroup00 がホスト OS のシステムとは関係なければ mv /dev/sdb1 ~/ などして、/dev ディレクトリから退避させてやれば良い。これで vgscan や lvscan の対象から外れるので、他のディスクイメージを kpartx -a してマッピングしても、VolGroup00 が被ってマウントできないという問題は回避できる。</p>
+		</div>
+

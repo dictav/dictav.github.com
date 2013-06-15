@@ -1,0 +1,101 @@
+---
+layout: post
+title: iPad mini がやってきた（１）
+date: 2013-02-15 03:13:34 GMT
+tags: 
+---
+<style>
+h1,h2,h3,h4 {
+clear:both;
+}
+iframe {
+float:right;
+margin-left: 10px;
+}
+</style>
+
+iPad mini ファーストインプレッション
+
+## 軽い！薄い！
+Nexsus7 や Kindle Fire などが 7 インチなので勘違いされやすいですが、iPad mini は 7.9 インチ、約 8 インチの端末。
+つまり一番大きな画面サイズを持っているだけど３つの中では一番薄く軽い。
+
+## 画面は十分奇麗
+上記に上げた３つの中では iPad mini の解像度は１番低い。他が 216ppi なのに大して 163ppi その点を気にしている人は多い。
+ただ、Retina端末を所持していない非Retinaの人間であるぼくには十分奇麗な画質。
+おそらく今夏に出る iPad mini は Retina に対応しているでしょうが、Macbookを見る時にストレスになっても嫌なのでこれくらいでいいのです（訳：Retina Macbook 買ったら買い替えます）。
+
+> Retina ディスプレイとは Apple が提唱する高解像度ディスプレイ。人間の網膜(Retina)が個々のピクセルを認識できる臨界点300ppiの水準を満たしている。
+> タブレットは大きくなる分少し遠くから見るので水準下げてる（iPadは264ppi）。
+
+## やはり楽しいSiri
+インストールしてあるアプリは iPad と変わりなく、iPhoneともそれほど変わらないので、iOS端末を既に所持している人には別段楽しい事もないです。
+iPhoneに比べると格段に使いやすくなっているアプリがカレンダーと地図。機能も若干違うのだけど、画面が大きいとやっぱりいい。
+
+そしてSiriはやっぱり楽しい。
+ぼくの初のSiri端末になったのだけど、いろいろ話しかけて遊んでいる。
+「歌って」というと歌ってくれるし、「家までのルート」と言えば帰り道を教えてくれる。
+標準の地図が立ち上がってナビゲーションしてくれるのはなかなか利口だ。
+
+アプリの立ち上げもやってくれて、画面ロックされている状態で「050プラス」なんて言えばアプリが立ち上がってくれて、050plusの電話をとるのが少しだけ楽になる（これで050plusが自動で繋いでくれたらタッチが不要でいいのだけど）。
+
+とにかくSiriはなかなか可愛いです。
+
+## インストールしたアプリ
+標準アプリのSafariやカレンダーなど確かに使い勝手はすごく良いのだけど、それ以外の事をしようと思ったらアプリのインストールは必須。
+最初にインストールしたアプリを簡単に紹介。
+
+### twitter/facebook/tumblr/google+
+SNS関連はとりあえずインストール
+
+### Evernote/Web Clipper HD/Penultimate/PaperDesk LT
+<iframe src="http://widgets.itunes.apple.com/widget.html?c=jp&brc=FFFFFF&blc=FFFFFF&trc=FFFFFF&tlc=FFFFFF&d=%E3%83%A1%E3%83%A2%E3%82%92%E3%81%A8%E3%82%8B%E3%81%AE%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%A2%E3%83%97%E3%83%AA&t=%E3%83%A1%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA&m=software&e=software&w=250&h=370&ids=281796108,527035125,354098826,367563434&wt=playlist&partnerId=30&affiliate_id=http%3A%2F%2Fclick.linksynergy.com%2Ffs-bin%2Fstat%3Fid%3DyWGnmOjlJD8%26offerid%3D94348%26type%3D3%26subid%3D0%26tmpid%3D2192%26RD_PARM1%3D" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:250px;height: 370px;border:0px"></iframe>
+
+Evernote のプロアカウントを持っているのでこれを活用できるアプリは必須だ。純正 Evernote と Web Clipper HDをとりあえず。
+
+Web Clipper HD は Safari の拡張やブックマークレットにある Web Clipper をアプリにしたもの。純正のブックマークレットが少し使いにくいので入れた。特性のブックマークレットをSafariにインストールして利用する。範囲を指定できないのが難点だけど、さくさくクリップできるのはいい。処理がアプリ側で行われるのですぐにタブを閉じてもSafariを閉じても大丈夫なのも良い感じ。
+
+手書きメモアプリも欲しいのでPenultimateとPaperDesk LTをインストール。
+Penultimateはアカウントの設定さえすれば面倒な事は一切抜きにして書いたメモをガンガンEvernoteにアップしてくれる。日本語には対応していないが、Evernoteと連携して手書き文字を認識してくれる機能がある。キーボード入力ができないのが難点。
+そこでPaperDesk。キーボード入力ができる。ただし Evernote との連携ができない。どちらかにしぼる予定。
+
+### eWeather
+<iframe src="http://widgets.itunes.apple.com/widget.html?c=jp&amp;brc=FFFFFF&amp;blc=FFFFFF&amp;trc=FFFFFF&amp;tlc=FFFFFF&amp;d=&amp;t=&amp;m=software&amp;e=software&amp;w=250&amp;h=300&amp;ids=376752920&amp;wt=discovery&amp;partnerId=&amp;affiliate_id=" frameborder="0" style="overflow-x:hidden;overflow-y:hidden;width:250px;height: 300px;border:0px"></iframe>
+
+iPadになくて困ったアプリは天気予報。iOSでは標準で天気予報アプリがあってNotification Center からアクセスできたので便利だったのだけど。
+
+いくつかみて良さそうだったのがこのアプリ。でも起動が遅いから他のに切り替えようか考え中。
+
+### iBooks/kindle/Adobe Reader
+<iframe src="http://widgets.itunes.apple.com/widget.html?c=jp&brc=FFFFFF&blc=FFFFFF&trc=FFFFFF&tlc=FFFFFF&d=%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D%E3%82%92%E8%AA%AD%E3%82%80%E3%81%9F%E3%82%81%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA&t=%E9%9B%BB%E5%AD%90%E6%9B%B8%E7%B1%8D&m=software&e=software&w=250&h=310&ids=364709193,302584613,469337564&wt=playlist&partnerId=30&affiliate_id=http%3A%2F%2Fclick.linksynergy.com%2Ffs-bin%2Fstat%3Fid%3DyWGnmOjlJD8%26offerid%3D94348%26type%3D3%26subid%3D0%26tmpid%3D2192%26RD_PARM1%3D" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:250px;height: 310px;border:0px"></iframe>
+
+電子書籍も充実させよう。iBooksはMacとの同期が簡単できるので、Macに書籍をボンボン入れておけば便利に使える。
+Kindleはアプリ内で書籍を買えたりはしないのだけど、Kindleで買った本を読むのには便利だ。Adobe Reader はページを繋げてスクロール（Continuous Scrolling)してくれるから入れた。
+
+自炊した本はやっぱり読みにくい印象。やはり、電子書籍化して欲しい感じは強い。
+
+
+### 050plus/Skype
+<iframe src="http://widgets.itunes.apple.com/widget.html?c=jp&brc=FFFFFF&blc=FFFFFF&trc=FFFFFF&tlc=FFFFFF&d=%E9%9B%BB%E8%A9%B1%E3%81%A8%E9%80%9A%E8%A9%B1%E3%81%99%E3%82%8B%E3%82%A2%E3%83%97%E3%83%AA&t=%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA&m=software&e=software&w=250&h=300&ids=432067123,304878510&wt=playlist&partnerId=30&affiliate_id=http%3A%2F%2Fclick.linksynergy.com%2Ffs-bin%2Fstat%3Fid%3DyWGnmOjlJD8%26offerid%3D94348%26type%3D3%26subid%3D0%26tmpid%3D2192%26RD_PARM1%3D" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:250px;height: 300px;border:0px"></iframe>
+
+iPad mini 単独運用では通話が問題になる。当然、電話アプリは付いていない。そこで利用したいのが 050plus と Skype。
+
+050plus は月額315円で利用できる。電話番号がもらえて格安で通話ができる。以前はSkypeで電話番号を購入して利用していたのだけど、電話番号が相手に通知されないのが嫌だった。よく分からない番号になったりして相手に不信感を与えてしまうのは問題だ。お店などにかけるときは今でもSkypeを利用している。
+
+電話番号をキャリアから離すとより縛られなくなって良い感じ。
+
+### Yahoo!乗換案内/乗換NAVITIME
+<iframe src="http://widgets.itunes.apple.com/widget.html?c=jp&brc=FFFFFF&blc=FFFFFF&trc=FFFFFF&tlc=FFFFFF&d=%E4%B9%97%E6%8F%9B%E6%A1%88%E5%86%85&t=%E4%B9%97%E6%8F%9B%E6%A1%88%E5%86%85&m=software&e=software&w=250&h=300&ids=291676451,528532387&wt=playlist&partnerId=30&affiliate_id=http%3A%2F%2Fclick.linksynergy.com%2Ffs-bin%2Fstat%3Fid%3DyWGnmOjlJD8%26offerid%3D94348%26type%3D3%26subid%3D0%26tmpid%3D2192%26RD_PARM1%3D" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:250px;height: 300px;border:0px"></iframe>
+
+地図アプリの大きな弱点は乗換案内がないことだと思う。しかしながら、これは他のアプリで補完できる。地図アプリで場所を検索して、乗換案内だけ他のアプリに委任できる。
+
+Yahoo!乗換案内は iPhone の頃から使っていて、バスの乗換まで対応しているし、現在地を取得して検索して来るのですごく便利。ただ iPad では iPhoneアプリとして動くので使い勝手があまり良くない。
+
+NavitimeはiPadにちゃんと対応していて好印象。ただ、現在地からのルート検索はできなくて、あくまでも電車やバスの乗換用なので、目的地の住所などから検索ができない。地図アプリと連携すればできるけどちょっと面倒。Navitimeは他にもアプリを何本か出しているから試してみようかな。
+
+## まとめ
+
+iPad に必要なアプリをインストールして単独運用を開始。
+iPhone ではどうしてもできない作業や、できてもストレスになっていた作業が快適にこなせていてすごく良い。
+MacBook ではコーディングを行い、他の作業は iPad mini でこなせるようになるのが理想。
+

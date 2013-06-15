@@ -1,0 +1,64 @@
+---
+layout: post
+title: 長岡 TDDBC 1.0
+date: 2013-05-20 07:31:00 GMT
+tags: 
+---
+# 長岡TDDBC 1.0 
+5.18 Sat. '13 、新潟県長岡市で [TDDBC][] が[NDS][]協力の元に行われました。
+
+## 準備
+ぼくが事前準備で作っておいた環境をさらしておきます。
+
+* [ruby+rspec](https://github.com/dictav/tddbc-ruby-rspec)
+* [coffeescript+jasmine](https://github.com/dictav/tddbc-coffeescript-jasmine)
+* [objective-c](https://github.com/dictav/tddbc-objectivec-kiwi)
+
+ま、１つも使われていませんでしたけどねw
+
+## 講演
+[@t_wada](http://twitter.com/t_wada)さんの講演が分かり易くてすごく心地よかったです。
+黄金の回転はやはり大事だなあと感じました。
+
+<iframe src="http://astore.amazon.co.jp/dictav-22" width="90%" height="1000" frameborder="0" scrolling="no"></iframe>
+
+## 演習
+課題は[Javaの奇妙なバージョン](http://devtesting.jp/tddbc/?TDDBC長岡1.0%2F演習) でした。
+
+ペアは[@mihyaeru21](http://twitter.com/mihyaeru21)くんでした。
+
+そして
+
+エディタ．．．
+<pre>
+＿人人人人人人人人＿
+＞　ペアがVimmer　＜
+￣Y^Y^Y^Y^Y^Y^Y￣
+</pre>
+
+
+キーボード．．．
+<pre>
+＿人人人人人人人人人人人人人人＿
+＞　日本語キーボードでUS配列　＜
+￣Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y￣
+</pre>
+
+言語．．．
+<pre>
+＿人人人人人人人人人人＿
+＞　Kiwiの括弧きもい　＜
+￣Y^Y^Y^Y^Y^Y^Y^Y^Y￣
+</pre>
+
+こんな日本でもレアカードな人と新潟という狭い土地でペアを組める事は２度とないでしょう。
+たぶん、一番変なペアだったと思うw
+
+ソースコードが気になる人は 
+[@mihyaeru21](http://twitter.com/mihyaeru21)くんにお問い合わせください。
+
+
+[TDDBC]: http://devtesting.jp/tddbc/
+[NDS]: http://nagaoka.techtalk.jp
+
+

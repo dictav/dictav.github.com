@@ -1,0 +1,77 @@
+---
+title: OAuth を使って Twitter にアクセスする
+date: 2010-05-04
+tags: Twitter OAuth
+layout: post
+---
+
+		<div class="section">
+			<h4> Basic 認証良くない</h4>
+
+			<ul>
+				<li> パスワードを垂れ流す</li>
+				<li> アプリケーションがユーザのパスワードを取得する
+
+				<ul>
+					<li> 保持するのはめんどう</li>
+					<li> ユーザが毎回入力するのはめんどう</li>
+					<li> アプリケーション側が悪用しないとは限らない</li>
+					<li> 権限を全て渡すことになる</li>
+				</ul>
+				</li>
+			</ul>
+			<p>OAuth を使う事でこれらを回避することができる。</p>
+			<p><a href="http://oauth.net/" target="_blank">OAuth Community Site</a></p>
+			<p><a href="http://gihyo.jp/dev/feature/01/oauth/0001" target="_blank">第1回　OAuthとは？―OAuthの概念とOAuthでできること：ゼロから学ぶOAuth｜gihyo.jp … 技術評論社</a></p>
+			<h4> 下準備</h4>
+
+			<ol>
+				<li><a href="http://twitter.com/" target="_blank">Twitter</a>にログインする</li>
+				<li>「設定」&#62;「外部アプリ」&#62;「開発者の方へ」からアプリケーションを登録する (<a href="http://twitter.com/apps" target="_blank">http://twitter.com/apps</a>) 
+
+				<ol>
+					<li> クライアントか Web かでその後の挙動が変わる</li>
+				</ol>
+				</li>
+				<li> Consumer key, Consumer secret をアプリケーションで保持する</li>
+			</ol>
+			<p>アプリケーションは Consumer key と Consumer secret で Twitter と結びつけられる。ここまではどの言語を使っても同じ。</p>
+			<p><a href="http://f.hatena.ne.jp/dicdak/20100504181352" class="hatena-fotolife" target="_blank"><img src="http://cdn-ak.f.st-hatena.com/images/fotolife/d/dicdak/20100504/20100504181352.png" alt="f:id:dicdak:20100504181352p:image" title="f:id:dicdak:20100504181352p:image" class="hatena-fotolife"></a></p>
+			<h4> アプリケーションを Activate</h4>
+			<p>言語で違うから概要だけ。</p>
+
+			<ol>
+				<li> Consumer key, secret を元に Request token, secret を得る</li>
+				<li> 認証するための authorize_url にアクセス
+
+				<ol>
+					<li> <a href="http://twitter.com/oauth/authorize?oauth_token=REQUEST_TOKEN" target="_blank">http://twitter.com/oauth/authorize?oauth_token=REQUEST_TOKEN</a></li>
+				</ol>
+				</li>
+				<li> 認可をクリック</li>
+				<li> 認証情報を得る
+
+				<ol>
+					<li> クライアント : 認証番号</li>
+					<li> Web : oauth_token パラメータ (callback)</li>
+				</ol>
+				</li>
+				<li> 認証情報を元に Access token, Access secret を得る
+
+				<ol>
+					<li> Web では Request secret も使う</li>
+				</ol>
+				</li>
+			</ol>
+			<p>ユーザの使うアプリケーションと Twitter が結びつけられる。</p>
+			<h4> API へアクセス</h4>
+
+			<ul>
+				<li> Consumer key, secret</li>
+				<li> Access token, secret</li>
+				<li> <a href="http://twitter.com/statuses/friends_timeline.json" target="_blank">http://twitter.com/statuses/friends_timeline.json</a></li>
+				<li> <a href="http://twitter.com/statuses/update.json" target="_blank">http://twitter.com/statuses/update.json</a></li>
+			</ul>
+			<p><a href="http://apiwiki.twitter.com/Authentication" target="_blank">Page not found | Twitter Developers</a></p>
+		</div>
+

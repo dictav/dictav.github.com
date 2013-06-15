@@ -1,0 +1,28 @@
+---
+title: NginX で Passenger を使う。
+date: 2009-10-26
+layout: post
+---
+
+		<div class="section">
+			<p>Passenger のインストールは gem で行う。</p>
+<pre>
+gem install passenger
+</pre>
+
+			<p>次に NginX をインストール。NginX のインストールは Passenger に付属の passenger-install-nginx-module で行える。このコマンドは NginX のソースをダウンロードし、passenger を有効にしてビルドしてくれる。</p>
+			<h4> passenger-install-nginx-module 使いたくないんだけど</h4>
+			<p>ports を使ったり、RPM パッケージを作りたい事もあると思う。passenger-install-nginx-module がやってくれるのは</p>
+<pre class="syntax-highlight">
+./configure --add-module=&#39;`passenger-config --root`/ext/nginx&#39;
+</pre>
+
+			<p>と</p>
+<pre class="syntax-highlight">
+<span class="synStatement">cd</span> PASSENGER_ROOT
+rake nginx
+</pre>
+
+			<p>のようだ。Portfile や spec ファイルを書き換えてやればパッケージシステムを利用してインストールすることができる。</p>
+		</div>
+

@@ -1,0 +1,23 @@
+---
+title: Samba4
+date: 2009-06-23
+tags: Linux Samba
+layout: post
+---
+
+		<div class="section">
+			<p>動かないバイナリは捨ててしまえということで、再び make install。ちなみに、Samba4 だけで 30 回は build している。マシンが速くて良かった。</p>
+			<p>結果として上手く動いているように見えたのだけど、なぜか ldaps ポートが開いていない．．．。</p>
+<pre class="syntax-highlight">
+netstat <span class="synSpecial">-tul</span>
+</pre>
+
+			<p>あ、OS X だと -t -u ない．．．。</p>
+			<p>でも動いているんだよなあ。Kerberos 動いているからいいの？Windows さんそんなことでいいんですか！</p>
+			<p>なんか気持ち悪いから、自前 RPM パッケージを生成してインストール。</p>
+			<p>yum のパッケージを比較したら、確かに足りてないかもなって気がした。</p>
+			<p>ところで、python のデータだけで400MBとかありえないです。でも provision するためには必要なんです。python 強いなあ。Perl の Yapp とか IDL とかは何者なん．．．。わかんね。</p>
+			<p>Windows 2003 Server Administration Tools Pack とか導入して、ユーザの追加やら、移動プロファイルの設定やら、グループポリシーの変更やらを試してみる。概ね良好。アカウントポリシーのパスワードポリシーの変更が反映されず、毎回面倒くらいパスワードを求められるけどorz</p>
+			<p>明日は ActiveLdap で LDAPS 認証だ。TLS? 良くわかんない。</p>
+		</div>
+

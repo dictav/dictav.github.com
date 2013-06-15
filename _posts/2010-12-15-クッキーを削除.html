@@ -1,0 +1,19 @@
+---
+title: クッキーを削除
+date: 2010-12-15
+tags: iOS UIWebView
+layout: post
+---
+
+		<div class="section">
+			<p>UIWebView を使っていると Cookie を削除したいことがあるのでそのやり方。</p>
+<pre class="syntax-highlight">
+	NSHTTPCookieStorage *cookieStrage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+	<span class="synStatement">for</span> (<span class="synType">id</span> obj <span class="synType">in</span> [cookieStrage cookies]) {
+		[cookieStrage deleteCookie:obj];
+	}
+
+</pre>
+
+		</div>
+

@@ -1,0 +1,20 @@
+---
+title: Samba4 + ActiveLdap
+date: 2009-06-24
+tags: Ruby Samba ActiveLdap
+layout: post
+---
+
+		<div class="section">
+			<p>Samba4 を使って Web アプリの認証をしようと思い、ActiveLdap を使う。以前は ActiveLdap の Samba3 対応版の ActiveSambaLdap を使っていたのので、スキーマのことはあまり気にする必要はなかった。</p>
+			<p>今回は Samba4 であり、スキーマを変更するのも難しいので素の ActiveLdap を使う。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">User</span> &#60; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>
+  ldap_mapping <span class="synIdentifier">:dn_attribute</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">cn</span><span class="synSpecial">'</span>, <span class="synIdentifier">:prefix</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">ou=Users</span><span class="synSpecial">'</span>, <span class="synIdentifier">:classes</span> =&#62; [<span class="synSpecial">'</span><span class="synConstant">user</span><span class="synSpecial">'</span>]
+<span class="synPreProc">end</span>
+
+u = <span class="synIdentifier">User</span>.find(<span class="synIdentifier">:filter</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">sAMAccount=hoge</span><span class="synSpecial">'</span>)
+</pre>
+
+		</div>
+

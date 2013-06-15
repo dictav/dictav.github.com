@@ -1,0 +1,19 @@
+---
+title: DoJoという世界
+date: 2009-03-31
+tags: JavaScript Dojo
+layout: post
+---
+
+		<div class="section">
+			<p>jQuery は触ったことないけど、DoJo はなかなか強力で面白い。</p>
+			<p>最初の取っ付きにくさはすごいが、ドキュメントはしっかりしているし、慣れると楽しい。</p>
+			<p>とりあえず、dojo.query('hogehoge').connect は素敵過ぎるので触ってみてください。</p>
+			<p>一つくらい役立つ情報を載せておこう。</p>
+			<p>DoJo では dojo.js を読み込む際に djConfig で onLoadParser を true にしたりする。</p>
+			<p>DoJoではいろんな情報をdojoTypeなどの属性値を用いて、HTMLに直接マークアップ形式で入力する。この情報を扱うために Parser を使うのだ。onLoadParser を true にしておけば、ページの読み込み時に自動的に情報を取り出してくれる。</p>
+			<p>では読み込み時以外に Parser を使いたい時にはどうすれば良いのか？例えば、Node を操作して新しい要素を作り、その要素に属性値を設定したような場合だ。もちろん、独自にスクリプトを組んで、例えば dlg = new dijit.Dialog ... みたいな事もできるが、なかなか綺麗に見せるのはむつかしい。</p>
+			<p>答えは簡単で、dojo.parser.parse(node) を読み出せば良い。</p>
+			<p>いやー、楽な方法があって良かった。</p>
+		</div>
+

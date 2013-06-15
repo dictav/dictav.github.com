@@ -1,0 +1,28 @@
+---
+title: dijit の登録削除
+date: 2009-07-26
+tags: Dojo JavaScript
+layout: post
+---
+
+		<div class="section">
+			<p>ページの部分更新ではまった。次のコードはエラーになる。</p>
+<pre class="syntax-highlight">
+chart1 = <span class="synStatement">new</span> dojox.charting.Chart2D(<span class="synConstant">&#34;chart&#34;</span>);
+  --skip--
+<span class="synStatement">new</span> dojox.charting.widget.Legend(<span class="synIdentifier">{</span>chart:chart1<span class="synIdentifier">}</span>, <span class="synConstant">&#34;chartlegend&#34;</span>) <span class="synComment">// [A]</span>
+  --skip--
+<span class="synStatement">new</span> dojox.charting.widget.Legend(<span class="synIdentifier">{</span>chart:chart1<span class="synIdentifier">}</span>, <span class="synConstant">&#34;chartlegend&#34;</span>) <span class="synComment">// [B]</span>
+</pre>
+
+			<p>これはグラフを作成の際に、グラフの用例を作成するもの。要点は、[A] で用いた id ( chartlegend ) を [B] でも利用しようとしていること。ページの部分更新の際に同じメソッドが呼び出されてエラーになった。</p>
+			<p>ちゃんと削除してやる必要がある。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">if</span>( cl = dijit.byId(<span class="synConstant">&#34;chartlegend&#34;</span>))
+  cl.destroy(<span class="synConstant">true</span>)
+<span class="synStatement">new</span> dojox.charting.widget.Legend(<span class="synIdentifier">{</span>chart:chart1<span class="synIdentifier">}</span>, <span class="synConstant">&#34;chartlegend&#34;</span>) <span class="synComment">// [B]</span>
+</pre>
+
+			<p>しかし、{}()[] の多いソースは読みにくいなあ。</p>
+		</div>
+

@@ -1,0 +1,68 @@
+---
+layout: post
+title: SICP読書会に参加しました
+date: 2012-11-25 00:39:00 GMT
+tags: 
+---
+SICP: Structure and Interpretation of Computer Programs. 通常魔術師本と呼ばれる本の読書会に行ってきました。主催は [@neko_gata_s][] さん。いつも楽しい勉強会をありがとうございます。
+
+# 流れ
+毎月１回、だれかが本の一部を要約して来てそれをみんなで聞いて「へー」とか「それは違う」とか行ったりします。だからみんながきちんと読んでこないと読書会としての価値が半減するのでちゃんと読んでいく必要があります。
+えー、あー、ぼく？読んだよ、さらっとね（汗
+今回は [@neko_gata_s][] さんが要約を担当してくれました。ありがとう。
+
+# Newton法
+int や long のようなプリミティブな変数では計算はハードウェアを使って行うのでCPUの制約を受けます。つまり、何千桁にもなるような値の計算をすることができない。
+これを精度は自分で決めるとして、メモリーの許す限り膨大な桁の値の計算をしようというのが任意精度演算（arbitrary-precision arithmetic）と言ったりします。Newton法はその手段として最も初歩的な技法の１つ。
+そんな大きな桁は天文学とか暗号鍵とかで使うもので、ぼくらのプログラミングではあまり使うことはないけど、ビッグデータが大流行りな昨今、どこかで使うことになるかもしれない。
+ところでこういうのは最近の言語では割と実装されていて、例えば Ruby なんかではサイズを気にせずに演算できるし、やっぱり使うことはないかもしれない。
+
+# おーだートしーた
+計算量を表す表現にオーダーというものがあり、`O(n)` のように表現します。ぼくはオーダーしか知らなかったのだけど、どうやらシータ `Θ(n)` という表現があるらしく話題に。きっと誰かが詳しくまとめてくれると思うので期待しようw。
+
+# trace と rlwrap
+ぼくは今回、Schemeの処理系として Gauche (ゴーシュ) を使うことにしました。他にも統合環境がある Scheme 処理系とか、GNU の処理系とかあるのですが、日本人が作っていてマルチバイト文字に強いということでこの言語にしました（欧米発の言語はみんなマルチバイト文字が弱い。だから Ruby 使おうw）。
+
+このごーしゅ、gosh と打つとシェルが起動して便利なのですがヒストリー機能がないのがとても不便です。そこで rlwrap を入れます
+
+    $ brew install rlwrap
+
+    # .bashrc
+    alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
+
+これで大分楽になります。
+
+次に trace。
+今回は勉強会なので Gauche が中でどんな風に式を展開しているのかとかを知りたいことが多々あります。そんな時にこの trace を使うと以下のように表示されてとても便利です。
+
+    gosh> (use slib)
+    gosh> (require 'trace)
+    gosh> (trace fib)
+    #<closure (debug:trace-procedure debug:trace-procedure)>
+    gosh> (fib 3)
+    CALL fib 3
+      CALL fib 2
+        CALL fib 1
+        RETN fib 1
+        CALL fib 0
+        RETN fib 0
+      RETN fib 1
+      CALL fib 1
+      RETN fib 1
+    RETN fib 2
+    2  
+
+
+Homebrew で Gauche をインストールしているなら、`/usr/loca/` 以下に [slib][http://people.csail.mit.edu/jaffer/SLIB.html] からzipファイルをダウンロードして展開するだけで使えます。
+
+# 次回
+ぼくが要約する人になったので一生懸命読もうと思いますです。
+
+# Reference
+* SICP - http://mitpress.mit.edu/sicp/
+* SICP 日本語 - http://sicp.ipl.t.u-tokyo.ac.jp
+* life.should be_happy # => 1 examples, ? failures - http://nekogata.hatenablog.com
+* ミントフレーバー緑茶 - http://mint.hateblo.jp
+* After Coding - http://saisa.hateblo.jp
+
+[@neko_gata_s]: http://twitter.com/neko_gata_s

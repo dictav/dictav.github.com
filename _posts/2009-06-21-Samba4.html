@@ -1,0 +1,34 @@
+---
+title: Samba4
+date: 2009-06-21
+tags: Samba
+layout: post
+---
+
+		<div class="section">
+			<p>Samba4 をインストールしたり、RPM パッケージにしたり、四苦八苦。</p>
+			<p>自前 RPM があまりいけてなかったので Fedora 用の SRPM を取ってきて rpmbuild。インストールできて、WindowsXP からのドメインへの参加は確認できたのだけど、sysvol にアクセスできないorz</p>
+			<p>別マシンで</p>
+<pre class="syntax-highlight">
+./configure
+make
+make <span class="synStatement">install</span>
+</pre>
+
+			<p>で入れたのでは上手くいってるから、SRPM の spec ファイルのせいだろうか．．．わからん。とりあえず、明日 make install で入れてみよう。</p>
+			<p>以下は動いているマシンについての記述。</p>
+			<h4>動かしてみる</h4>
+			<p>Samba4 を動かすためには DNS サーバがどこかしらに正しく立ち上がっていないといけない。Samba4 をインストールしたら、/usr/local/samba/setup/provision を実行する。ただ、この provision、samba4 のソースの中の bin/python のファイル群が必要になる。一緒にインストールしてくれたら良いのに（configure?）。ソースの中の setup/provision を実行しても良い。</p>
+			<p>実行すると、realm とか聞かれるので適宜答える。</p>
+			<p>Administrator のパスワードまで入力すると /usr/local/samba/private の下に沢山のファイルが作られる。その中にある DNS の zone ファイルを利用している DNS サーバに登録する。</p>
+			<p>あとは /usr/local/samba/sbin/samba を実行すれば良い。</p>
+			<p>ちなみに、ログなんだけど、/usr/local/samba/sbin/samba -l /var/log/samba4 とかすればログファイルを作ってくれるのかなーとか思ったけど、上手く作成されなかった。</p>
+<pre class="syntax-highlight">
+/usr/<span class="synStatement">local</span>/samba/sbin/samba <span class="synSpecial">--debug-level=2</span> <span class="synSpecial">--debug-stderr</span> <span class="synStatement">&#38;&#62;</span> /var/log/samba4/samba.log
+</pre>
+
+			<p>とかして逃げることにした。</p>
+			<h4>快適です</h4>
+			<p>DNS さえうまく設定できれば、setup/provision だけで初期設定は終わってしまう。Samba3 + LDAP 環境の大変さを思うとすごく簡単だ。グループポリシーも使えるしいい感じ。smb.conf がシンプルなのがいいなあ。全く変更していないのだけど、winbind も動くのかなあ。</p>
+		</div>
+

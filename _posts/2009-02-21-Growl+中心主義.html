@@ -1,0 +1,19 @@
+---
+title: Growl 中心主義
+date: 2009-02-21
+tags: Mac
+layout: post
+---
+
+		<div class="section">
+			<p>Tiger までで便利だったのが growl + iCal のセット。ログインすると近々の予定がダラーっと表示されるのは嬉しかった。</p>
+			<p>Leopard になってから iCal の仕組みが変わったらしく、Growl と連携できなくなった。さっきふと思いついたのだけど、cron + growlnotify でなんとかなるんじゃないか？</p>
+			<p>とりあえずメモっておこう。</p>
+
+			<ol>
+				<li> .ical_notifyrc</li>
+				<li> crontab -e</li>
+				<li> ~/Calendars/*.ics</li>
+			</ol>
+		</div>
+

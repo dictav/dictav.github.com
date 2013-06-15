@@ -1,0 +1,20 @@
+---
+title: Let’s Picolena!!
+date: 2008-09-29
+tags: Rails
+layout: post
+---
+
+		<div class="section">
+			<p>Ferret という Apache Lucene を元にした Ruby での実装があるね。こいつを使うとドキュメントの全文検索ができるようになる。Namazu や Hyper Estraier なんかと同じ。ただ、Ferret はその仕組みであって Namazu や Hyper Estraier のようなアプリケーションじゃないんだ。これは自分のアプリに組み込むにはいいんだけど、どうやって使うかという点でとても迷う。それにテキスト以外のデータの取り扱いにも迷う。</p>
+			<p>最近、この Ferret を使った Rails アプリをみつけた。Picolena がそれ。MS-Office などのファイルもインデックスしてくれるみたい。インストールしてみたからメモ。</p>
+			<p>インストールは RubyGems で行うよ。</p>
+			<p> $sudo gem install picolena</p>
+			<p>これで</p>
+			<p> $picolena target_directory</p>
+			<p>とすれば、target_directory 中のファイルを人撮りなめて index を作成してくれる。ただ、Permission の関係で通常のユーザでは load でエラーになってしまう。</p>
+			<p> $ sudo chmod -R a+r /opt/local/lib/ruby/gems/1.8/gems/picolena-*</p>
+			<p>で応急処置。でも、通常ユーザから使えないのはセキュリティうんぬんのせい？？</p>
+			<p>あと、日本語には対応していないみたいだ。たぶん、MeCab と組み合わせる必要があるんじゃないかな。</p>
+		</div>
+

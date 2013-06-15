@@ -1,0 +1,34 @@
+---
+title: NSLog にさようなら？
+date: 2011-01-19
+layout: post
+---
+
+		<div class="section">
+			<h4>NSLog は便利だけど</h4>
+			<p>NSLog デバッグはよく使うのだけど、製品版を出すときに削除するのは面倒。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#define NSLog</span>
+</pre>
+
+			<p>みたいにして一括で停止することもできるけど、しっかりやろうとすると DEBUG フラグを作ったりしてやっぱり面倒。それに、ログとして収集したいこともないこともない。</p>
+			<h4> GDB デバッガでできる</h4>
+			<p>そこで GDB でやってみよう。</p>
+<pre class="syntax-highlight">
+NSLog(<span class="synConstant">@&#34;</span><span class="synSpecial">%d</span><span class="synConstant">  Key:</span><span class="synSpecial">%@</span><span class="synConstant">,Value:</span><span class="synSpecial">%@</span><span class="synConstant">&#34;</span>,count,key,value)
+</pre>
+
+			<p>みたいなことがしたいなら、ブレークポイントを設定して次のように設定。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">printf</span> <span class="synConstant">&#34;%d Key:&#34;</span>, count
+po key
+<span class="synStatement">printf</span> <span class="synConstant">&#34;, Value:&#34;</span>
+po value
+<span class="synStatement">continue</span>
+</pre>
+
+			<p>最後の "continue" は入れておかないといちいち処理がストップして煩わしいから。</p>
+			<h4> 問題も</h4>
+			<p>これで OKey! と思いたいのだけど実機でのデバッグ時に動作が重い。そこが問題にならなければこのやり方でやっていこう。</p>
+		</div>
+

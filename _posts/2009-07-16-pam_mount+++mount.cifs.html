@@ -1,0 +1,92 @@
+---
+title: pam_mount + mount.cifs
+date: 2009-07-16
+tags: Linux Samba
+layout: post
+---
+
+		<div class="section">
+			<p>Samba ML に流した内容。後でまとめます。</p>
+			<h4> 環境</h4>
+<pre>
+認証サーバ : dom.local (CentOS 5.3 + Samba 4.0.0 alpha8)
+ファイルサーバ : nfs.local (CentOS 5.3 + Samba 3.0.33)
+クライアント :
+	wxp.local (WindowsXP)
+	client.local (CentOS 5.3 + mount.cifs + pam_mount)
+</pre>
+
+			<h4> やったこと</h4>
+
+			<ol>
+				<li> dom.local をドメインコントローラとして動作させ、nfs.local をメンバーサーバとして参加。</li>
+				<li> nfs.local 上の /home 以下にユーザのホームディレクトリの実態があり、これを Samba3 で公開。</li>
+				<li> テストユーザ sabe を作成、Windows のホームディレクトリを \\nfs.local\sabe に設定。</li>
+				<li> wxp.local から dom.local ドメインへログオンし、Windows のホームディレクトリとして \\nfs.local\sabe がマウントされる事を確認。</li>
+				<li> client.local の LDAP 認証先として dom.local を設定。また pam_mount + mount.cifs を使い、Linux のログイン時に \\nfs.local\USERNAME が /home/USERNAME にマウントされるように設定。</li>
+				<li> コンソール及び ssh から client.local に sabe でログインし、ホームディレクトリが \\nfs.local\sabe になっている事を確認。</li>
+			</ol>
+			<p>wxp.local と client.local で共通のホームディレクトリを持つ事ができるようになりました。</p>
+			<h4> 発生した事象等</h4>
+
+			<ul>
+				<li> wxp.local でマウントした \\nfs.local\sabe の所有者が DOM\sabe ではなく、Unix User\sabe になり、アクセス制御ができない。</li>
+				<li> アカウントを３つ作成してテストしたが、client.local からのマウントの際に、１アカウントだけNT_STATUS_NO_LOGON_SERVERS というエラーを出してマウントに失敗する。</li>
+				<li> client.local にログインしている際に、突然 CIFS が Input/Output エラーを出しアクセスできなくなる事がある。</li>
+			</ul>
+			<h4> 設定ファイル</h4>
+
+			<ul>
+				<li> dom.local の smb.conf</li>
+			</ul>
+<pre class="syntax-highlight">
+<span class="synStatement">[global]</span>
+	<span class="synType">netbios</span> <span class="synType">name</span> = dom
+	<span class="synType">workgroup</span> = DOM
+	<span class="synType">realm</span> = DOM.LOCAL
+	<span class="synType">server</span> role = domain controller
+<span class="synStatement">[netlogon]</span>
+	<span class="synType">path</span> = /usr/local/samba/var/locks/sysvol/dom.local/scripts
+	<span class="synType">read</span> <span class="synType">only</span> = <span class="synConstant">no</span>
+<span class="synStatement">[sysvol]</span>
+	<span class="synType">path</span> = /usr/local/samba/var/locks/sysvol
+	<span class="synType">read</span> <span class="synType">only</span> = <span class="synConstant">no</span>
+</pre>
+
+
+			<ul>
+				<li> nfs.local の smb.conf</li>
+			</ul>
+<pre class="syntax-highlight">
+<span class="synStatement">[global]</span>
+	<span class="synType">netbios</span> <span class="synType">name</span> = nfs
+	<span class="synType">workgroup</span> = DOM
+	<span class="synType">realm</span> = DOM.LOCAL
+	<span class="synType">security</span> = ads
+	<span class="synType">password</span> <span class="synType">server</span> = dom.local
+	<span class="synType">obey</span> <span class="synType">pam</span> <span class="synType">restrictions</span> = <span class="synConstant">yes</span>
+<span class="synStatement">[homes]</span>
+	<span class="synType">comment</span> = Home Directories
+	<span class="synType">browseable</span> = <span class="synConstant">no</span>
+	<span class="synType">writable</span> = <span class="synConstant">yes</span>
+</pre>
+
+
+			<ul>
+				<li> client.local の /etc/pam.d/system-auth</li>
+			</ul>
+<pre class="syntax-highlight">
+	<span class="synType">auth</span> <span class="synPreProc">required</span> <span class="synConstant">/lib/security/pam_mount.so</span>
+	<span class="synType">session</span> <span class="synPreProc">optional</span> <span class="synConstant">/lib/security/pam_mount.so</span>
+</pre>
+
+
+			<ul>
+				<li> client.local の /etc/security/pam_mount.conf.xml</li>
+			</ul>
+<pre class="syntax-highlight">
+	<span class="synIdentifier">&#60;volume </span><span class="synType">fstype</span>=<span class="synConstant">&#34;cifs&#34;</span><span class="synIdentifier"> </span><span class="synType">server</span>=<span class="synConstant">&#34;nfs.local&#34;</span><span class="synIdentifier"> </span><span class="synType">path</span>=<span class="synConstant">&#34;%(USER)&#34;</span><span class="synIdentifier"> </span><span class="synType">mountpoint</span>=<span class="synConstant">&#34;/home/%(USER)&#34;</span><span class="synIdentifier"> /&#62;</span>
+</pre>
+
+		</div>
+

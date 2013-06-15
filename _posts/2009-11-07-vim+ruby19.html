@@ -1,0 +1,197 @@
+---
+title: vim+ruby19
+date: 2009-11-07
+tags: Mac
+layout: post
+---
+
+		<div class="section">
+			<p>MacPorts で vim+ruby をインストールしようと思ったのだけど、ruby が 1.9 のためにこけた。ruby 1.9 からは RSTRING(hoge)-&#62;ptr としていたところが RSTRING_PTR(hoge) になったりとか、C 言語との絡みの関係でいろいろある。</p>
+			<p>はじめは自力でやってたんだけど、パッチ見つけたから適応。やっぱりあるものは使わないとね。</p>
+			<p><a href="http://groups.google.co.jp/group/vim_dev/browse_thread/thread/699c65598bc6348b" target="_blank">  Patch for Vim with Ruby 1.9 -  vim_dev | Google グループ  </a></p>
+			<br>
+
+<pre class="syntax-highlight">
+# $Id: Portfile 57375 2009-09-10 08:16:41Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                vim
+set vim_version     7.2
+set vim_patchlevel  245
+version             ${vim_version}.${vim_patchlevel}
+tags          editors
+maintainers         raimue
+description         Vi &#92;&#34;workalike&#92;&#34; with many additional features
+long_description &#92;
+    Vim is an advanced text editor that seeks to provide the power of the   &#92;
+    de-facto Unix editor &#39;Vi&#39;, with a more complete feature set.
+
+homepage            http://www.vim.org/
+platforms           darwin freebsd
+
+use_bzip2           yes
+
+distfiles &#92;
+    [suffix ${name}-${vim_version}]:vim &#92;
+    ${name}-${vim_version}-extra.tar.gz:extra &#92;
+    ${name}-${vim_version}-lang.tar.gz:extra
+checksums &#92;
+  [suffix ${name}-${vim_version}] &#92;
+    md5     f0901284b338e448bfd79ccca0041254 &#92;
+    sha1    a4b6641ca528fada71ea77c998a441495ed4984c &#92;
+    rmd160  eaff64d0fec09d725addf8de569f508b80a5766e &#92;
+  ${name}-${vim_version}-extra.tar.gz &#92;
+    md5     35e04482f07c57221c9a751aaa3b8dac &#92;
+    sha1    6a17629093e59958bff336b6c122dea1b8b1b649 &#92;
+    rmd160  05976466c8a6c1bd2fb2b1d58eb4613947de07df &#92;
+  ${name}-${vim_version}-lang.tar.gz &#92;
+    md5     d8884786979e0e520c112faf2e176f05 &#92;
+    sha1    970e0dda7e5b2308cf33488be1ea33d593d951cb &#92;
+    rmd160  946bd64fbf030b341cc13bee7101f2c0acb26ce2
+
+distname            ${name}[strsed ${vim_version} {g/&#92;.//}]
+dist_subdir         ${distname}
+
+depends_build       bin:gnutar:gnutar &#92;
+                    bin:grep:grep
+depends_lib         port:ncurses &#92;
+                    port:libiconv &#92;
+                    port:ctags
+
+configure.args      --enable-gui=no &#92;
+                    --without-x &#92;
+                    --disable-gpm &#92;
+                    --disable-nls &#92;
+                    --mandir=${prefix}/share/man &#92;
+                    --with-tlib=ncurses &#92;
+                    --enable-multibyte
+
+extract.only        [suffix ${name}-${vim_version}]
+post-extract {
+    system &#34;gnutar xvfz ${distpath}/${name}-${vim_version}-extra.tar.gz -C &#92;
+      ${workpath}&#34;
+    system &#34;gnutar xvfz ${distpath}/${name}-${vim_version}-lang.tar.gz -C &#92;
+      ${workpath}&#34;
+}
+
+post-patch {
+	set features [open ${worksrcpath}/src/feature.h a+]
+	puts $features &#34;#define SYS_VIMRC_FILE &#92;&#34;${prefix}/etc/vimrc&#92;&#34;&#34;
+	close $features
+}
+
+use_parallel_build  yes
+
+post-destroot {
+    ln -s ${prefix}/bin/vim ${destroot}${prefix}/bin/vi
+}
+
+test.run            yes
+
+variant athena description {Build GUI version using Athena widgets} conflicts gtk1 gtk2 motif {
+    configure.args-delete   --enable-gui=no --without-x
+    configure.args-append   --enable-gui=athena --with-x --disable-darwin
+    depends_lib-append      port:xorg-libXaw
+}
+variant gtk1 description {Build GUI version using GTK 1.x widgets} conflicts athena gtk2 motif {
+    configure.args-delete   --enable-gui=no --without-x
+    configure.args-append   --enable-gui=gtk --with-x --disable-darwin
+    depends_lib-append      port:gtk1
+}
+variant gtk2 description {Build GUI version using GTK 2.x widgets} conflicts athena gtk1 motif {
+    configure.args-delete   --enable-gui=no --without-x
+    configure.args-append   --enable-gui=gtk2 --with-x --disable-darwin
+    depends_lib-append      port:gtk2
+}
+variant motif description {Build GUI version with Motif widgets} conflicts athena gtk1 gtk2 {
+    configure.args-delete   --enable-gui=no --without-x
+    configure.args-append   --enable-gui=motif --with-x --disable-darwin
+    depends_lib-append      lib:libXm:openmotif
+}
+
+variant tiny description {Build tiny feature set} {
+    configure.args-append --with-features=tiny
+}
+variant small description {Build small feature set} conflicts tiny {
+    configure.args-append --with-features=small
+}
+variant big description {Build big feature set} conflicts tiny small	{
+    configure.args-append --with-features=big
+}
+variant huge description {Build huge feature set} conflicts tiny small big {
+    configure.args-append --with-features=huge
+}
+variant xim description {Build with support for X Input Method} {
+    configure.args-append --with-xim
+}
+
+variant perl description {Enable Perl scripting} {
+    configure.args-append   --enable-perlinterp
+    depends_lib-append      path:bin/perl:perl5
+}
+variant python requires python25 description {Compatibility variant, requires +python25} {}
+variant python25 conflicts python26 description {Enable Python scripting} {
+    configure.args-append   --enable-pythoninterp --with-python=${prefix}/bin/python2.5
+    patchfiles-append       patch-python.diff
+    depends_lib-append      port:python25
+
+    depends_build-append    bin:autoconf:autoconf
+    pre-configure {
+        system &#34;cd ${worksrcpath}/src &#38;&#38; make autoconf&#34;
+    }
+}
+variant python26 conflicts python25 description {Enable Python scripting} {
+    configure.args-append   --enable-pythoninterp --with-python=${prefix}/bin/python2.6
+    patchfiles-append       patch-python.diff
+    depends_lib-append      port:python26
+
+    depends_build-append    bin:autoconf:autoconf
+    pre-configure {
+        system &#34;cd ${worksrcpath}/src &#38;&#38; make autoconf&#34;
+    }
+}
+variant ruby requires ruby18 description {Compatibility variant, requires +ruby18} {}
+variant ruby18 conflicts ruby19 description {Enable Ruby scripting} {
+    configure.args-append   --enable-rubyinterp
+    depends_lib-append      port:ruby
+}
+variant ruby19 conflicts ruby18 description {Enable Ruby scripting} {
+    configure.args-append   --enable-rubyinterp
+    patchfiles-append       patch-ruby19.diff
+    depends_lib-append      port:ruby19
+
+    depends_build-append    bin:autoconf:autoconf
+    pre-configure {
+        system &#34;cd ${worksrcpath}/src &#38;&#38; make autoconf&#34;
+    }
+}
+variant tcl description {Enable Tcl scripting} {
+    configure.args-append   --enable-tclinterp
+    depends_lib-append      port:tcl
+}
+
+variant cscope description {Enable source code browsing with cscope} {
+    configure.args-append   --enable-cscope
+}
+
+variant nls {
+    configure.args-delete   --disable-nls
+    depends_lib-append      port:gettext
+}
+
+platform puredarwin {
+    configure.args-append --disable-darwin
+}
+
+include serverlist
+include patchlist
+
+livecheck.type  regex
+livecheck.url   http://ftp.vim.org/pub/${name}/patches/${vim_version}/?O=D
+livecheck.regex (${vim_version}&#92;.&#92;&#92;d+)
+
+</pre>
+
+		</div>
+

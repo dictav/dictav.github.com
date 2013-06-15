@@ -1,0 +1,7 @@
+---
+layout: post
+name: blog-post
+title: テストデータの利用
+time: 2011-08-09 11:46:00.000000000 +09:00
+---
+テストデータを利用するために Bundle に含めるのだけど、[NSBundle mainBundle] だとテスト用の Bundle ではなくてアプリの方の Bundle を参照するのでよろしくない。<br /><div>こういう時は、[NSBundle bundleForClass:[MyAppTests class]] などして Bundle を指定してあげるのが良さそうだ。  <br /><pre class="brush: objc">NSBundle *bundle = [NSBundle bundleForClass:[MyAppTests class]];<br /><br />//Accurateness test<br />NSString *path = [bundle pathForResource:@"test_data" ofType:@"txt"];<br />NSString *str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];<br />STAssertTrue([MyApp myMethod:str], @"myMethod");<br /></pre></div>

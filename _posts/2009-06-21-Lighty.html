@@ -1,0 +1,26 @@
+---
+title: Lighty
+date: 2009-06-21
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>Lighttpd を使ってみた。</p>
+<pre class="syntax-highlight">
+yum <span class="synStatement">install</span> lighttpd lighttpd-fastcgi
+</pre>
+
+			<p>最初、「lighty には標準で FastCGI 入ってんでしょ？」とか訳の分からない事を考えていて、fcgi を入れるのを頑に拒んでいた結果、１時間ほどロストする。</p>
+			<p>lighttpd-fastcgi はラッパーが入っているのね。</p>
+			<p>rails2.3.2 が上手く動かないので</p>
+<pre class="syntax-highlight">
+rails _2.<span class="synConstant">0</span>.2_ lighty_test
+<span class="synStatement">cd</span> lighty_test
+./script/server lighttpd
+</pre>
+
+			<p>して config/lighttpd.conf を作成させる。これを /etc/lighttpd/lighttpd.conf に変えて、中身を適宜変更して、service start lighttpd</p>
+			<p>wget でちゃんとアクセスできたよ。</p>
+		</div>
+

@@ -1,0 +1,21 @@
+---
+title: ActsAsFerret::rebuild_index
+date: 2009-04-19
+tags: Rails
+layout: post
+---
+
+		<div class="section">
+			<p>acts_as_ferret を使っていてインデックスを再構築したいことがある。</p>
+			<p>サーバが止まっても良いのなら、rake ferret:rebuid_index したり、script/console から Model.rebuild_index すればいい。</p>
+			<p>だけど、Controller の中で同様の事をしようと思うとなんか上手くいかない。今は次の手段で回避。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">def </span><span class="synIdentifier">rebuid_index</span>
+  <span class="synIdentifier">FileUtils</span>.rm_rf <span class="synSpecial">&#34;</span><span class="synConstant">path/to/index</span><span class="synSpecial">&#34;</span>
+  <span class="synIdentifier">Model</span>.find_with_ferret(<span class="synSpecial">&#34;</span><span class="synConstant">*</span><span class="synSpecial">&#34;</span>)
+<span class="synPreProc">end</span>
+</pre>
+
+			<p>Model.find(:all){|doc| doc.save! } とかできると良いのだけど、インデックスの再構築が終わった後に Ferret さんが Segment fault 吐いて死んじゃうんだよなー</p>
+		</div>
+

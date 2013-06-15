@@ -1,0 +1,21 @@
+---
+layout: post
+title: iOS の内蔵辞書を利用する
+date: 2012-10-19 00:53:23 GMT
+tags: ios 辞書 reference dictionary
+---
+iOS5から（？）辞書を内蔵するようになり、アプリからもこれに部分的ではあるがアクセスできるようになった。そのためのクラスが UIReferenceLibraryViewController だ。
+
+文字列が表示可能なものかどうかを判断する。
+
+  [UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:@"apple"]
+
+辞書を表示する
+ 
+ UIReferenceLibraryViewController *controller = [[UIReferenceLibraryViewController alloc] initWithTerm:@"apple"]
+ [self presentModalViewController:controller animated:YES]
+
+
+ぼくの環境だと dictionaryHasDefinitionForTerm: メソッドが iOS6 のシミュレータだと常に YES を返す。他の人の環境では常に NO を返すという書き込みもあった。iOS5 シミュレータや iOS6 の実機では普通に正しい判定をしてくれているようなので、チェックする時は実機か iOS5 シミュレータを使う。
+
+UITextChecker と合わせて使うと効果的だと思う。

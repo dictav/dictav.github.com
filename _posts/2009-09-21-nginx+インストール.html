@@ -1,0 +1,18 @@
+---
+title: nginx インストール
+date: 2009-09-21
+layout: post
+---
+
+		<div class="section">
+
+<pre class="syntax-highlight">
+sudo port <span class="synStatement">install</span> nginx
+<span class="synStatement">cd</span> /opt/<span class="synStatement">local</span>/etc/nginx
+sudo cp nginx.conf.example nginx.conf
+sudo cp mime.types.example mime.types
+sudo launchctl load /Library/LaunchDaemons/org.macports.nginx
+</pre>
+
+		</div>
+

@@ -1,0 +1,43 @@
+---
+layout: post
+title: SICP読書会に参加しました　その２
+date: 2013-01-05 06:05:45 GMT
+tags: 
+---
+
+[SICP読書会](https://gist.github.com/3862338)は[前回](http://diclog.tumblr.com/post/36468641670/sicp)に引き続き２回目です。
+
+今回の要約はぼくが担当でした。資料は[こちら](https://gist.github.com/4357466)（資料と呼べないような代物ですが。すみません。）
+
+# 第２章 データによる抽象の構築
+前回が手続きによる抽象の構築であり、今回はデータによる抽象の構築でした。
+Scheme の使い方であり習うより慣れろな内容。
+特に後半は Scheme の cons を使ってどのようにデータを表現するか、そのデータをどのように抽象化して扱うかの演習。
+
+データの抽象化というと値の方に目が行きやすいけど、実際には手続きがとても重要。
+手続きの名称を上手く抽象化、実装してやることで、実際には構造の違うデータ同士を一緒くたに扱うことができる。 `(plus _a_ _b_)` がどのようなデータに関しても上手く動作するように構築するということ。
+
+オブジェクトの中身には感知しないでメソッド名だけでやりとりをするオブジェクト指向のやり方に似ている。
+
+
+# 感想
+資料を読んでもらってもも分かりますが、ぼくはまとめなどが絶望的に下手だということが分かりました。
+うまく文章にできないのもあるし、自分の中で納得してしまうとわざわざ文章にしようという気が起きないみたい。
+いっぱい文章を書いて、アウトプットをしっかりできるようになりたい。
+
+
+
+次回は 1.26 Sat. 長岡です。[saisa6153]()くんのまとめに期待。
+
+# Reference
+* SICP - http://mitpress.mit.edu/sicp/
+* SICP 日本語 - http://sicp.ipl.t.u-tokyo.ac.jp
+* SICP読書会 - https://gist.github.com/3862338
+* life.should be_happy # => 1 examples, ? failures - http://nekogata.hatenablog.com
+* ミントフレーバー緑茶 - http://mint.hateblo.jp
+* After Coding - http://saisa.hateblo.jp
+
+
+[@neko_gata_s]: http://twitter.com/neko_gata_s
+[@saisa6153]: http://twitter.com/saisa6153
+

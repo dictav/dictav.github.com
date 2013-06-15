@@ -1,0 +1,7 @@
+---
+layout: post
+name: coredata
+title: CoreData をちょっと説明する
+time: 2011-08-16 19:44:00.000000000 +09:00
+---
+<br /><br /><br /><section><h1>  概要</h1>iOS 上でいくらか面倒な情報を保存、読み出ししなければ行けないような場合、NSUserDefaults や NSKeyedArchiver では直ぐに限界を感じてしまう。ファイルへの読み書きは速度が遅いし、何より特定の項目を検索できないのが辛い。そのような時のために、iOS では CoreData というデータベースを扱えるようになっている。 </section> <section> <h1>  CoreData の大元</h1><section>  <h1>  ファイル</h1>CoreData はそのモデルの情報をファイルに格納している。 Xcode 上では .xcdatamodeld というフォーマットで、これは Xcode 上で使うための専用のフォーマットで、iPhone 側に渡す事はない。iPhone 上ではこれをコンパイルして .momd というフォーマットにして渡す。.momd はビルド時に作成されるが、自分で作りたい時は以下のようにしてファイルを作成する。   <pre class="brush: shell">/Developer/usr/bin/momc Model.xcdatamodeld Model.momd<br />  </pre>この .momd から .sqlite などの Store が作成されるので、大元の .xcdatamodeld に変更を加えなくて済むように事前によく設計した方が良い。簡単な変更ならバージョン管理機能でほとんどコードをいじらずにデータベースをバージョンアップできる。  </section> <section>  <h1>  クラス</h1><dl><dt>NSManagedObjectModel</dt><dd>上記のモデルデータを扱うためのクラス。</dd><dt>NSPersistentStoreCoordinate</dt><dd>Store つまりDB本体を扱うためのクラス。NSManagedObjectModel をもとに DB を作成する。   </dd><dt>NSManagedObjectContext</dt><dd>メモリ上のDBという感じのクラス。データの変更などはここに蓄えられ、アプリの終了時などにまとめて保存する。</dd>データベースとのやり取りにおいて幾層にも抽象化されていて実態が分かりづらいけど、面倒な事はみんな CoreData がやってくれるのでコードに専念できる。   </dl></section></section> つづく．．． 

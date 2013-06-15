@@ -1,0 +1,36 @@
+---
+title: バグ報告とかようしきらんなあ
+date: 2009-03-03
+tags: Ruby
+layout: post
+---
+
+		<div class="section">
+			<p>最近、自宅マシンの ruby を 1.9.1 にしてメインで使っている。なんかエラー出るといいなって思ってたら、微妙なのが出た。</p>
+			<p>環境は Mac OS X 10.5.6。ruby は MacPorts を使ってインストール。</p>
+<pre class="syntax-highlight">
+$ ruby <span class="synSpecial">--version</span>
+ruby <span class="synConstant">1</span>.<span class="synConstant">9</span>.1p0 <span class="synStatement">(</span><span class="synConstant">2009-01-30</span> revision <span class="synConstant">21907</span><span class="synStatement">)</span> <span class="synStatement">[</span>i386-darwin9<span class="synStatement">]</span>
+</pre>
+
+<pre class="syntax-highlight">
+ary = [ <span class="synSpecial">&#34;</span><span class="synConstant">aaa{{bbb}}ccc</span><span class="synSpecial">&#34;</span> * <span class="synConstant">5</span>]
+<span class="synStatement">until</span> (str = ary.pop).empty?
+  ary += str.partition(<span class="synSpecial">/</span><span class="synConstant">\{\{.+?\}\}</span><span class="synSpecial">/</span>)
+<span class="synStatement">end</span>
+p ary
+</pre>
+
+			<p>みたいなコードを書いていて、until 文が１行で書けるなーって思って</p>
+<pre class="syntax-highlight">
+ary = [ <span class="synSpecial">&#34;</span><span class="synConstant">aaa{{bbb}}ccc</span><span class="synSpecial">&#34;</span> * <span class="synConstant">5</span>]
+ary += str.partition(<span class="synSpecial">/</span><span class="synConstant">\{\{.+?\}\}</span><span class="synSpecial">/</span>) <span class="synStatement">until</span> (str = ary.pop).empty?
+p ary
+</pre>
+
+			<p>みたいに書いたら</p>
+			<p>est.rb:11:in `&#60;main&#62;': undefined local variable or method `str' for main:Object (NameError)</p>
+			<p>て怒られた。</p>
+			<p>これってそういうものなのかなー？</p>
+		</div>
+

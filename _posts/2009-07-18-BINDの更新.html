@@ -1,0 +1,25 @@
+---
+title: BINDの更新
+date: 2009-07-18
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>Bind9 で以下のようにしているのに何故かアップデートに失敗していた。</p>
+<pre class="syntax-highlight">
+<span class="synStatement">zone</span> &#34;<span class="synIdentifier">dom.local</span>&#34; {
+  <span class="synStatement">type</span> maseter;
+  <span class="synStatement">file</span> <span class="synConstant">&#34;dom.local.zone&#34;</span>;
+  <span class="synStatement">allow-update</span>{ 192.168.1.0/24; <span class="synError">}</span>
+<span class="synError">}</span>
+</pre>
+
+			<p>ログ (/var/named/chroot/var/named/data/named.run) を見たら、dom.local.zone.jnl を作成しようとしてパーミッションで弾かれてた orz</p>
+<pre class="syntax-highlight">
+chown named:named /var/named/chroot/var/named/
+</pre>
+
+			<p>やれやれ</p>
+		</div>
+

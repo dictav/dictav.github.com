@@ -1,0 +1,106 @@
+---
+title: AWS を ruby から使う
+date: 2008-03-18
+tags: Ruby Mac OS X
+layout: post
+---
+
+		<div class="section">
+			<p>先日書いた AWS についてさらしておこう。</p>
+			<p>環境は OS X Leopard なので、固有の情報も含まれてます。</p>
+			<p>別に使い勝手とかを考慮したものじゃなくて、自分だけ使えればいいものなんで適当です。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">#! /opt/local/bin/ruby</span>
+<span class="synPreProc">require</span> <span class="synSpecial">&#34;</span><span class="synConstant">rubygems</span><span class="synSpecial">&#34;</span>
+<span class="synPreProc">require</span> <span class="synSpecial">&#34;</span><span class="synConstant">amazon/ecs</span><span class="synSpecial">&#34;</span>
+<span class="synPreProc">require</span> <span class="synSpecial">&#34;</span><span class="synConstant">nkf</span><span class="synSpecial">&#34;</span>
+<span class="synComment">#Blended</span>
+<span class="synComment">#Books</span>
+<span class="synComment">#Classical</span>
+<span class="synComment">#DVD</span>
+<span class="synComment">#Electronics</span>
+<span class="synComment">#ForeignBooks</span>
+<span class="synComment">#Kitchen</span>
+<span class="synComment">#Music</span>
+<span class="synComment">#MusicTracks</span>
+<span class="synComment">#Software</span>
+<span class="synComment">#SoftwareVideoGames</span>
+<span class="synComment">#VHS</span>
+<span class="synComment">#Video</span>
+<span class="synComment">#VideoGames</span>
+<span class="synComment">#Watches</span>
+aws_id = <span class="synSpecial">&#34;</span><span class="synConstant">xxxxxxxxxxxxx</span><span class="synSpecial">&#34;</span>
+associate_id = <span class="synSpecial">&#34;</span><span class="synConstant">xxxxxxxxx</span><span class="synSpecial">&#34;</span>
+query, index = <span class="synIdentifier">ARGV</span>
+<span class="synStatement">raise</span> <span class="synSpecial">&#34;</span><span class="synConstant">Please enter keyword</span><span class="synSpecial">&#34;</span> <span class="synStatement">unless</span> query
+index = <span class="synSpecial">&#34;</span><span class="synConstant">Books</span><span class="synSpecial">&#34;</span> <span class="synStatement">unless</span> index
+<span class="synComment"># set the default options; options will be camelized and converted to REST request parameters.</span>
+<span class="synIdentifier">Amazon</span>::<span class="synIdentifier">Ecs</span>.options = {<span class="synIdentifier">:aWS_access_key_id</span> =&#62; [aws_id],
+                                            <span class="synIdentifier">:AssociateTag</span> =&#62; associate_id, <span class="synIdentifier">:country</span> =&#62; <span class="synIdentifier">:jp</span>}
+
+<span class="synComment"># options provided on method call will merge with the default options</span>
+res = <span class="synIdentifier">Amazon</span>::<span class="synIdentifier">Ecs</span>.item_search(query,
+                                                         {<span class="synIdentifier">:search_index</span> =&#62; index,
+                                                          <span class="synIdentifier">:response_group</span> =&#62; [<span class="synSpecial">'</span><span class="synConstant">Medium</span><span class="synSpecial">'</span>,<span class="synSpecial">'</span><span class="synConstant">Offers</span><span class="synSpecial">'</span>],
+                                                          <span class="synIdentifier">:sort</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">salesrank</span><span class="synSpecial">'</span>})
+
+n = <span class="synConstant">0</span>
+res.items.each <span class="synStatement">do</span> |<span class="synIdentifier">item</span>|
+  title = item.get(<span class="synSpecial">'</span><span class="synConstant">itemattributes/title</span><span class="synSpecial">'</span>)
+  author = item.get(<span class="synSpecial">'</span><span class="synConstant">author</span><span class="synSpecial">'</span>)          <span class="synComment"># 'Author 1'</span>
+  price = item.get(<span class="synSpecial">'</span><span class="synConstant">listprice/formattedprice</span><span class="synSpecial">'</span>)
+  offer = item.get(<span class="synSpecial">'</span><span class="synConstant">offersummary/totalnew</span><span class="synSpecial">'</span>)
+  puts <span class="synSpecial">&#34;#{n+=1}</span><span class="synConstant">: </span><span class="synSpecial">#{title}</span><span class="synConstant"> [</span><span class="synSpecial">#{author}</span><span class="synConstant">] </span><span class="synSpecial">#{price}</span><span class="synConstant">/</span><span class="synSpecial">#{offer}&#34;</span>
+<span class="synStatement">end</span>
+puts <span class="synSpecial">&#34;&#34;</span>
+print <span class="synSpecial">&#34;</span><span class="synConstant">Select:</span><span class="synSpecial">&#34;</span>
+selected = <span class="synIdentifier">STDIN</span>.gets.to_i
+<span class="synStatement">raise</span> <span class="synSpecial">&#34;</span><span class="synConstant">Big Num</span><span class="synSpecial">&#34;</span> <span class="synStatement">if</span> selected &#62; res.items.size
+
+item = res.items[selected-<span class="synConstant">1</span>]
+asin = item.get(<span class="synSpecial">'</span><span class="synConstant">asin</span><span class="synSpecial">'</span>)
+title = item.get(<span class="synSpecial">'</span><span class="synConstant">itemattributes/title</span><span class="synSpecial">'</span>)
+author = item.get(<span class="synSpecial">'</span><span class="synConstant">author</span><span class="synSpecial">'</span>)          <span class="synComment"># 'Author 1'</span>
+price = item.get(<span class="synSpecial">'</span><span class="synConstant">listprice/formattedprice</span><span class="synSpecial">'</span>)
+page = item.get(<span class="synSpecial">&#34;</span><span class="synConstant">detailpageurl</span><span class="synSpecial">&#34;</span>)
+offer = item.get(<span class="synSpecial">'</span><span class="synConstant">offersummary/totalnew</span><span class="synSpecial">'</span>).to_i
+image = item.get_hash(<span class="synSpecial">'</span><span class="synConstant">mediumimage</span><span class="synSpecial">'</span>)
+<span class="synStatement">if</span> image
+  image = image[<span class="synIdentifier">:url</span>]
+<span class="synStatement">else</span>
+	arg = <span class="synSpecial">&#34;</span><span class="synConstant">/dp/</span><span class="synSpecial">#{asin}&#34;</span>
+	html = <span class="synIdentifier">Net</span>::<span class="synIdentifier">HTTP</span>.get <span class="synSpecial">&#34;</span><span class="synConstant">www.amazon.co.jp</span><span class="synSpecial">&#34;</span>, arg
+	image = html.match(<span class="synSpecial">/</span><span class="synConstant">registerImage\(&#34;original_image&#34;, &#34;([^&#34;]+)&#34;</span><span class="synSpecial">/</span>)[<span class="synConstant">1</span>]
+<span class="synStatement">end</span>
+main = &#60;&#60;<span class="synSpecial">MAIN</span>
+<span class="synConstant">&#60;a href=&#34;</span><span class="synSpecial">#{page}</span><span class="synConstant">&#34;&#62;</span>
+<span class="synConstant">  &#60;img src=&#34;</span><span class="synSpecial">#{image}</span><span class="synConstant">&#34; /&#62;</span>
+<span class="synConstant">  </span><span class="synSpecial">#{title}</span>
+<span class="synConstant">&#60;/a&#62;</span>
+<span class="synSpecial">#{author}</span>
+<span class="synSpecial">#{price}</span>
+<span class="synSpecial">MAIN</span>
+form = &#60;&#60;<span class="synSpecial">FORM</span>
+<span class="synConstant">&#60;form method=&#34;get&#34; action=&#34;http://www.amazon.co.jp/gp/aws/cart/add.html&#34; target=&#34;_blank&#34;&#62;</span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;SessionId&#34; value=&#34;503-0983373-4010315&#34; /&#62;</span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;SubscriptionId&#34; value=&#34;</span><span class="synSpecial">#{aws_id}</span><span class="synConstant">&#34; /&#62;</span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;AssociateTag&#34; value=&#34;</span><span class="synSpecial">#{associate_id}</span><span class="synConstant">&#34; /&#62;</span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;ASIN.1&#34; value=&#34;</span><span class="synSpecial">#{asin}</span><span class="synConstant">&#34; /&#62;</span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;Quantity.1&#34; value=&#34;1&#34; /&#62;</span>
+<span class="synConstant">  </span>
+<span class="synConstant">  &#60;input type=&#34;hidden&#34; name=&#34;linkCode&#34; value=&#34;as1&#34; /&#62;</span>
+<span class="synConstant">  &#60;input style=&#34;margin-left:20px;&#34; type=&#34;image&#34; name=&#34;submit.add&#34; value=&#34;Amazon.co.jpで買う&#34; alt=&#34;Amazon.co.jpで買う&#34; src=&#34;http://rcm-images.amazon.com/images/G/09/buttons/buy-from-tan.gif&#34; /&#62;</span>
+<span class="synConstant">&#60;/form&#62;</span>
+<span class="synSpecial">FORM</span>
+
+output = <span class="synSpecial">&#34;</span><span class="synConstant">&#60;div class='amazon'&#62;</span><span class="synSpecial">&#34;</span>
+output += main
+output += form <span class="synStatement">unless</span> offer.zero?
+output += <span class="synSpecial">&#34;</span><span class="synConstant">&#60;/div&#62;</span><span class="synSpecial">&#34;</span>
+<span class="synIdentifier">File</span>.open(<span class="synSpecial">&#34;</span><span class="synConstant">out.html</span><span class="synSpecial">&#34;</span>,<span class="synSpecial">&#34;</span><span class="synConstant">w</span><span class="synSpecial">&#34;</span>){|<span class="synIdentifier">f</span>| f.write <span class="synIdentifier">NKF</span>.nkf(<span class="synSpecial">'</span><span class="synConstant">-s</span><span class="synSpecial">'</span>, output)}
+<span class="synSpecial">`</span><span class="synConstant">cat &#34;out.html&#34; | pbcopy</span><span class="synSpecial">`</span>
+
+</pre>
+
+		</div>
+

@@ -1,0 +1,6 @@
+name: Dictav Site
+pygments: true
+markdown: redcarpet
+author:
+  name: dictav
+  email: dictav@gmail.com

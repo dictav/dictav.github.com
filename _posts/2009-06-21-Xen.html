@@ -1,0 +1,19 @@
+---
+title: Xen
+date: 2009-06-21
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>以下のページがとても参考になる。</p>
+			<p><a href="http://www.asahi-net.or.jp/~aa4t-nngk/xen.html" target="_blank">http://www.asahi-net.or.jp/~aa4t-nngk/xen.html</a></p>
+			<h4> はまったところ</h4>
+			<p>virt-install でゲストOS をインストールする際に、インターネットに繋げないマシンだったため困った。上記サイトの通り、DVD を使うやり方もあるが、Web サーバが他にあったのでそちらを使った。</p>
+			<p>ただ、これもまた上記サイトにあるが、received packet with own address as source address エラーに遭遇。</p>
+			<p>xen のカーネルでは環境によってイーサネットカードの MAC アドレスを FE:FF:FF:FF と誤認識してしまうみたいだ。コードを抜いてしばらく放っておくと元に戻るが、ちょくちょく誤認識するし、その度にコード抜いて放っておくわけにもいかない。作業中に突然 MAC アドレスが変わる事もあるのでなおさら。</p>
+			<p>対処としては、</p>
+			<p>コード抜いて放る　ー＞　起動して正しい設定を確認　ー＞　service stop kudzu　ー＞　chkconfig kudzu off</p>
+			<p>これで問題は起きなくなった。</p>
+		</div>
+

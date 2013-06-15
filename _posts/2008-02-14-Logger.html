@@ -1,0 +1,32 @@
+---
+title: Logger
+date: 2008-02-14
+tags: Ruby
+layout: post
+---
+
+		<div class="section">
+			<p>Ruby の Logger クラスを使ってログを収集。Rails だと Logger オリジナルのフォーマットが消されててびっくり。</p>
+			<p>合わせてログを表示するためのクラスを定義。</p>
+			<p>新しいクラスを作るのは楽しい。</p>
+			<p>これまでの失敗を踏まえて綺麗に作るんだ。</p>
+			<p>でも、クラス名やメソッド名にはいつも悩まされる。</p>
+			<p>さて、Rails でログを取るためにはグローバル変数の logger を使ってやればいいようなんだけど、Production 環境であっても結構 Logger::INFO に値が流される。独自にログを収集する際にはちょっと邪魔だ。</p>
+			<p>ということで独自に Logger のインスタンスを生成して収集することにした。</p>
+			<p>こんな感じ。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">ApplicationController</span> &#60; <span class="synIdentifier">ActionController</span>::<span class="synIdentifier">Base</span>
+  before_filter <span class="synIdentifier">:access_log</span>
+  <span class="synPreProc">def </span><span class="synIdentifier">initialize</span>
+    <span class="synIdentifier">@my_logger</span> = <span class="synIdentifier">Logger</span>.new(<span class="synSpecial">&#34;#{RAILS_ROOT}</span><span class="synConstant">/log/mylog.log</span><span class="synSpecial">&#34;</span>)
+  <span class="synPreProc">end</span>
+
+<span class="synStatement">private</span>
+  <span class="synPreProc">def </span><span class="synIdentifier">access_log</span>
+    <span class="synIdentifier">@my_logger</span>.info(<span class="synSpecial">&#34;</span><span class="synConstant">Access with </span><span class="synSpecial">#{params.inspect}&#34;</span>)
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+		</div>
+
