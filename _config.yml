@@ -1,6 +1,8 @@
 name: Dictav Site
 pygments: true
 markdown: redcarpet
+redcarpet:
+   extensions: ['no_intra_emphasis', 'autolink', 'strikethrough', 'superscript']
 author:
-  name: dictav
-  email: dictav@gmail.com
+   name: dictav
+   email: dictav@gmail.com
