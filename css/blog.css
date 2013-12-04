@@ -139,8 +139,16 @@ ul.posts span {
   padding: 0 .4em;
 }
 
+.post blockquote {
+  margin: 1em;
+  padding: 1em;
+  border-left-width: 3px;
+  border-left-color: lightgray;
+  border-left-style: solid;
+}
+
 .post ul, .post ol {
-  margin-left: 1.35em;
+  margin: 1.35em;
 }
 
 .post code {
@@ -162,4 +170,16 @@ ul.posts span {
 
 .post pre.terminal code {
   background-color: #333;
+}
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+  padding-left: 1em;
+  border-left-width: 5px;
+  border-left-color: green;
+  border-left-style: solid;
 }
