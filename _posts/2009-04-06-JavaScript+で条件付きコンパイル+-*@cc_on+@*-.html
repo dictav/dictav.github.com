@@ -1,0 +1,29 @@
+---
+title: JavaScript で条件付きコンパイル /*@cc_on @*/
+date: 2009-04-06
+tags: JavaScript
+layout: post
+---
+
+		<div class="section">
+			<p>オライリーの JavaScript 本に「クロスブラウザなんて要するに IE のことだ」みたいに書かれている困ったちゃんな IE ですが、条件付きコンパイルというものがあります。</p>
+<pre class="syntax-highlight">
+<span class="synComment">/*@cc_on</span>
+<span class="synComment">  @if(@_jscript)</span>
+<span class="synComment">IE だけが実行するコード</span>
+<span class="synComment">  @else*/</span>
+IE 以外が実行するコード
+<span class="synComment">/*@end</span>
+<span class="synComment">@/</span>
+</pre>
+
+			<p>みたいにして使います。</p>
+			<p>/**/ の部分は他のブラウザからはただのコメントとして見えるので、コメント以外の部分が実行されるのです。</p>
+			<p>同じようなもので、HTML 用のものもありますね。</p>
+<pre class="syntax-highlight">
+
+</pre>
+
+			<p>これを使えば IE 用に CSS を個別に設定できそうです。</p>
+		</div>
+

@@ -1,0 +1,35 @@
+---
+title: スリープ
+date: 2010-04-07
+tags: iPhone
+layout: post
+---
+
+		<div class="section">
+			<p>iPhone はスリープ状態になるとオフになるもの</p>
+
+			<ul>
+				<li> 液晶</li>
+				<li> センサー類</li>
+				<li> Wi-Fi
+
+				<ul>
+					<li> ケーブルを繋いでおけば Wi-Fi はオフにはならない</li>
+				</ul>
+				</li>
+			</ul>
+			<p>スリープ中でもオフにならないもの</p>
+
+			<ul>
+				<li> 電話／SMS</li>
+				<li> プッシュ</li>
+				<li> iPod 等の音楽再生（）</li>
+			</ul>
+			<br>
+
+			<p>Info.plist には Application uses WiFi (UIRequiresPersistent- WiFi) という項目があり、これを設定していない場合、Wi-Fi の接続は 30 分で強制的に切断される。</p>
+			<p>このプロパティと音楽再生をうまく組み合わせれば、スリープ中も Wi-Fi に接続し続けるアプリが作れるかも知れない。</p>
+			<p>Pocket WiFi などと相性が良いだろう。</p>
+			<p>というか、Apple にはぜひともそういう設定項目を作ってほしい．．．。</p>
+		</div>
+

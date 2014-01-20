@@ -1,0 +1,64 @@
+COMMENT:
+EMAIL:
+IP:
+URL: 
+date: 2009-01-31
+ActiveRecordがバリバリSQLを叩いてくるのでActiveLdap側で一般的な方法を提供するのが難しいんですよ。<br>今のところ、書いてあるように自分でメソッドを定義するしかないです。<br><br>いい方法があれば提供したいとは思うんですが。。。
+layout: post
+---
+---
+title: ActiveLdap での日本語の取り扱い
+date: 2009-02-03
+tags: Ruby ActiveLdap
+layout: post
+---
+
+		<div class="section">
+			<p>自分が発見できていないだけかもしれないが、ActiveLdap で日本語を扱うのが難儀である。</p>
+<pre class="syntax-highlight">
+<span class="synType">dn</span>: <span class="synConstant">uid=hogei,ou=Users,dc=example</span>
+<span class="synType">sn</span>: <span class="synConstant">hogei</span>
+<span class="synType">sn</span>;<span class="synIdentifier">lang-ja</span>: <span class="synConstant">捕鯨</span>
+<span class="synType">sn</span>;<span class="synIdentifier">lang-phonetic</span>: <span class="synConstant">ほげい</span>
+</pre>
+
+			<p>のような項目を ActiveLdap で取得すると</p>
+<pre class="syntax-highlight">
+user = <span class="synIdentifier">User</span>.find(<span class="synSpecial">'</span><span class="synConstant">hogei</span><span class="synSpecial">'</span>)
+p user.sn      <span class="synComment">#=&#62;  ['hogei', {'lang-ja'=&#62;'捕鯨'}, {'lang-phonetic'=&#62;'ほげい'}]</span>
+</pre>
+
+			<p>のように取得できる。</p>
+			<p>これってどうしよう．．．。そもそも Array が String と 複数の Hash で構成されている場合、どうやって処理すれば良いの？？</p>
+			<p>モデルで工夫。</p>
+<pre class="syntax-highlight">
+<span class="synPreProc">class </span><span class="synType">User</span> &#60; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>
+  <span class="synStatement">attr_accessor</span> <span class="synIdentifier">:sn_lang_ja</span>, <span class="synIdentifier">:sn_lang_phonetic</span>
+  <span class="synPreProc">def </span><span class="synIdentifier">before_save</span>
+    <span class="synConstant">self</span>.sn = [sn, {<span class="synSpecial">'</span><span class="synConstant">lang-ja</span><span class="synSpecial">'</span>=&#62;sn_lang_ja}, {<span class="synSpecial">'</span><span class="synConstant">lang-phonetic</span><span class="synSpecial">'</span>=&#62;sn_lang_phonetic}]
+  <span class="synPreProc">end</span>
+<span class="synPreProc">end</span>
+</pre>
+
+			<p>じゃあ、gn にも日本語追加したくなったら？ cnの方は？？その分だけコードを増やすのはちょっと．．．。</p>
+			<p>それなら html の方で工夫してみよう。</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">&#60;</span><span class="synStatement">input</span><span class="synIdentifier"> </span><span class="synType">type</span><span class="synIdentifier">=</span><span class="synConstant">&#34;text&#34;</span><span class="synIdentifier"> </span><span class="synType">name</span><span class="synIdentifier">=</span><span class="synConstant">&#34;user[sn][]&#34;</span><span class="synIdentifier"> /&#62;</span>
+<span class="synIdentifier">&#60;</span><span class="synStatement">input</span><span class="synIdentifier"> </span><span class="synType">type</span><span class="synIdentifier">=</span><span class="synConstant">&#34;text&#34;</span><span class="synIdentifier"> </span><span class="synType">name</span><span class="synIdentifier">=</span><span class="synConstant">&#34;user[sn][][lang-ja]&#34;</span><span class="synIdentifier"> /&#62;</span>
+<span class="synIdentifier">&#60;</span><span class="synStatement">input</span><span class="synIdentifier"> </span><span class="synType">type</span><span class="synIdentifier">=</span><span class="synConstant">&#34;text&#34;</span><span class="synIdentifier"> </span><span class="synType">name</span><span class="synIdentifier">=</span><span class="synConstant">&#34;user[sn][][lang-phonetic]&#34;</span><span class="synIdentifier"> /&#62;</span>
+</pre>
+
+<pre class="syntax-highlight">
+<span class="synSpecial">&#34;</span><span class="synConstant">user</span><span class="synSpecial">&#34;</span>=&#62;{
+  <span class="synSpecial">&#34;</span><span class="synConstant">sn</span><span class="synSpecial">&#34;</span>=&#62;[<span class="synSpecial">&#34;</span><span class="synConstant">hogei</span><span class="synSpecial">&#34;</span>,
+         {<span class="synSpecial">&#34;</span><span class="synConstant">lang-phonetic</span><span class="synSpecial">&#34;</span>=&#62;<span class="synSpecial">&#34;</span><span class="synConstant">ほげい</span><span class="synSpecial">&#34;</span>,
+          <span class="synSpecial">&#34;</span><span class="synConstant">lang-ja</span><span class="synSpecial">&#34;</span>=&#62;<span class="synSpecial">&#34;</span><span class="synConstant">捕鯨</span><span class="synSpecial">&#34;</span>} ] }
+</pre>
+
+			<p>おしいorz</p>
+			<br>
+
+			<p>&#62; kou さん</p>
+			<p>コメントを沢山いただいきありがとうございます。精進しますので、これからもよろしくお願いします。</p>
+		</div>
+

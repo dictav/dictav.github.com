@@ -1,0 +1,38 @@
+---
+title: ActiveLdap + LDAPS 接続ができない
+date: 2009-06-25
+tags: ActiveLdap Ruby
+layout: post
+---
+
+		<div class="section">
+
+<pre class="syntax-highlight">
+<span class="synPreProc">$cat</span> /etc/ldap.conf
+base <span class="synIdentifier">dc</span>=hoge
+uri ldaps://hoge.<span class="synStatement">local</span>/
+
+<span class="synPreProc">$ldapsearch</span> <span class="synSpecial">-x</span>
+</pre>
+			<p>で良好な結果を得られるのに</p>
+<pre class="syntax-highlight">
+<span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>.setup_connection(
+  <span class="synIdentifier">:host</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">hoge.local</span><span class="synSpecial">'</span>,
+  <span class="synIdentifier">:method</span> =&#62; <span class="synIdentifier">:ssl</span>
+  <span class="synIdentifier">:base</span> =&#62; <span class="synSpecial">'</span><span class="synConstant">dc=hoge</span><span class="synSpecial">'</span>
+)
+p <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>.search <span class="synComment">#=&#62; []</span>
+</pre>
+
+			<p>となって、エラーは出ないのだけど空っぽ。</p>
+			<p>ちなみに、:method =&#62; :plain なら良好な結果が得られる。いろいろ間違っているのだろうけど、何が間違っているのか分からない。</p>
+			<p>ところで、</p>
+<pre class="syntax-highlight">
+$ irb
+&#62; <span class="synIdentifier">ActiveLdap</span>::<span class="synIdentifier">Base</span>.setup_connection
+=&#62;<span class="synConstant">nil</span>
+</pre>
+
+			<p>は何か失敗しているような気がして、なんだか嬉しくない。</p>
+		</div>
+

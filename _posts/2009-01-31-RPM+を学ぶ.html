@@ -1,0 +1,27 @@
+COMMENT:
+EMAIL:
+IP:
+URL: 
+date: 2009-01-31
+リリースされているNet::LDAPはそこそこバグっているので、ActiveLdapでは動かないんです。<br>Net::LDAPにそこそこパッチを送ってバグ修正を取り込んでもらったので、リポジトリ上のNet::LDAPだとActiveLdapは動きます。ただ、そのバグが直ったNet::LDAPがまだリリースされていないんです。。。
+layout: post
+---
+---
+title: RPM を学ぶ
+date: 2008-10-28
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>職場で便利に使わせてもらっている RPM パッケージと YUM。</p>
+			<p>RPM が見つかれば createrepo なければ checkinstall なんかをやってしのいでいたのだけど、最近 SPEC ファイルの書き方を覚えました！</p>
+<pre class="syntax-highlight">
+./configure
+make
+make <span class="synStatement">install</span>
+</pre>
+
+			<p>ができる人なら、結構簡単に RPM 化することができそうですね。</p>
+		</div>
+

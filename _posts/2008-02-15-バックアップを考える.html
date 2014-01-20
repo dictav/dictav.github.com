@@ -1,0 +1,27 @@
+---
+title: バックアップを考える
+date: 2008-02-15
+tags: Linux
+layout: post
+---
+
+		<div class="section">
+			<p>実はぼくはこれまでにバックアップをしっかりととったことがない。</p>
+			<p>だって、本当に必要なデータってそんなにないでしょ？</p>
+			<p>今大事なのは、アドレスデータと Mail データと音楽と写真と動画。</p>
+			<p>合わせたら 10GB くらいかな。</p>
+			<p>このうちで本当になくして困るのはアドレスデータと Mail データ、それに写真くらいなもので、写真データ以外は .Mac で保存使ってるし。</p>
+			<p>だから必要なデータって少ないんだ。</p>
+			<p>（あ～、昔作ったプログラムとかがないのはこのせいか）</p>
+			<p>今回、Linux でバックアップをとる必要ができて、いろいろ調べてみた。</p>
+			<p>ディレクトリのバックアップなら afio, tar, rsync、ファイルシステム丸ごとならdump だろうか。</p>
+			<p>ACL に対応させる必要があるなぁ、とか思って star とかも見てみたけど、なんか別にいらないような気がしてきた。むしろバージョニングの方が大事じゃないか？</p>
+			<p>実は今作っているシステムは、バックアップ元のファイルのパーミッション情報ををインデックス化して持っていたりするんで、必ずしもパーミッション情報は必要ない。</p>
+			<p>データを復元するときに独自にパーミッションを振りなおせばいいじゃん、てことで、svn でバージョン管理にしようかな。</p>
+			<p>ただ、システムのバックアップはきちんと取らないといけないから、dump と restore の勉強だけはやっておこう。</p>
+			<p>Backup-mini-HOWTO : afio</p>
+			<p><a href="http://www.linux.or.jp/JF/JFdocs/Backup-mini-HOWTO/afio.html" target="_blank">http://www.linux.or.jp/JF/JFdocs/Backup-mini-HOWTO/afio.html</a></p>
+			<p>Linux: dump and restore mini-HOWTO</p>
+			<p><a href="http://www.linux.or.jp/JF/JFdocs/dump-restore-mini-HOWTO.html" target="_blank">http://www.linux.or.jp/JF/JFdocs/dump-restore-mini-HOWTO.html</a></p>
+		</div>
+
