@@ -6,3 +6,5 @@ redcarpet:
 author:
    name: dictav
    email: dictav at gmail.com
+paginate: 10
+paginate_path: "blog/page:num"
