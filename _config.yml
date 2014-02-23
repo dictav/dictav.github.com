@@ -5,4 +5,4 @@ redcarpet:
    extensions: ['no_intra_emphasis', 'autolink', 'strikethrough', 'superscript']
 author:
    name: dictav
-   email: dictav@gmail.com
+   email: dictav at gmail.com
