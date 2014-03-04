@@ -7,13 +7,18 @@ css: blog
 
 <!-- This loops through the paginated posts -->
 {% for post in paginator.posts %}
-  <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+<p style="margin-top:1.5em;">
+  <h1 style="border-bottom: 1px solid black;"><a href="{{ post.url }}">{{ post.title }}</a></h1>
   <p class="author">
     <span class="date">{{ post.date }}</span>
   </p>
   <div class="content">
-    {{ post.content }}
+    {{ post.content | strip_html | truncate: 300}}...
+	{% if post.content | size > 300 %}
+	<a href="{{ post.url }}"><strong>more</strong></a>
+	{% endif %}
   </div>
+  </p>
 {% endfor %}
 
 
