@@ -75,7 +75,7 @@ $ curl -X POST 'https://api.twilio.com/2010-04-01/Accounts/[AccountSID]/Calls.js
 エラー処理とか入れてないからかなり中途半端。
 
 
-[https://github.com/dictav/twiliocall-vim]()
+https://github.com/dictav/twiliocall-vim
 
 
 # もっと電話したい
