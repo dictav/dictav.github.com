@@ -1,5 +1,5 @@
 name: Dictav Site
-pygments: true
+highlighter: true
 markdown: redcarpet
 redcarpet:
    extensions: ['no_intra_emphasis', 'autolink', 'strikethrough', 'superscript']
