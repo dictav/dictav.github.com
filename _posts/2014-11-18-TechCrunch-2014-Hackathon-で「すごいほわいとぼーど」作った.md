@@ -1,7 +1,7 @@
 ---
 layout: post
 title: TechCrunch Hackathon 2014 で「すごいほわいとぼーど」作った
-published: false
+date: 2014-11-18
 tags:
 ---
 
