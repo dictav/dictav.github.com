@@ -8,7 +8,8 @@ tags: swift
 Stackoverflow の日本語BETAが始まりました。
 まだまだ質問は初歩的なものが多いように思いますが、どんどん面白いものが増えると良いなと思います。
 
-## Swift protocol
+
+## Swift
 
 > Swift は Objective-C のシンタックスシュガーだ
 > - 猫型蓄音機
@@ -16,6 +17,7 @@ Stackoverflow の日本語BETAが始まりました。
 極論だけど正しいな、と思いました。
 Swift での iOS 開発は UIKit の知識がないとできないし、プラスでObjective-Cの知識もないとFoundation周りの扱いで困るんじゃないかな、と。
 
+### protocol
 
 Objective-C のprotocol はシンプルで使い易いのですが強制力がないので、プログラミングを楽にしてくれるものの(Xcodeやプログラマにヒントをあたえてくれる)、プログラミングにを加えてくれるものではありませんでした。
 
