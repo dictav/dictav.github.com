@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift AC #8 - Foundation
+title: "Swift AC #8 - Foundation"
 date: 2014-12-08
 tags: swift foundation
 ---

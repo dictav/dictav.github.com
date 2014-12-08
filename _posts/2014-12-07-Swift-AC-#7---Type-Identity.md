@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift AC #7 - Type Identity
+title: "Swift AC #7 - Type Identity"
 date: 2014-12-07
 tags: swift type identity
 ---

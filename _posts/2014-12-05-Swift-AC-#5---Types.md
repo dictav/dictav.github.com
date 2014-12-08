@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift AC #5 - Types
+title: "Swift AC #5 - Types"
 date: 2014-12-05
 tags: swift
 ---

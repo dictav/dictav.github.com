@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift AC #6 - Memory Usage
+title: "Swift AC #6 - Memory Usage"
 date: 2014-12-06
 tags: swift memory usage
 ---
