@@ -1,8 +1,7 @@
 name: Dictav Site
 highlighter: true
-markdown: redcarpet
-redcarpet:
-   extensions: ['no_intra_emphasis', 'autolink', 'strikethrough', 'superscript']
+kramdown:
+  input: GFM
 author:
    name: dictav
    email: dictav at gmail.com
