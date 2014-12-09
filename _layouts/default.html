@@ -10,7 +10,7 @@
       <meta name="twitter:url" content="{{ page.url }}" />
       <meta name="twitter:title" content="{{ page.title }}" />
       {% if page.description %} <meta name="twitter:description" content="{{ page.description }}" />
-      {% else %} <meta name="twitter:description" content="{{ content | strip_html | truncate: 200 }}" />
+      {% else %} <meta name="twitter:description" content="{{ content | strip_html | strip_newlines | truncate: 200 }}" />
       {% endif %}
       {% if page.image %} <meta name="twitter:image" content="{{site.github.url}}/images/logo.png" /> 
       {% else %} <meta name="twitter:description" content="" />
