@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift protocol
+title: "Swift AC #2 - protocol"
 date: 2014-12-02
 tags: swift
 ---
