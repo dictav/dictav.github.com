@@ -1,9 +1,8 @@
 name: Dictav Site
-highlighter: true
 kramdown:
   input: GFM
 author:
    name: dictav
-   email: dictav at gmail.com
+   email: "&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#100;&#105;&#99;&#116;&#97;&#118;&#46;&#99;&#111;&#109;"
 paginate: 10
 paginate_path: "blog/page:num"

@@ -9,9 +9,11 @@
       <meta name="twitter:site" content="@dictav" />
       <meta name="twitter:url" content="{{ page.url }}" />
       <meta name="twitter:title" content="{{ page.title }}" />
-      <meta name="twitter:description" content="{{ content | strip_html | truncate: 200 }}" />
-      {% if page.image %}
-      <meta name="twitter:image" content="{{ page.image }}" />
+      {% if page.description %} <meta name="twitter:description" content="{{ page.description }}" />
+      {% else %} <meta name="twitter:description" content="{{ content | strip_html | truncate: 200 }}" />
+      {% endif %}
+      {% if page.image %} <meta name="twitter:image" content="{{site.github.url}}/images/logo.png" /> 
+      {% else %} <meta name="twitter:description" content="" />
       {% endif %}
 
       {% for css in page.css %}
@@ -23,27 +25,9 @@
 
       <div class="container">
 	 <div class="site">
-	    <div class="header">
-	       <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-	       <a class="extra" href="/">home</a>
-	    </div>
 
 	    {{ content }}
 
-	    <div class="footer">
-	       <div class="contact">
-			   <p>
-			   {{ site.author.name }}<br />
-			   {{ site.author.email }}
-			   <br />
-			   </p>
-		   </div>
-		   <div class="contact">
-			   <p>
-			   <a href="http://github.com/{{site.author.name}}/">github.com/{{site.author.name}}</a><br />
-			   <a href="http://twitter.com/{{site.author.name}}/">twitter.com/{{site.author.name}}</a><br />
-			   </p>
-		   </div>
 	   </div>
    </div>
 	  </div> <!-- /container -->
