@@ -5,6 +5,14 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <title>{{ page.title }}</title>
       <meta name="viewport" content="width=device-width">
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@dictav" />
+      <meta name="twitter:url" content="{{ page.url }}" />
+      <meta name="twitter:title" content="{{ page.title }}" />
+      <meta name="twitter:description" content="{{ content | strip_html | truncate: 200 }}" />
+      {% if page.image %}
+      <meta name="twitter:image" content="{{ page.image }}" />
+      {% endif %}
 
       {% for css in page.css %}
       <link rel="stylesheet" href="/css/{{ css }}.css">
