@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift AC #9 - Functions
+title: "Swift AC #9 - Functions"
 date: 2014-12-09
 tags: swift
 ---
