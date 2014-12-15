@@ -8,7 +8,7 @@ tags: swift
 ## Functions
 Swiftの組み込み関数を列挙してみます
 
-```
+```swift
 abs<T : SignedNumberType>(x: T) -> T
 advance<T : ForwardIndexType>(start: T, n: T.Distance) -> T
 advance<T : ForwardIndexType>(start: T, n: T.Distance, end: T) -> T
@@ -120,7 +120,7 @@ withVaList<R>(args: [CVarArgType], f: (CVaListPointer) -> R) -> R
 
 `toString()` も、Printable protocol で `description` メソッドを定義しているのに、`toString()` とは関係ないし。
 
-```
+```swift
 let a = [1,2,3,4,5]
 a.count          //=> 5
 countElements(a) //=> 5
@@ -142,7 +142,7 @@ toString(hoge())  //=> "__lldb_expr_644.hoge"
 この辺の .swiftdoc とかそれっぽいけど、開き方が分からなかった。
 とりあえず全部 import しちゃえば見れるのだけど。
 
-```
+```swift
 import AssetsLibrary
 import CoreData
 import CoreGraphics

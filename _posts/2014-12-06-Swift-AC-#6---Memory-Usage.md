@@ -31,7 +31,7 @@ Struct と Class を大量に作った時の値を比較してみる以下のよ
 ## Memory Usage
 Instruments.app 使えば良いのですが、Swift Advent Calendar を名乗っているので Swift からアクセスします。
 
-```
+```swift
 memoryUsage() -> mach_vm_size_t {
     var info = UnsafeMutablePointer<mach_task_basic_info>.alloc(sizeof(mach_task_basic_info))
     var info_t = UnsafeMutablePointer<integer_t>(info)
@@ -50,7 +50,7 @@ memoryUsage() -> mach_vm_size_t {
 
 CPU 負荷にもアクセスします
 
-```
+```swift
 func cpuUsage() -> time_value_t{
     var info = UnsafeMutablePointer<task_thread_times_info>.alloc(sizeof(task_thread_times_info))
     var info_t = UnsafeMutablePointer<integer_t>(info)

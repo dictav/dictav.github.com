@@ -21,7 +21,7 @@ Swift での iOS 開発は UIKit の知識がないとできないし、プラ�
 
 Objective-C のprotocol はシンプルで使い易いのですが強制力がないので、プログラミングを楽にしてくれるものの(Xcodeやプログラマにヒントをあたえてくれる)、プログラミングにを加えてくれるものではありませんでした。
 
-```
+```swift
 @protocol Namable
 @property (readonly) NSString *name;
 @end
@@ -34,7 +34,7 @@ obj.name; // 実行時エラー
 
 一方Swift では基本的には実装していないメソッドは呼べません。なのでprotocolは上記のようなヒントとしてではなくコンパイルエラーになります。
 
-```
+```swift
 protocol Namable {
     var name: String {get}
 }
@@ -45,7 +45,7 @@ class MyClass : Namable { // compile error
 
 返り値としてprotocolを指定することもできます。
 
-```
+```swift
 protocol Agable {
     var age: Int {get}
 }
@@ -80,7 +80,7 @@ person2.age  // 40
 
 さらに、特定のprotocolに制約することもできます
 
-```
+```swift
 let a: Namable = person1
 a.name       // "A"
 a.age // combile error

@@ -11,14 +11,14 @@ Xcode6 からだったかな？ `/usr/bin/swift` コマンドが追加され、`
 
 そんなわけで `swift hello.swift` とすれば実行できてしまうわけです。
 
-```
+```swift
 //hello.swift
 println("hello")
 ```
 
 もちろん、shebang (#!) での実行も可能です。
 
-```
+```bash
 #! /usr/bin/env swift
 println("hello")
 ```
@@ -33,7 +33,7 @@ Swift には Printable protocol というのがありまして、これを実装
 
 ということで [Apple のサンプル](https://developer.apple.com/library/ios/documentation/General/Reference/SwiftStandardLibraryReference/Printable.html) をパクって実装してみます。
 
-```
+```bash
 #! /usr/bin/env swift
 struct MyType: Printable {
     var name = "Untitled"
@@ -59,7 +59,7 @@ println("Created a \(value)")
 Xcode でプロジェクト作って実行するとこうはならないので、なんでかなーと考えているんですがわかりません。
 とりあえず思ったような出力にしたいので script を書きました。
 
-```
+```bash
 #! /bin/sh
 if [ $# -ne 1 ]; then
   echo 'Usage: run <swift_file>'

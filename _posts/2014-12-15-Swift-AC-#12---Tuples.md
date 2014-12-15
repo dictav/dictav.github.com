@@ -14,7 +14,7 @@ Swift には Tuples があります。
 >
 > Excerpt From: Apple Inc. “The Swift Programming Language.” iBooks. https://itun.es/jp/jEUH0.l
 
-```
+```swift
 // Excerpt From: Apple Inc. “The Swift Programming Language”。 iBooks. https://itun.es/jp/jEUH0.l
 
 let http404Error = (404, "Not Found")
@@ -25,8 +25,8 @@ let http404Error = (404, "Not Found")
 Swiftの Tuple には添え字を使うことができます。
 Structure みたい。
 
-```
-//
+``` swift
+// swift
 var error : (code:Int, message:String)
 error = (404, "Not Found")
 error.code    // 404
@@ -35,7 +35,7 @@ error.message // "Not Found"
 
 添え字をつけなかった場合は数字で参照できます。
 
-```
+``` swift
 var error = (404, "Not Found")
 error.0    // 404
 error.1    // "Not Found"
@@ -46,7 +46,7 @@ error.1    // "Not Found"
 Functions の戻り値は全て Tuple です。`() -> Void` という表記は `() -> ()` と読み替えることができます。戻り値は *空のTuple* です。
 なので、以下は文法エラーにはなりません。warningは出ます。
 
-```
+```swift
 func returnVoid() -> Void {
   "hi"
 }
@@ -56,7 +56,7 @@ let rtn = returnVoid() // (0 elements)
 
 さて、では引数はどうでしょうか？
 
-```
+```swift
 func f(a:Int, b:Int) -> Int {
     return a+b
 }
@@ -71,7 +71,7 @@ f(arg) // 3
 
 Tuples を比較したいこともあると思いますが、残念ながら普通にはできません。
 
-```
+```swift
 let a = (1,2)
 let b = (1,2)
 if a == b {  // compile error
@@ -81,7 +81,7 @@ if a == b {  // compile error
 
 `Equatable` を定義してやる必要があります。
 
-```
+```swift
 func ==(lhs: (Int,Int), rhs:(Int,Int)) -> Bool {
     return lhs.0 == rhs.0 && lhs.1 == rhs.1
 }
@@ -96,7 +96,7 @@ if b == a {
 
 Tuples は一時的に使うものかなーという気がします。例えばある scope の中で座標を評価して処理を振り分けたいなどの時に使うと良いのかな。
 
-```
+```swift
 let point = (1,2)
 switch point {
 case (0,0):

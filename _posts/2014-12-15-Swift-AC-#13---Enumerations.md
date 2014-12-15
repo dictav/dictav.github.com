@@ -8,7 +8,7 @@ tags:
 
 Enumerations は `enum` を使って *keyword* と *members* を定義します。また Structures や Classes のようにメソッドを定義することもできますし、`extension` することもできます。
 
-```
+```swift
 enum Animal {
     case Dog, Cat, Bear
 }
@@ -32,7 +32,7 @@ println(Animal.Dog) // "Dog"
 そもそも、標準の enum は値を持ちません。値を持たせるにはそれを指定（継承?）します。ただし、値として指定できる型は literal 表記ができるものに限られるようです。
 また、値にアクセスするには `rawValue` property を使います。
 
-```
+```swift
 enum Animal: String {
     case Dog = "Dog"
     case Cat = "Cat"
@@ -46,7 +46,7 @@ println(Animal.Dog.rawValue)
 ### Tuples
 Enumerations では Tuples と組み合わせて特定のデータ構造について処理を振り分けたりするのに使うことができます。なかなか良い例が思い浮かびませんが、次のような感じでどうでしょうか？
 
-```
+```swift
 enum Participant {
     case Speaker(name:String, title:String)
     case Listener(name:String, fees:Int)

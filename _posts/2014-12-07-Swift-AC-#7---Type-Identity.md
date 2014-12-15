@@ -9,7 +9,7 @@ tags: swift type identity
 
 ## Type Identity
 
-```
+```swift
 if a == b {
   println("Same")
 }
@@ -25,7 +25,7 @@ if a == b {
 
 Objective-C では Root クラスとして NSObject が存在します。NSObject では `- (BOOL)isEqual:(id)object` というメソッドが定義されており、オブジェクトの同一性を定義します。また、`-(NSComparisonResult)compare:` メソッドを定義すれば sort などの際に使われます。 Swift で NSObject のサブクラスを作成する場合、当然この流儀に合わせなければいけません。具体的には iOS/Mac アプリを開発している場合は意識する必要があります。
 
-```
+```swift
 class MyObject : NSObject {
     override func isEqual(object: AnyObject?) -> Bool {
         return true
@@ -49,7 +49,7 @@ o2 == o1 // => false
 ただ、Playgroundで試した限りでは上記のように `isEqual:` メソッドだけを定義した状態でも同じキーとして扱われているようでした。そもそも、システムで一意の値をユーザが定義するのって難しいよなあ
 
 
-```
+```swift
 var dict: [NSObject : String] = [:]
 dict[o1] = "hoge"
 dict[o2] = "huga"
@@ -59,19 +59,19 @@ dict //=> [{MyObject2}: "huga"]
 ## Equatable, Hashable, Comparable
 NSObject ではないClassでは `Equatable`, `Hashable`, `Comparable` protocol に注目する必要があります。
 
-```
+```swift
 protocol Equatable {
     func ==(lhs: Self, rhs: Self) -> Bool
 }
 ```
 
-```
+```swift
 protocol Hashable : Equatable {
     var hashValue: Int { get }
 }
 ```
 
-```
+```swift
 protocol Comparable : _Comparable, Equatable {
     func <(lhs: Self, rhs: Self) -> Bool
     func <=(lhs: Self, rhs: Self) -> Bool
@@ -82,7 +82,7 @@ protocol Comparable : _Comparable, Equatable {
 
 これらを全部定義するとこんな感じ。
 
-```
+```swift
 class MyClass: Hashable, Comparable {
     var hashValue: Int { return 1 }
 }

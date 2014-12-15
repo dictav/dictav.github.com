@@ -12,7 +12,7 @@ SwiftにはStruct と Class という type があります。
 Struct は Value でGoのようにメソッドを定義することができます。
 Class は Reference で他の言語でよく見られるようなものです。
 
-```
+```swift
 struct Person {
   var name: String
   var age: Int
@@ -27,7 +27,7 @@ p.hello() //=> Hi, my name is dictav
 ```
 
 
-```
+```swift
 class PersonClass {
   var name: String
   var age: Int
@@ -65,7 +65,7 @@ Swiftの組み込みTypeは全て（？）Structで定義されています。�
 例えば UITableViewDataSource を実装するような場合を考えてみます。
 `var sources: [MyClass]` のようなデータソースを用意しそれを必要なタイミングで呼び出します。
 
-```
+```swift
 func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 	let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 	let mc = sources[indexPath.row]
