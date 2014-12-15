@@ -1,7 +1,10 @@
 name: Dictav Site
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
+markdown:       redcarpet
+redcarpet:
+  extensions:
+    - 'autolink'
+    - 'tables'
+    - 'strikethrough'
 author:
    name: dictav
    email: "&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#100;&#105;&#99;&#116;&#97;&#118;&#46;&#99;&#111;&#109;"
