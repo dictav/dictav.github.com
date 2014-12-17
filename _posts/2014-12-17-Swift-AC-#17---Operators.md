@@ -75,7 +75,7 @@ postfix operator --
 なんとなく分かりますか？
 infix の `+` Operator を1つ取り上げてみます。
 
-```
+```swift
 infix operator + {
     associativity left
     precedence 140
@@ -111,7 +111,7 @@ let a =1
 `+` opertor は precedence 140 なので 130 で作ります。
 
 
-```
+```swift
 infix operator ++++ {
     associativity left 
     precedence 130
@@ -131,7 +131,7 @@ var z = 1 + 2 ++++ 3
 もうちょっと便利なものを作ってみます。
 と言っても、ネットを徘徊してたら見つけたものです。
 
-```
+```swift
 // https://github.com/behrang/yaml.swift/blob/master/Operators.swift
 infix operator |> { associativity left }
 func |> <T, U> (x: T, f: T -> U) -> U {
@@ -143,7 +143,7 @@ func |> <T, U> (x: T, f: T -> U) -> U {
 右辺の型 `T -> U` なので T を受け取って U を返す Function です。
 これを使えば Function を自然な形で繋げることができます。
 
-```
+```swift
 "hello" |> print // "hello"
 ```
 
@@ -153,7 +153,7 @@ func |> <T, U> (x: T, f: T -> U) -> U {
 * `shift` は String x を a 文字シフトさせ [Character] にして返します。
 * `concat` は受け取った [Character] を String にして返します。
 
-```
+```swift
 func say(x: String, a:Int) -> (String,Int) {
     for _ in 1...a {
         println(x)
