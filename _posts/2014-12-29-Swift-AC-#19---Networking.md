@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Swift AC #19 - Networking"
-published: false
+date: 2014-12-29
 tags: swift, networking
 ---
 
