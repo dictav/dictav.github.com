@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #12 - Tuples"
-date: 2014-12-15
-tags:
----
-
 最近 [Rocket](https://github.com/coreos/rocket) の存在を知りました。Rocket は Docker のような Application Container です。Docker がどんどん肥大化し、Platform へと変化していることを受けて CoreOS が独自にアプリケーションコンテナを開発することを決めたみたいですね。Dockerのサポートは続けるようです。https://coreos.com/blog/rocket/
 
 ## Tuples

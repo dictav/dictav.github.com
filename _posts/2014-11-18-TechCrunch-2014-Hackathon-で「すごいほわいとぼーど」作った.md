@@ -1,10 +1,3 @@
----
-layout: post
-title: TechCrunch Hackathon 2014 で「すごいほわいとぼーど」作った
-date: 2014-11-18
-tags:
----
-
 ![](https://pbs.twimg.com/media/B2rwSUHCAAA4bSd.jpg)
 
 土日にTechCrunch Hackathon 2014というのがありました。

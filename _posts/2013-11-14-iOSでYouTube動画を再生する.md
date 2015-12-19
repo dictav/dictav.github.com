@@ -1,10 +1,3 @@
----
-layout: post
-title: iOSでYouTube動画を再生する
-date: 2013-11-14
-tags: mailgun
----
-
 iOSで動画を再生したい場合、以下の３つの方法が思い浮かぶ。
 
 1. UIWebView

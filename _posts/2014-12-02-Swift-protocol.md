@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #2 - protocol"
-date: 2014-12-02
-tags: swift
----
-
 Stackoverflow の日本語BETAが始まりました。
 まだまだ質問は初歩的なものが多いように思いますが、どんどん面白いものが増えると良いなと思います。
 

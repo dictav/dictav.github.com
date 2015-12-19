@@ -1,10 +1,3 @@
----
-title: darwinbuild
-date: 2008-09-18
-tags: Mac
-layout: post
----
-
 		<div class="section">
 			<p>plist によってbuild できるものとできないものがある。なんでだろう？まさにそのためのツールのはずなのに．．．。</p>
 			<p>対象のディレクトリに Sources というディレクトリがある。この中に  xnu-792.21.3.tar.gz といったソースが置かれるわけだけど、ここにディレクトリがあった場合はそれを参照する。つまり、独自の形で build したいような時は、decompress して中身いじって再度 darwinbuild xnu してやればいいことになる。まだ成功はしていない。しかし、</p>

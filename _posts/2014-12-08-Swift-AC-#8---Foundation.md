@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #8 - Foundation"
-date: 2014-12-08
-tags: swift foundation
----
-
 晴れただけで幸せになれ土地、新潟からお伝えします。
 スマブラやろうと思って BlackMagic UltraStudio mini Recorder のファームウェアをアップデートしたら失敗して、大事なハードが死んだかもしれません。辛い。
 

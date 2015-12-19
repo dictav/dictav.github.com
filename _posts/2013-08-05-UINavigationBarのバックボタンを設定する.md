@@ -1,10 +1,3 @@
----
-layout: post
-title: UINavigationBarのバックボタンを設定する
-date: 2013-08-05
-tags: iOS UIAppearance
----
-
 UINavigationBar のバックボタンに画像を入れようと思ったら思ったよりも面倒だったのでメモ。
 
 UIViewController にて `self.navigationItem.backButtonItem` でバックボタンにアクセスできる。`self.navigationItem.backButtonItem.title = @"back back"`のようにすれば、バック時の文字を変更できる。

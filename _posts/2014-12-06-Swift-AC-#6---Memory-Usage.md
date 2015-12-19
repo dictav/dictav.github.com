@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #6 - Memory Usage"
-date: 2014-12-06
-tags: swift memory usage
----
-
 ![](https://pbs.twimg.com/media/B4O9tRyCUAAOv3D.png)
 
 新潟市はドカ雪が降りまして、一夜にして冬らしい景観になりました。

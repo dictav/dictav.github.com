@@ -1,10 +1,3 @@
----
-layout: post
-title: NkznとXcode勉強会やったよ
-date: 2013-01-13 03:57:18 GMT
-tags: 
----
-
 [@Nkzn](http://twitter.com/Nkzn)が iOS の勉強を始めるということで、「ぼくなら１日で教えれる！」といきまいて勉強会をやりました。
 
 どうだったんだろう？

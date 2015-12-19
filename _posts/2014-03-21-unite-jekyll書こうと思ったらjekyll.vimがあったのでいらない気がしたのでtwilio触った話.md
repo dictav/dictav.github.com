@@ -1,9 +1,3 @@
----
-layout: post
-title: "unite-jekyll書こうと思ったらjekyll.vimがあったのでいらない気がしたのでtwilio触った話"
-tags: twilio vim
----
-
 [momonga.vim #3](http://partake.in/events/52a7b249-5183-4f1a-9e4f-22c1f0e436a5) に行ってきました。
 予想以上にみんなもくもくしていて、すごくもくもくでした。
 

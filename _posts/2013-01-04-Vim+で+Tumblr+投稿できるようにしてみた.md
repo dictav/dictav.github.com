@@ -1,10 +1,3 @@
----
-layout: post
-title: Vim で Tumblr 投稿できるようにしてみた
-date: 2013-01-04 12:33:00 GMT
-tags: 
----
-
 発端は unite.vim が素敵なので何か unite-source を作ってみようということでした。
 
 ちょうど「最近、Blogの更新してないなー」なんて思っていたので、Vim から[Tumblr](http://tumblr.com/) の更新できたらいいなーと。

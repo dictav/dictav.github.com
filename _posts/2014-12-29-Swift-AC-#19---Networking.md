@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #19 - Networking"
-date: 2014-12-29
-tags: swift, networking
----
-
 ## Networking
 近年のプログラミング言語はネットワークに簡単に接続できることがとても重要です。Apple からは Core Foundation[^CF][^CF2] の一部として CFNetwork[^CFN] が公開されています。
 さらに Foundation という Core Foundation のラッパーも提供されており、Objective-C や Swift から利用することができます。ただ、残念ながらこちらは公開されていません。

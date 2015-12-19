@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #5 - Types"
-date: 2014-12-05
-tags: swift
----
-
 新潟市中央区は雪が降りました。吹雪いてます。寒いです。
 
 ## Type

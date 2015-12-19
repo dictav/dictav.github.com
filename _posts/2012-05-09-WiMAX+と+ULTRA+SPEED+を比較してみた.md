@@ -1,10 +1,3 @@
----
-layout: post
-title: WiMAX と ULTRA SPEED を比較してみた
-date: 2012-05-09 01:29:29 GMT
-tags: 
----
-
 # 速度雑感
 
 * 新潟駅周辺で試してみたところ、見通しの良いところなら WiMAX が若干速い。

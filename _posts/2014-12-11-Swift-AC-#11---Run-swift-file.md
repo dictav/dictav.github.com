@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #11 - Run swift file"
-date: 2014-12-11
-tags: swift
----
-
 ## Run swift file
 
 Xcode6 からだったかな？ `/usr/bin/swift` コマンドが追加され、`xcrun swift` とかしなくてよくなりました。(あ、Yosemite以前は違うかも)
