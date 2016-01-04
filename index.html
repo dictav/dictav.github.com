@@ -4,15 +4,19 @@
   <meta charset="utf-8">
   <title>DICTAV</title>
   <link rel="stylesheet" href="main.css" type="text/css" />
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-  <ds-nav></ds-nav>
+  <ds-nav-layout title="DICTAV SITE">
+    <div>
+      <h1>メンテナンス中</h1>
+    </div>
 
-  <div>
-    <h1>メンテナンス中</h1>
-  </div>
+    <div id="app"></div>
+  </ds-nav-layout>
 
-  <div id="app"></div>
   <script>
 window.require = function (module) {
   this.compile = function (js, param) {

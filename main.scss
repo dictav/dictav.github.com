@@ -1,4 +1,10 @@
 ---
 ---
 
-@import 'jeet';
+@import '_settings';
+@import '_functions';
+@import '_grid';
+
+div#app {
+  @include center(420px);
+}

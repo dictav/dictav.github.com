@@ -6,8 +6,8 @@ window.openWithRiot = function(tag, opts) {
 };
 
 /// Routes
-riot.compile("tags/ds-nav.html", function(tag){
-  window.navigationTag = riot.mount("ds-nav");
+riot.compile("tags/ds-nav-layout.html", function(tag){
+  window.navigationTag = riot.mount("ds-nav-layout");
 });
 
 riot.route('/', function(name) {
