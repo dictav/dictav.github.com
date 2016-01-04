@@ -1,12 +1,2 @@
-name: Dictav Site
-markdown:       redcarpet
-redcarpet:
-  extensions:
-    - 'autolink'
-    - 'tables'
-    - 'strikethrough'
-author:
-   name: dictav
-   email: "&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#100;&#105;&#99;&#116;&#97;&#118;&#46;&#99;&#111;&#109;"
-paginate: 10
-paginate_path: "blog/page:num"
+sass:
+  sass_dir: _scss

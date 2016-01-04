@@ -1,10 +1,3 @@
----
-layout: post
-title: AndroidStudioを使ってみた
-date: 2013-09-16
-tags: android
----
-
 参考
 
 * [Android Studio最速入門～効率的にコーディングするための使い方](http://gihyo.jp/dev/serial/01/android_studio)

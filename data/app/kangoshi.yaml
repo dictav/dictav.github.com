@@ -1,0 +1,12 @@
+name: Kangoshi Shiken
+name_ja: 看護師試験
+description: |
+  This is a quiz application for the state examination about nursing in Japan.
+description_ja: |
+  看護師国家試験 [http://www.mhlw.go.jp/general/sikaku/5.html] の対策アプリです。
+  厚生労働省で公開されている過去問をクイズ形式で解答することができます。
+  【集録】
+  ・第１００回看護師国家試験
+  ・第９９回看護師国家試験
+  ・第９８回看護師国家試験
+link: http://itunes.apple.com/app/dictav/id400193060?mt=8&amp;amp;uo=4

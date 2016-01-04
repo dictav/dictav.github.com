@@ -1,0 +1,67 @@
+<ds-top>
+  <figure each={item in items}>
+    <a href='{raw(item.href)}'>
+      <img src='{item.img}'>
+      <figcaption>{item.title}</figcaption>
+    </a>
+  </figure>
+
+  <section>
+    <h1>About</h1>
+
+
+    <img src='{item.img}'>
+    <dl>
+      <dt>Name</dt>
+      <dd>Dictav</dd>
+      <dt></dt>
+      <dd>
+  </section>
+
+  <style scoped>
+a {
+  text-decoration: none;
+}
+
+figure {
+  display: inline-block;
+}
+
+img {
+  width: 57px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 2px #999;
+}
+
+figcaption {
+  width: 57px;
+  color: black;
+  font-size: 10pt;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+}
+  </style>
+
+  <script type="coffee">
+# apps
+@items = [
+  "isonicblastman",
+  "amz_sherlock"
+].map (a) ->
+  href:  '#/app/' + a
+  img:   "/images/app/#{a}_icon.png"
+  title: a
+
+@items.push
+  href:  '#/blog'
+  img:   "/images/blog_icon.png"
+  title: 'Blog'
+
+@items.push
+  href:  'm&#97;&#105;l&#116;o&#58;dictav&#64;&#103;m&#97;&#105;&#108;.c&#111;m'
+  img:   "/images/logo.png"
+  title: 'Mail'
+
+  </script>
+</ds-top>

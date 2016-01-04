@@ -1,10 +1,3 @@
----
-title: Samba4 (AD) のスキーマ
-date: 2009-06-25
-tags: Linux Samba
-layout: post
----
-
 		<div class="section">
 			<p>Samba4 なサーバを使って linux のユーザ認証を行いたいと考えている。Samba3 まではスキーマ情報に posixAccount を含める事が簡単だったので、普通に LDAP 認証を行わせるだけで事は上手くいった。というか、winbind の存在意義は分からなかった。</p>
 			<p>Samba4 ではどうなっているかというと、デフォルトでは posixAccount な情報は含まれておらず、uidNumber などの情報は idmap.ldb に別出しになっている。<del>また、当然 userPassword も存在しないので、LDAP で認証することはできない。</del>unicodePwd という所にパスワードは格納されているらしいのだけど、not readable なので認証に使えない。よく分からないのだけど、Kerberos は何をしてくれんの？？ not readable な unicodePwd を元に認証を行う windows の認証メカニズムが知りたい。</p>

@@ -1,10 +1,3 @@
----
-layout: post
-title: "Swift AC #7 - Type Identity"
-date: 2014-12-07
-tags: swift type identity
----
-
 スマブラ買いました。新潟スマブラNightをやりたいので、興味ありそうな人に声をかけさせていただくかと思いますのでよろしくお願いします。
 
 ## Type Identity

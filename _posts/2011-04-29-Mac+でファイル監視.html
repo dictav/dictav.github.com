@@ -1,10 +1,3 @@
----
-title: Mac でファイル監視
-date: 2011-04-29
-tags: Objective-C Cocoa kqueue
-layout: post
----
-
 		<div class="section">
 			<p>Mac でディレクトリを監視するには FSEvent を使うと楽らしい。ファイルを監視するには File Notification のサンプルなんかを参照するといいみたいだ。</p>
 			<p>今回は kqueue/kevent を使ってやってみる。そのために kqueue をラップした UKKQueue を使う。</p>

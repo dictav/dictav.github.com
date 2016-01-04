@@ -1,34 +1,3 @@
-COMMENT:
-EMAIL:
-IP:
-URL: 
-date: 2009-02-26
-1.0.2がリリースされたので、次のリリースでは↑もどうにかして対応したいと思います。<br><br>で、inputなんですが、<br>&lt;input type=&quot;text&quot; name=&quot;user[sn][]&quot; /&gt;<br>&lt;input type=&quot;text&quot; name=&quot;user[sn][][lang-ja][]&quot; /&gt;<br>&lt;input type=&quot;text&quot; name=&quot;user[sn][][lang-phonetic][]&quot; /&gt;<br>の方がそれっぽいかなぁと思いました。（[lang-ja]とかのあとにも[]）<br><br>ただ、↑の書き方でも手を入れなきゃいけない事は変わらないわけですが。。。
-layout: post
----
-COMMENT:
-EMAIL:
-IP:
-URL: http://d.hatena.ne.jp/dicdak/
-date: 2009-02-27
-ぼくのイメージでは<br>[{&quot;lang-ja&quot; =&gt; &quot;太郎&quot;},<br> {&quot;lang-ja&quot; =&gt; &quot;太朗&quot;}]<br>でした。<br>確かに<br>[{&quot;lang-ja&quot; =&gt; [&quot;太郎&quot;,&quot;太朗&quot;]}]<br>の方が普通ですね。
-layout: post
----
-COMMENT:
-EMAIL:
-IP:
-URL: 
-date: 2009-07-10
-だいぶ遅くなったのですが、試しに実装してみました。<br>でも、使いやすいのかがよくわからないAPIになってしまいました。。。（いいのが思いつかなかった）<br>どう思いますか？<br><br>&lt;%= ldap_field(:text, :user, &quot;sn&quot;) %&gt;<br>と書くと、<br>&lt;input id=&quot;user_sn&quot; name=&quot;user[sn][]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;hogei&quot; /&gt;<br>&lt;input id=&quot;user_sn_lang-ja&quot; name=&quot;user[sn][][lang-ja][]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;捕鯨&quot; /&gt;<br>&lt;input id=&quot;user_sn_lang-phonetic&quot; name=&quot;user[sn][][lang-phonetic][]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;ほげい&quot; /&gt;<br>となります。<br><br>:textのところは:hiddenとか:text_areaとかも使えます。<br>（ActionView::Helper::FromHelperに定義されているtext_fieldとかhidden_fieldに丸投げする。）<br><br>オブジェクトが持っているオプション（lang-jaとか）だけが出るのですが、以下のようにすると持っていないオプションのフォームもでるようにしました。<br><br>p user.sn # =&gt; &quot;xxx&quot;<br>&lt;%= ldap_field(:text, :user, &quot;sn&quot;, :ldap_options =&gt; [&quot;lang-en&quot;]) %&gt;<br>&lt;input id=&quot;user_sn&quot; name=&quot;user[sn][]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;xxx&quot; /&gt;<br>&lt;input id=&quot;user_sn_lang-en&quot; name=&quot;user[sn][][lang-en][]&quot; size=&quot;30&quot; type=&quot;text&quot; value=&quot;&quot; /&gt;<br><br><br>どのように使われることが多いのかがまだわからないのですが、使いづらいAPIのような気がムンムンしています。。。
-layout: post
----
----
-title: ActiveLdap のフィルタ
-date: 2009-02-13
-tags: Ruby ActiveLdap
-layout: post
----
-
 		<div class="section">
 			<p>ActiveRecord の find(:all, :conditions =&#62; ...) のような事をしたいときには、  ActiveLdap では検索フィルタを用いて find(:all, :filteer =&#62; ...) のように使うようである。</p>
 <pre class="syntax-highlight">

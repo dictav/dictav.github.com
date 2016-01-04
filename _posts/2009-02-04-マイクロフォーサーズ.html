@@ -1,34 +1,3 @@
-COMMENT:
-EMAIL:
-IP:
-URL: 
-date: 2009-02-04
-そうなんですよね。<br>もっといい返しかたができればいいんですが、もともとそうなっていたので、今もそうなっています。（歴史的理由）<br><br>どういう風に使えると使いやすいですか？<br>&quot;user&quot;=&gt;{<br>  &quot;sn&quot;=&gt;[&quot;hogei&quot;,<br>         {&quot;lang-phonetic&quot;=&gt;&quot;ほげい&quot;,<br>          &quot;lang-ja&quot;=&gt;&quot;捕鯨&quot;} ] }<br>の形式も受け取れるようにすることは（たぶん）できるんですが、HTMLにもしやすい形がいいですよねぇ。<br>うーん。
-layout: post
----
-COMMENT:
-EMAIL:
-IP:
-URL: http://d.hatena.ne.jp/dicdak/
-date: 2009-02-05
-うーん。<br><br>dn: uid=hogei,ou=Users,dc=example<br>sn: hogei<br>sn;lang-ja: 捕鯨<br>sn;lang-phonetic: ほげい<br>sn;lang-phonetic: ホゲイ<br>という形式も許される訳ですから、結局今の形が正しいのではないでしょうか。<br><br>ActionController では、qs[]=value&amp;qs[key]=value の形式が許されていないので、<br><br>&lt;input type=&quot;text&quot; name=&quot;user[sn][]&quot; /&gt;<br>&lt;input type=&quot;text&quot; name=&quot;user[sn][lang-ja]&quot; /&gt;<br>&lt;input type=&quot;text&quot; name=&quot;user[sn][lang-phonetic]&quot; /&gt;<br>として値を渡す事ができません。<br>ここの部分をオーバライドして qs[]=value&amp;qs[key]=value の形式を無理矢理通るようにして使ってます(^^;)<br><br>渡し方もそうなんですが user.sn.lang-ja とか user.sn[:lang-ja] みたいな形で取り出したいなあとは思います。
-layout: post
----
-COMMENT:
-EMAIL:
-IP:
-URL: 
-date: 2009-02-06
-そんなクエリ用のHTMLを簡単に書けるようにしたり、受け取れたりする機能をActiveLdapが提供してもよいと思っているんですよね。<br>今も、active_ldap/action_controller/ldap_benchmarking.rbとかでRails側に便利機能を提供したりするのも、その流れです。<br><br>で、そのときは、どういうAPIで提供するのがよいのかなぁとなるわけですが、どうなんだろう。。。<br>参考にしたいので、もしよかったら、今、どのように使っているかを見せてもらうことはできますか？<br><br>sn.lang-jaとかsn[:lang-ja]はRubyの構文的に無理なんですが、sn.lang_jaとかsn[:lang_ja]くらいならいけると思います。<br>互換性のことも考えるとArrayを継承した便利オブジェクトを返すことになりますね。<br>本当は、ArrayっぽくもHashっぽくも動く独自オブジェクトを返したいですが。。。<br><br><br>ところで、そろそろ新しいバージョンをリリースしよう（リリースしてくれるよう頼もう）と思うのですが、何かクリティカルなバグとかありますか？<br>（新機能は次の次のバージョンで）
-layout: post
----
----
-title: マイクロフォーサーズ
-date: 2009-02-05
-tags: カメラ
-layout: post
----
-
 		<div class="section">
 			<p>オリンパスのマイクロフォーサーズがたまりません</p>
 			<p><a href="http://journal.mycom.co.jp/news/2008/09/24/017/index.html" target="_blank">http://journal.mycom.co.jp/news/2008/09/24/017/index.html</a></p>

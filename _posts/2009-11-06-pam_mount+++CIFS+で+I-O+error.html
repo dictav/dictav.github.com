@@ -1,10 +1,3 @@
----
-title: pam_mount + CIFS で I/O error
-date: 2009-11-06
-tags: Linux
-layout: post
----
-
 		<div class="section">
 			<p>Samba でユーザのホームディレクトリを公開し、pam_mount でログイン時にマウントするという手法で利用していたのだけど、数分使うと I/O error になる問題で困っていた。</p>
 			<p>pam_mount の問題かと思って、pam_mount.conf の設定とか調べていたんだけど、kernel と Samba のバージョンをアップデートしたら問題なくなった♪</p>

@@ -1,0 +1,50 @@
+<ds-app>
+  <h1>{title}</h1>
+  <iframe show={app.video}
+    id="ytplayer"
+    type="text/html"
+    width="640"
+    height="390"
+    src="http://www.youtube.com/embed/{app.video}?autoplay=0"
+    frameborder="0"/>
+  <img each={src in app.images} src={src}>
+  <article>
+    <section>
+      <h1>What is this?</h1>
+      <pre>{description}</pre>
+    </section>
+    <section>
+      <h1>Download</h1>
+      <a href={app.link} target='itunes_store'>
+        <img alt='{title} - dictav - App Store' src='http://ax.phobos.apple.com.edgesuite.net/images/web/linkmaker/badge_appstore-lrg.gif' style='border: 0; float:left;'>
+      </a>
+    </section>
+  </article>
+
+  <script type="coffee">
+@lang = "ja"
+@property 'title',
+  get: =>
+    return "" unless @app
+    if @lang == "ja" and @app.name_ja
+      @app.name_ja
+    else
+      @app.name
+
+@property 'description',
+  get: =>
+    return "" unless @app
+    if @lang == "ja" and @app.description_ja
+      @app.description_ja
+    else
+      @app.description
+
+fetch "data/app/#{opts.name}.yaml"
+  .then (res) => res.text()
+  .then (yml) => jsyaml.load yml
+  .then (app) => console.log(app); return app
+  .then (app) => this.update({ app: app })
+  .catch (err) -> riot.route('404')
+
+  </script>
+</ds-app>
