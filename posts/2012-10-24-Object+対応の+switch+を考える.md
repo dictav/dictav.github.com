@@ -1,9 +1,3 @@
----
-layout: post
-title: Object 対応の switch を考える
-date: 2012-10-24 01:10:00 GMT
-tags: objective-c ios
----
 NSString を switch 文で評価したいことはままあるのでどんな形が良いのか考えてみた。
 NSDictionary のリテラルとBlocks使うとそれっぽく書けるんじゃないかと思って書いてみた。
 

@@ -1,9 +1,3 @@
----
-layout: post
-title: AllJoyn を iPhone でビルドしてみた
-date: 2012-11-09 08:37:55 GMT
-tags: 
----
 ![](http://media.tumblr.com/tumblr_md7njnHro31qzpfj2.png)
 
 [@saisa6153][] が [AllJoyn][] を iPhone で使ったみたいというのでビルドしてみた。

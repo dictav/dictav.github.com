@@ -1,9 +1,3 @@
----
-layout: post
-title: REKit が面白かったので podspec 作って使ってみた
-date: 2013-02-23 04:09:27 GMT
-tags: 
----
 @zuccoi さんが作った REKit がとても面白かった。
 
 [インスタンス毎の動的メソッド実装／上書き機能を備えた REKit](http://runlooprun.wordpress.com/2013/02/12/rekit-intro/)

@@ -1,9 +1,3 @@
----
-layout: post
-title: SLRequest で Facebook のFeedを得る
-date: 2012-10-12 07:55:00 GMT
-tags: ios slrequest facebook
----
 iOS6 になってから OS に Facebook が組み込まれ、Safari などからも投稿できるようになった。
 開発者視点で見ると Social.framework 追加され、Facebookへのアクセスが Apple 提供の API を通して利用できるようになった。
 

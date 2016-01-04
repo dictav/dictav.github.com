@@ -1,9 +1,3 @@
----
-layout: post
-title: Ubutuにmod_mruby
-date: 2012-06-08 11:17:01 GMT
-tags: 
----
 <p><a href="http://hwmemo01.tumblr.com/post/24670204725/ubutu-mod-mruby" class="tumblr_blog">hwmemo01</a>:</p>
 
 <blockquote><p>手元の10.04でインストールする場合。</p>

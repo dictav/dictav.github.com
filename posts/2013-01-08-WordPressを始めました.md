@@ -1,9 +1,3 @@
----
-layout: post
-title: WordPressを始めました
-date: 2013-01-08 09:21:00 GMT
-tags: 
----
 # WordPressを始めました
 お仕事で WordPress を触っています。
 全くプログラミングが出来ない人でも導入できる WordPress はやはりすごい。

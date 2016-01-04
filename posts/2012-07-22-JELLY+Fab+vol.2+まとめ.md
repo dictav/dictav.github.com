@@ -1,9 +1,3 @@
----
-layout: post
-title: JELLY Fab vol.2 まとめ
-date: 2012-07-22 11:50:00 GMT
-tags: 
----
 [JELLY Fab vol.2][] を開催しました。
 
 今回は事前準備が功を奏して [Ust](http://www.ustream.tv/channel/jelly-fab) で様子が見れたのではないかと思います。が、録画が失敗したようで今から見ることはできません orz

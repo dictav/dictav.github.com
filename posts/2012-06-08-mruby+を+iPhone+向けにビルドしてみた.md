@@ -1,9 +1,3 @@
----
-layout: post
-title: mruby を iPhone 向けにビルドしてみた
-date: 2012-06-08 08:46:00 GMT
-tags: 
----
 mruby を iPhone で動かないかなーとビルドしてみているのだけど、うまくいかないメモ
 
 ## mruby 入手

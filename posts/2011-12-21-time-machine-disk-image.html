@@ -1,7 +1,1 @@
----
-layout: post
-name: time-machine-disk-image
-title: Time Machine と Disk Image
-time: 2011-12-21 11:00:00.000000000 +09:00
----
 Lion に移行した。いろいろ変わっていてなれない部分もあるけど、おおむね気に入っている。今気になるのは CoolBook が使えないことくらいかな。久しぶりに CoolBook なしで生活してみます。<br /><br />これまでの Time Machine のバックアップを一区切りし、新しくバックアップをとることにした。この時のバックアップ先は sparsebundle ディスクイメージにする。これは後々ネットワーク上のバックアップ先に変更するときに楽だからだ。<br /><br />ディスクイメージを作成したら、パッケージを開き、com.apple.TimeMachine.MachineID.plist ファイルを作成する。これは以下のようなフォーマット。 <pre class="brush: xml"><br />&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br />&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<br />&lt;plist version="1.0"&gt;<br />&lt;dict&gt;<br /> &lt;key&gt;VerificationDate&lt;/key&gt;<br /> &lt;date&gt;2011-12-10T15:41:47Z&lt;/date&gt;<br /> &lt;key&gt;VerificationExtendedSkip&lt;/key&gt;<br /> &lt;false/&gt;<br /> &lt;key&gt;VerificationState&lt;/key&gt;<br /> &lt;integer&gt;1&lt;/integer&gt;<br /> &lt;key&gt;com.apple.backupd.HostUUID&lt;/key&gt;<br /> &lt;string&gt;xxxxxxxxxxxxxxxxxxxxxxxxxxx&lt;/string&gt;<br />&lt;/dict&gt;<br />&lt;/plist&gt;<br /></pre>ここで問題になるのが&nbsp;com.apple.backupd.HostUUID。これは Hardware UUID で、System Information を探せば見つかる。<br /><br />このディスクイメージをディスクのトップに置いて、Time Machine の「ディスクを選択」でこのディスクを選択すれば Time Machine がうまくやってくれる。

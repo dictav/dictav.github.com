@@ -1,9 +1,3 @@
----
-layout: post
-title: WordPress の Widget 作った
-date: 2013-01-11 04:42:00 GMT
-tags: 
----
 以下の２つのサイトを<del>まるパクリ</del>参考にして RSS を取得して表示する WordPress の Widget を作った。
 
 - [WordPressのウィジェットを自作するためのTips](http://kachibito.net/wordpress/custom/how-to-add-your-widget.html)

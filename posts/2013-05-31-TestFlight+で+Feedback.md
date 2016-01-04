@@ -1,9 +1,3 @@
----
-layout: post
-title: TestFlight で Feedback
-date: 2013-05-31 07:21:53 GMT
-tags: ios TestFlight swizzling
----
 インストールは [CocoaPods](http://cocoapods.org) から。
 
     # Podfile

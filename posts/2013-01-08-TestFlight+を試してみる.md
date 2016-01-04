@@ -1,9 +1,3 @@
----
-layout: post
-title: TestFlight を試してみる
-date: 2013-01-08 06:25:00 GMT
-tags: 
----
 TestFlight を試してみる
 
 iOS の開発において実機でテストするのはとても大事でとても面倒です。

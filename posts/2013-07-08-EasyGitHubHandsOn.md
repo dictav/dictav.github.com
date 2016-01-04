@@ -1,9 +1,3 @@
----
-layout: post
-title: GitHubのハンズオンをやってきた
-date: 2013-07-07
-tags: 
----
 [第32回勉強会(2013/07/06) Githubハンズオン](http://nagaoka.techtalk.jp/no32)
 
 > Niigata.scmの企画として、デザイナーの方が分かりやすいようなgithubハンズオンを実施します。

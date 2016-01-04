@@ -1,9 +1,3 @@
----
-layout: post
-title: mruby Formula を作成した
-date: 2012-06-05 07:30:00 GMT
-tags: 
----
 [mruby][] のコンパイルはとても簡単で、make コマンド一発なんだけど、[homebrew][] で管理したかったので Formula を作成した。
 
 ## Formula の作り方

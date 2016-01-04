@@ -1,9 +1,3 @@
----
-layout: post
-title: "Swift AC #13 - Enumerations"
-date: 2014-12-15
-tags:
----
 ## Enumerations
 
 Enumerations は `enum` を使って *keyword* と *members* を定義します。また Structures や Classes のようにメソッドを定義することもできますし、`extension` することもできます。

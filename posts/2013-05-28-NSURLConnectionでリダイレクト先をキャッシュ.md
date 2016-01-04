@@ -1,9 +1,3 @@
----
-layout: post
-title: NSURLConnectionでリダイレクト先をキャッシュ
-date: 2013-05-28 06:17:18 GMT
-tags: 
----
 # その前に=Blog にGist を貼付ける=
 
 Blog にGistを貼付けるにはGistのURLの最後に.jsを付けてscriptタグで読み込めばオーケー。

@@ -1,9 +1,3 @@
----
-layout: post
-title: IIJmio の SIM を買ってみた 
-date: 2012-09-04 05:52:06 GMT
-tags: 
----
 IIJmio が DoCoMoの網を使って提供している[高速モバイル/D](https://www.iijmio.jp/guide/outline/hdd/?l=0m163a)は前々から気になっていた。
 特に1契約で3枚のSIMがもらえるというプランに心躍る！
 弟と2人で使えば1GB 高速通信できて、月々1500円とか、すてきや〜ん

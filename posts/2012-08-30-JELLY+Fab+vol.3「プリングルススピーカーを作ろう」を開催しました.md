@@ -1,9 +1,3 @@
----
-layout: post
-title: JELLY Fab vol.3「プリングルススピーカーを作ろう」を開催しました
-date: 2012-08-30 06:35:00 GMT
-tags: 
----
 8.17 金曜日、平日。第３回目となる JELLY Fab を開催しました。
 主催はいつもの通り渡辺製作所所長の渡辺です [@fcneet](http://twitter.com/fcneet)。
 

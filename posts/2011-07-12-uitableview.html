@@ -1,7 +1,1 @@
----
-layout: post
-name: uitableview
-title: UITableView のセクションヘッダー
-time: 2011-07-12 16:07:00.000000000 +09:00
----
 UITableView のセクションヘッダーに関するメソッドは以下の３つ<br /><ul><li>– tableView:titleForHeaderInSection:<br /></li><li>– tableView:viewForHeaderInSection:<br /></li><li>– tableView:heightForHeaderInSection:<br /></li></ul>タイトルを変更するだけならtableView:titleForHeaderInSection: を実装すればよく、独自の View を表示したいなら tableView:viewForHeaderInSection: でヘッダーの高さを返し、tableView:heightForHeaderInSection: で表示したい UIView を返す。これで TableView のスクロールに追従する Viewを挿入できる。<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-pGw2XYo-yOE/Thv0R01dOCI/AAAAAAAAADs/_DWMXA-bxZk/s1600/screenshot.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="http://2.bp.blogspot.com/-pGw2XYo-yOE/Thv0R01dOCI/AAAAAAAAADs/_DWMXA-bxZk/s320/screenshot.png" width="170" /></a></div><br /><br />
