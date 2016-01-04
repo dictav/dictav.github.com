@@ -2,6 +2,7 @@ window.openWithRiot = function(tag, opts) {
   console.log('OPEN', tag);
   riot.compile("tags/" + tag + ".html", function() {
     riot.mount("div#app", tag, opts);
+    window.optimizely.push(["activate", 4443712297]);
   });
 };
 
