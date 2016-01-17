@@ -5,9 +5,9 @@ function openWithRiot (tag, opts) {
     riot.mount('div#app', tag, opts)
 
     // Tracking
-    window.optimizely = window.optimizely || []
-    window.optimizely.push(['activate', 4443712297])
-    window.optimizely.push('activateUniversalAnalytics')
+    //window.optimizely = window.optimizely || []
+    //window.optimizely.push(['activate', 4443712297])
+    //window.optimizely.push('activateUniversalAnalytics')
     window.ga('send', 'pageview')
   })
 }
