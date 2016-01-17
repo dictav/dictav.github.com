@@ -1,7 +1,6 @@
-/* global riot */
+/* global riot, util */
 
 function openWithRiot (tag, opts) {
-  console.log('OPEN', tag)
   riot.compile('tags/' + tag + '.html', function () {
     riot.mount('div#app', tag, opts)
 
@@ -18,7 +17,7 @@ riot.compile('tags/ds-nav-layout.html', function (tag) {
   window.navigationTag = riot.mount('ds-nav-layout')
 })
 
-riot.route('/', function (name) {
+riot.route('/', function () {
   openWithRiot('ds-top')
 })
 
@@ -26,11 +25,11 @@ riot.route('/app/*', function (name) {
   openWithRiot('ds-app', {name: name})
 })
 
-riot.route('/blog', function (name) {
+riot.route('/blog/*', function (name) {
   openWithRiot('ds-blog', {name: name})
 })
 
-riot.route('/slides', function (name) {
+riot.route('/slides/*', function (name) {
   openWithRiot('ds-app', {name: name})
 })
 

@@ -31,6 +31,13 @@
     else
       @app.name
 
+@property 'image',
+  get: =>
+    if @app and @app.images
+      @app.images[0]
+    else
+      null
+
 @property 'description',
   get: =>
     return "" unless @app
@@ -46,5 +53,8 @@ fetch "data/app/#{opts.name}.yaml"
   .then (app) => this.update({ app: app })
   .catch (err) -> riot.route('404')
 
+@on 'update', =>
+  console.log('update')
+  util.updateCard(@title, @image, @description)
   </script>
 </ds-app>
