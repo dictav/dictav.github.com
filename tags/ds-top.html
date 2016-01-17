@@ -1,14 +1,25 @@
 <ds-top>
   <figure each={item in items}>
-    <a href='{util.raw(item.href)}'>
-      <img src='{item.img}'>
-      <figcaption>{item.title}</figcaption>
+    <a onclick="riot.route('app/{item}')">
+      <img src='/images/app/{item}_icon.png'>
+      <figcaption>{item}</figcaption>
+    </a>
+  </figure>
+
+  <figure onclick="riot.route('blog/test')">
+      <img src='/images/blog_icon.png'>
+      <figcaption>Mail</figcaption>
+  </figure>
+  
+  <figure>
+    <a href='m&#97;&#105;l&#116;o&#58;dictav&#64;&#103;m&#97;&#105;&#108;.c&#111;m'>
+      <img src='/images/logo.png'>
+      <figcaption>Mail</figcaption>
     </a>
   </figure>
 
   <section>
     <h1>About</h1>
-
 
     <img src='{item.img}'>
     <dl>
@@ -48,20 +59,6 @@ figcaption {
 @items = [
   "isonicblastman",
   "amz_sherlock"
-].map (a) ->
-  href:  '#!/app/' + a
-  img:   "/images/app/#{a}_icon.png"
-  title: a
-
-@items.push
-  href:  '#!/blog'
-  img:   "/images/blog_icon.png"
-  title: 'Blog'
-
-@items.push
-  href:  'm&#97;&#105;l&#116;o&#58;dictav&#64;&#103;m&#97;&#105;&#108;.c&#111;m'
-  img:   "/images/logo.png"
-  title: 'Mail'
-
+]
   </script>
 </ds-top>

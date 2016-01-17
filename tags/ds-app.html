@@ -49,12 +49,10 @@
 fetch "data/app/#{opts.name}.yaml"
   .then (res) => res.text()
   .then (yml) => jsyaml.load yml
-  .then (app) => console.log(app); return app
   .then (app) => this.update({ app: app })
   .catch (err) -> riot.route('404')
 
 @on 'update', =>
-  console.log('update')
   util.updateCard(@title, @image, @description)
   </script>
 </ds-app>

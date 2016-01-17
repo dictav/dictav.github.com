@@ -33,5 +33,5 @@ riot.route('/slides/*', function (name) {
   openWithRiot('ds-app', {name: name})
 })
 
-riot.route.base('#!')
+riot.route.base('')
 riot.route.start(true)
