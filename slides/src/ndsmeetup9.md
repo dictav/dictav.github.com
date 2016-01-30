@@ -29,8 +29,8 @@ Thrift
     * iOS がメインターゲット
     * 時々 Android も触る程度には
     * tvOS/watchOS も触りたい
-    * 仕事で Swift/Objective-C/ .small[Java(Android)]
-    * 趣味で Go/Ruby/JavaScript
+    * 仕事で Go/Swift/Objective-C/ .small[Java(Android)]
+    * 趣味で Ruby/JavaScript
 ]
 
 .right-column.hoge[
