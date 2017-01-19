@@ -2,9 +2,8 @@
  */
 var util = function () {}
 util.updateCard = function (title, image, desc) {
-  var DEFAULT_URL = 'http://www.dictav.info/'
   var DEFAULT_TITLE = 'DICTAV SITE'
-  var DEFAULT_IMAGE = 'http://www.dictav.info/images/dictav.jpg'
+  var DEFAULT_IMAGE = 'https://dictav.net/images/dictav.jpg'
   var DEFAULT_DESC = '@dictav is a Mobile(iOS/Android/Web) Programmer.'
 
   var elURL = document.querySelector('head meta[property="og:url"]')
