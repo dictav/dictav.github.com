@@ -1,64 +1,74 @@
 <ds-top>
-  <figure each={item in items}>
-    <a onclick="riot.route('app/{item}')">
-      <img src='/images/app/{item}_icon.png'>
-      <figcaption>{item}</figcaption>
-    </a>
-  </figure>
-
-  <figure onclick="riot.route('blog/test')">
-      <img src='/images/blog_icon.png'>
-      <figcaption>Mail</figcaption>
-  </figure>
-  
-  <figure>
-    <a href='m&#97;&#105;l&#116;o&#58;dictav&#64;&#103;m&#97;&#105;&#108;.c&#111;m'>
-      <img src='/images/logo.png'>
-      <figcaption>Mail</figcaption>
-    </a>
-  </figure>
-
   <section>
-    <h1>About</h1>
+    <h1>Shintaro Abe,</h1>
 
-    <img src='{item.img}'>
-    <dl>
-      <dt>Name</dt>
-      <dd>Dictav</dd>
-      <dt></dt>
-      <dd>
+    I'm iOS / Web developer lives in Hikarigaoka.
   </section>
 
+  <section>
+    <h2>Applications</h2>
+
+    <a onclick="riot.route('app/isonicblastman')">isonicblastman</a>
+    / <a onclick="riot.route('app/amz_sherlock')">amz_sherlock</a>
+  </section>
+
+  <section>
+    <h2>Accounts</h2>
+
+    <a href="https://github.com/dictav">github</a>
+    / <a href="https://twitter.com/dictav">twitter</a>
+    / <a href="https://facebook.com/dictav">facebook</a>
+    / <a href="https://medium.com/@dictav">medium</a>
+  </section>
+
+  <footer>
+    &copy; dictav,
+    This website is inspired by http://www.rich-harris.co.uk, thank you.
+  </footer>
+
   <style scoped>
+:scope {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  padding: 20px;
+  background-image: url(/images/blogbg.jpg);
+  background-size: cover;
+}
+
 a {
-  text-decoration: none;
-}
-
-figure {
   display: inline-block;
+  background: rgba(128,128,128,0.5);
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 2px 8px;
+  color: white;
 }
 
-img {
-  width: 57px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px 2px #999;
+section {
+  padding-top: 20px;
 }
 
-figcaption {
-  width: 57px;
-  color: black;
-  font-size: 10pt;
-  font-weight: bold;
-  text-align: center;
-  overflow: hidden;
+h1, h2 {
+  margin: 0px;
 }
+
+h1 {
+  font-size: 200%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+footer {
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  color: white;
+}
+
   </style>
 
   <script type="coffee">
-# apps
-@items = [
-  "isonicblastman",
-  "amz_sherlock"
-]
   </script>
 </ds-top>
